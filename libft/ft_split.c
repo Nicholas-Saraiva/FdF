@@ -6,11 +6,11 @@
 /*   By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 15:22:06 by nsaraiva          #+#    #+#             */
-/*   Updated: 2025/06/30 19:08:36 by nsaraiva         ###   ########.fr       */
+/*   Updated: 2025/04/17 10:12:04 by nsaraiva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include <stdlib.h>
+#include "libft.h"
 
 static size_t	ft_count_words(char const *s, char c)
 {
@@ -89,8 +89,6 @@ char	**ft_split(char const *s, char c)
 	size_t	i;
 
 	i = 0;
-	if (!s)
-		return (0);
 	total_c = ft_count_words(s, c);
 	str = (char **) malloc((total_c + 1) * sizeof(char *));
 	if (!str)
@@ -108,3 +106,24 @@ char	**ft_split(char const *s, char c)
 	str[i] = 0;
 	return (str);
 }
+
+/*#include <stdio.h>
+int main(void)
+{
+	//char s[] = "Ok EU | acho | UQe | NÃo | de";
+	//char **s2 = ft_split(s, '|');
+	//char s[] = "cccccCafe";
+	//char sep = 'c';
+	//char s[] = "";
+	//char sep = '?';
+	//char **s2 = ft_split(s, sep);
+	char	**a = ft_split("hello!", ' ');
+	int	i = 0;
+
+	while(a[i])
+	{
+		puts(a[i]);
+		i++;
+	}
+	ft_free_all(a, ft_count_words(*a, ' ') + 2);
+}*/

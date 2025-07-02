@@ -6,13 +6,13 @@
 /*   By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 11:29:41 by nsaraiva          #+#    #+#             */
-/*   Updated: 2025/06/30 16:45:07 by nsaraiva         ###   ########.fr       */
+/*   Updated: 2025/06/10 14:52:38 by nsaraiva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-static void	*ft_memcpy(void *dest, const void *src, size_t n)
+void	*ft_memcpy(void *dest, const void *src, size_t n)
 {
 	unsigned char	*c_dest;
 	unsigned char	*c_src;
@@ -31,7 +31,7 @@ static void	*ft_memcpy(void *dest, const void *src, size_t n)
 	return (dest);
 }
 
-static char	*ft_newline(char *str, char *buff)
+char	*ft_newline(char *str, char *buff)
 {
 	int		i;
 	int		j;
@@ -93,3 +93,21 @@ char	*get_next_line(int fd)
 		return (0);
 	return (ft_create_line(fd, buff, str));
 }
+
+/*#include <stdio.h>
+int	main(int argc, char *argv[])
+{
+	int fd = open(argv[1], O_RDONLY);
+	char	*buff;
+
+	buff = get_next_line(fd);
+	if (argc)
+	{
+		while (buff)
+		{
+			printf(buff);
+			free(buff);
+			buff = get_next_line(fd);
+		}
+	}
+}*/
