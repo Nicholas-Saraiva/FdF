@@ -6,6 +6,8 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include "mlx.h"
+# include "libft/libft.h"
+# include "get_next_line/get_next_line.h"
 
 typedef struct s_win
 {
@@ -24,8 +26,14 @@ typedef struct s_3d {
 	double	z;
 }	t_3d;
 
+typedef struct s_matrix {
+	int	width;
+	int	height;
+	int	**matrix;
+} t_matrix;
+
 char	**ft_split(char const *s, char c);
-char	*get_next_line(int fd);
+char	*get_next_line(int fd, char *str);
 int		ft_printf(const char *fstring, ...);
-int		check_map(int fd);
+int		fill_map(char *argv, t_matrix *map);
 #endif

@@ -6,13 +6,13 @@
 /*   By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 11:29:41 by nsaraiva          #+#    #+#             */
-/*   Updated: 2025/06/10 14:52:38 by nsaraiva         ###   ########.fr       */
+/*   Updated: 2025/07/02 14:07:12 by nsaraiva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-void	*ft_memcpy(void *dest, const void *src, size_t n)
+static void	*ft_memcpy(void *dest, const void *src, size_t n)
 {
 	unsigned char	*c_dest;
 	unsigned char	*c_src;
@@ -31,7 +31,7 @@ void	*ft_memcpy(void *dest, const void *src, size_t n)
 	return (dest);
 }
 
-char	*ft_newline(char *str, char *buff)
+static char	*ft_newline(char *str, char *buff)
 {
 	int		i;
 	int		j;
@@ -54,7 +54,7 @@ char	*ft_newline(char *str, char *buff)
 	return (str);
 }
 
-char	*ft_create_line(int fd, char *buff, char *str)
+static char	*ft_create_line(int fd, char *buff, char *str)
 {
 	int	num_bytes;
 
@@ -63,7 +63,7 @@ char	*ft_create_line(int fd, char *buff, char *str)
 	{
 		num_bytes = read(fd, buff, BUFFER_SIZE);
 		buff[num_bytes] = '\0';
-		str = ft_strjoin(str, buff);
+		str = ft_strjoin_gnl(str, buff);
 		if (!str)
 			return (0);
 	}
@@ -76,10 +76,9 @@ char	*ft_create_line(int fd, char *buff, char *str)
 	return (ft_newline(str, buff));
 }
 
-char	*get_next_line(int fd)
+char	*get_next_line(int fd, char *str)
 {
 	static char	buff[BUFFER_SIZE + 1];
-	char		*str;
 
 	if (fd < 0)
 		return (0);
@@ -88,26 +87,8 @@ char	*get_next_line(int fd)
 		return (NULL);
 	*str = '\0';
 	if (*buff)
-		str = ft_strjoin(str, buff);
+		str = ft_strjoin_gnl(str, buff);
 	if (!str)
 		return (0);
 	return (ft_create_line(fd, buff, str));
 }
-
-/*#include <stdio.h>
-int	main(int argc, char *argv[])
-{
-	int fd = open(argv[1], O_RDONLY);
-	char	*buff;
-
-	buff = get_next_line(fd);
-	if (argc)
-	{
-		while (buff)
-		{
-			printf(buff);
-			free(buff);
-			buff = get_next_line(fd);
-		}
-	}
-}*/

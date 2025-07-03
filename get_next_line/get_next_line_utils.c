@@ -6,7 +6,7 @@
 /*   By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 17:48:35 by nsaraiva          #+#    #+#             */
-/*   Updated: 2025/07/02 10:48:08 by nsaraiva         ###   ########.fr       */
+/*   Updated: 2025/07/02 14:08:17 by nsaraiva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	check_nl(char *str)
 	return (0);
 }
 
-size_t	ft_strlen(const char *s)
+static size_t	ft_strlen(const char *s)
 {
 	size_t	length;
 
@@ -35,7 +35,7 @@ size_t	ft_strlen(const char *s)
 	return (length);
 }
 
-char	*ft_strjoin(char *s1, char *s2)
+char	*ft_strjoin_gnl(char *s1, char *s2)
 {
 	char	*new_s;
 	int		i;
