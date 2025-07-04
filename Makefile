@@ -6,7 +6,7 @@
 #    By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/02 10:23:27 by nsaraiva          #+#    #+#              #
-#    Updated: 2025/07/02 14:15:05 by nsaraiva         ###   ########.fr        #
+#    Updated: 2025/07/04 12:00:22 by nsaraiva         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ MLX_A = $(addprefix $(MLX), libmlx.a)
 
 CC = cc
 CCFLAGS = -Wall -Wextra -Werror
-INCLUDE = -Iminilibx-linux -I/user/lib -Lminilibx-linux -lmlx_Linux -lX11 -lXext
+INCLUDE = -Iminilibx-linux -I/user/lib -Lminilibx-linux -lmlx_Linux -lX11 -lXext -lm
 LIBRARIES = -L$(LIBFT) -lft -L$(GNL) -lget 
 NAME = fdf
 

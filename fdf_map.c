@@ -6,46 +6,11 @@
 /*   By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 15:25:59 by nsaraiva          #+#    #+#             */
-/*   Updated: 2025/07/04 01:00:39 by nsaraiva         ###   ########.fr       */
+/*   Updated: 2025/07/04 12:06:45 by nsaraiva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-/*static size_t array_len(char **str)
-{
-	size_t	i;
-
-	i = 0;
-	while (str && str[i])
-		i++;
-	return (i);
-}
-
-static size_t array_len_int(int *n)
-{
-	size_t	i;
-
-	i = 0;
-	while (str && str[i])
-		i++;
-	return (i);
-}*/
-
-/*static void	free_all(char **str)
-{
-	size_t	i;
-	size_t	n;
-
-	i = 0;
-	n = ft_array_len(str);
-	while (i < n)
-	{
-		free(str[i]);
-		i++;
-	}
-	free(str);
-}*/
 
 static int	size_y(char *argv)
 {

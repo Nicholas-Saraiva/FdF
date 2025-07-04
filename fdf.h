@@ -9,12 +9,6 @@
 # include "libft/libft.h"
 # include "get_next_line/get_next_line.h"
 
-typedef struct s_win
-{
-    void    *init;
-	void	*display;
-}	t_data;
-
 typedef struct s_2d {
 	double	x;
 	double	y;
@@ -31,6 +25,16 @@ typedef struct s_matrix {
 	int	height;
 	int	**matrix;
 } t_matrix;
+
+typedef struct s_data {
+	void	*init;
+	void	*display;
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+} t_data;
 
 char	**ft_split(char const *s, char c);
 char	*get_next_line(int fd, char **str);
