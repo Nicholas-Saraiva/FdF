@@ -33,7 +33,7 @@ typedef struct s_matrix {
 } t_matrix;
 
 char	**ft_split(char const *s, char c);
-char	*get_next_line(int fd, char *str);
+char	*get_next_line(int fd, char **str);
 int		ft_printf(const char *fstring, ...);
 int		fill_map(char *argv, t_matrix *map);
 #endif

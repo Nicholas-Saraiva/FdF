@@ -6,7 +6,7 @@
 /*   By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 17:46:15 by nsaraiva          #+#    #+#             */
-/*   Updated: 2025/07/02 14:07:33 by nsaraiva         ###   ########.fr       */
+/*   Updated: 2025/07/03 23:55:57 by nsaraiva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,5 @@
 int		check_nl(char *str);
 size_t	ft_strlen_gnl(const char *str);
 char	*ft_strjoin_gnl(char *s1, char *s2);
-char	*get_next_line(int fd, char *str);
+char	*get_next_line(int fd, char **str);
 #endif

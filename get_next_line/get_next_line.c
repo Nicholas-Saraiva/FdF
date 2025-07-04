@@ -6,7 +6,7 @@
 /*   By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 11:29:41 by nsaraiva          #+#    #+#             */
-/*   Updated: 2025/07/02 14:07:12 by nsaraiva         ###   ########.fr       */
+/*   Updated: 2025/07/04 00:04:18 by nsaraiva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,19 +76,20 @@ static char	*ft_create_line(int fd, char *buff, char *str)
 	return (ft_newline(str, buff));
 }
 
-char	*get_next_line(int fd, char *str)
+char	*get_next_line(int fd, char **str)
 {
 	static char	buff[BUFFER_SIZE + 1];
 
 	if (fd < 0)
 		return (0);
-	str = malloc(1);
-	if (!str)
+	*str = malloc(sizeof(char));
+	if (!(*str))
 		return (NULL);
-	*str = '\0';
+	**str = '\0';
 	if (*buff)
-		str = ft_strjoin_gnl(str, buff);
-	if (!str)
+		*str = ft_strjoin_gnl(*str, buff);
+	if (!(*str))
 		return (0);
-	return (ft_create_line(fd, buff, str));
+	*str = ft_create_line(fd, buff, *str);
+	return (*str);
 }
