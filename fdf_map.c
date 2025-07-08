@@ -6,13 +6,13 @@
 /*   By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 15:25:59 by nsaraiva          #+#    #+#             */
-/*   Updated: 2025/07/04 12:06:45 by nsaraiva         ###   ########.fr       */
+/*   Updated: 2025/07/06 21:49:06 by nsaraiva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static int	size_y(char *argv)
+static int	size_x(char *argv)
 {
 	char	*str;
 	int		y;
@@ -34,7 +34,7 @@ static int	size_y(char *argv)
 	return (y);
 }
 
-static int	size_x(char *argv)
+static int	size_y(char *argv)
 {
 	char	*str;
 	char	**split;
@@ -58,7 +58,7 @@ static int	size_x(char *argv)
 	return (x);
 }
 
-static int	*atoi_array(char **split, int width)
+static int	*construct_map(char **split, int width, t_matrix *map)
 {
 	int	*values;
 	int	i;
@@ -69,38 +69,45 @@ static int	*atoi_array(char **split, int width)
 	{
 		free(split);
 		return (0);
-	}
+	}	
 	while (split[++i])
+	{
 		values[i] = ft_atoi(split[i]);
+		find_min(map, values, i);
+	}
 	free(split);
 	if (i < width)
 		return (0);
 	return (values);
 }
 
+static int	init_map(t_matrix *map, char *argv)
+{
+	map->height = size_x(argv);
+	map->width = size_y(argv);
+	map->matrix = malloc(sizeof(int *) * map -> height);
+	if (!(map -> matrix))
+		return (0);
+	else
+		return (1);
+}
+
 int	fill_map(char *argv, t_matrix *map)
 {
 	char	*str;
-	char	**split;
 	int		i;
 	int		fd;
 
 	str = 0;
-	split = 0;
 	i = 0;
 	fd = open(argv, O_RDONLY);
-	if (fd == -1)
-		return (0);
-	map -> height = size_y(argv);
-	map -> width = size_x(argv);
-	map -> matrix = malloc(sizeof(int *) * map -> height);
-	if (!(map -> matrix))
+	if (fd == -1 || !init_map(map, argv))
 		return (0);
 	while (get_next_line(fd, &str))
 	{
-		(map -> matrix)[i] = atoi_array(ft_split(str, ' '), map -> width);
-		if (!(map -> matrix[i++]))
-			return (free(str), free(split), 0);
+		(map->matrix)[i] = construct_map(ft_split(str, ' '), map -> width, map);
+		if (!(map->matrix[i++]))
+			return (free(str), free_all(&map->matrix),0);
 		free(str);
 	}
 	if (close(fd) == -1)

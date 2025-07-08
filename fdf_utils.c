@@ -6,7 +6,17 @@
 /*   By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 12:31:17 by nsaraiva          #+#    #+#             */
-/*   Updated: 2025/07/04 12:37:24 by nsaraiva         ###   ########.fr       */
+/*   Updated: 2025/07/06 21:49:57 by nsaraiva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "fdf.h"
+
+void	free_all(int ***matrix)
+{
+	int	i;
+
+	i = -1;
+	while (matrix[++i])
+		free(matrix[i]);
+}
