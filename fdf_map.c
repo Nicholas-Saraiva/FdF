@@ -6,7 +6,7 @@
 /*   By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 15:25:59 by nsaraiva          #+#    #+#             */
-/*   Updated: 2025/07/06 21:49:06 by nsaraiva         ###   ########.fr       */
+/*   Updated: 2025/07/09 14:24:50 by nsaraiva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static int	size_y(char *argv)
 	return (x);
 }
 
-static int	*construct_map(char **split, int width, t_matrix *map)
+static int	*construct_map(char **split, int width, t_map *map)
 {
 	int	*values;
 	int	i;
@@ -81,7 +81,7 @@ static int	*construct_map(char **split, int width, t_matrix *map)
 	return (values);
 }
 
-static int	init_map(t_matrix *map, char *argv)
+static int	init_map(t_map *map, char *argv)
 {
 	map->height = size_x(argv);
 	map->width = size_y(argv);
@@ -92,7 +92,7 @@ static int	init_map(t_matrix *map, char *argv)
 		return (1);
 }
 
-int	fill_map(char *argv, t_matrix *map)
+int	fill_map(char *argv, t_map *map)
 {
 	char	*str;
 	int		i;

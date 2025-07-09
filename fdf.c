@@ -6,7 +6,7 @@
 /*   By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 16:19:00 by nsaraiva          #+#    #+#             */
-/*   Updated: 2025/07/06 22:14:21 by nsaraiva         ###   ########.fr       */
+/*   Updated: 2025/07/09 14:45:31 by nsaraiva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,10 @@
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
 	char	*dst;
-
-	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+	const int	val = y * data->line_length + x * (data->bits_per_pixel / 8);
+	if (val < 0 || x > WIDTH || y > HEIGHT)
+		return ;
+	dst = data->addr + val;
 	*(unsigned int*)dst = color;
 }
 
@@ -33,32 +35,57 @@ int	my_close(int keycode, t_data *data)
 	return (0);
 }
 
+static int	map_init(t_map **map, char *argv[])
+{
+	*map = malloc(sizeof(t_map));
+	(*map)->width = 0;
+	(*map)->height = 0;
+	(*map)->matrix = 0;
+	(*map)->max_x = DBL_MAX;
+	(*map)->min_x = DBL_MIN;
+	(*map)->min_y = DBL_MIN;
+	(*map)->max_y = DBL_MAX;
+	if (!fill_map(argv[1], *map))
+		return (0);
+	return (1);
+}
+
+static int	screen_init(t_data *data, t_map *map)
+{
+	data->init = mlx_init();
+	if (!data->init)
+		return (0);
+	data->display = mlx_new_window(data->init, WIDTH, HEIGHT, "FdF");
+	if (!data->display)
+		return (mlx_destroy_display(data->init), 0);
+	data->img = mlx_new_image(data->init, WIDTH, HEIGHT);
+	if (!data->img)
+	{
+        mlx_destroy_window(data->init, data->display);
+		mlx_destroy_display(data->init);
+	}
+	data->addr = mlx_get_data_addr(data->img, &data->bits_per_pixel, &data->line_length, &data->endian);
+	data->sx = (double) (WIDTH / 3 / map->width);
+	data->sy = (double) (HEIGHT / 3 / map->height);
+	data->offset_x = (double) (WIDTH / 6 - map->min_x * data->sx);
+	data->offset_y = (double) (HEIGHT / 6 - map->min_y * data->sy);
+	return (1);
+}
+
 int	main(int argc, char *argv[])
 {
-	t_data		data;
-	t_matrix	*map;
+	t_data	data;
+	t_map	*map;
+	t_2d	p_raw;
+    int		j;
+    int		i;
 
-	map = malloc(sizeof(t_matrix));
-	map->width = 0;
-	map->height = 0;
-	map->matrix = 0;
-	map->min_x = DBL_MIN;
-	map->min_y = DBL_MIN;
-	if (!fill_map(argv[argc - 1], map))
+	if (!map_init(&map, argv) || argc != 2)
 		return (0);
 	data.init = mlx_init();
-	if (!data.init)
-		return (1);
-	data.display = mlx_new_window(data.init, 900, 600, "FdF");
-	data.img = mlx_new_image(data.init, 900, 600);
-	data.addr = mlx_get_data_addr(data.img, &data.bits_per_pixel, &data.line_length, &data.endian);
-	
-    t_2d p_raw;
-    int j = 0;
-    int i = 0;
-	int offset_x = -map->min_x * 20 + 50;
-    int offset_y = -map->min_y * 20 + 50;
-	i = 0;
+	if (!screen_init(&data, map))
+		return (0);
+    i = 0;
 	j = 0;
 	while (j < map->height)
 	{
@@ -67,17 +94,14 @@ int	main(int argc, char *argv[])
 		{
 			p_raw = ft_transformation(i, j, map->matrix[j][i]);
 		
-		            // Apply scale and offset
-            int pixel_x = (int)(p_raw.x * 10 + offset_x);
-            int pixel_y = (int)(p_raw.y * 10 + offset_y);
+            int pixel_x = (int) (p_raw.x * data.sx + data.offset_x);
+            int pixel_y = (int) (p_raw.y * data.sy + data.offset_y);
 
-            // Draw the point
-            my_mlx_pixel_put(&data, pixel_x, pixel_y, 0x000FFFF); // Use your desired color
+            my_mlx_pixel_put(&data, pixel_x, pixel_y, 0x000FFFF); 
             i++;
 		}
 		j++;
 	}
-	
 	mlx_put_image_to_window(data.init, data.display, data.img, 0, 0);
 	mlx_hook(data.display, 2, 1L<<0, my_close, &data);
 	mlx_loop(data.init);

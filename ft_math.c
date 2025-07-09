@@ -6,7 +6,7 @@
 /*   By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 14:58:22 by nsaraiva          #+#    #+#             */
-/*   Updated: 2025/07/06 21:17:33 by nsaraiva         ###   ########.fr       */
+/*   Updated: 2025/07/09 14:24:58 by nsaraiva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_2d	ft_transformation(int x, int y, int z)
 	return (p);
 }
 
-void	find_min(t_matrix *map, int *values, int x)
+void	find_min(t_map *map, int *values, int x)
 {
 	int		y;
 	t_2d	cord;
@@ -30,8 +30,10 @@ void	find_min(t_matrix *map, int *values, int x)
 	while (y < map->width)
 	{
 		cord = ft_transformation(x, y, values[y]); 
+		map->max_x = fmax(map->max_x, cord.x);
 		map->min_x = fmin(map->min_x, cord.x);
-		map->min_y = fmin(map->min_x, cord.y);
+		map->min_y = fmin(map->min_y, cord.y);
+		map->max_y = fmax(map->max_y, cord.y);
 		y++;
 	}
 }
