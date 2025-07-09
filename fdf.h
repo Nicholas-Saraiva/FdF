@@ -6,7 +6,7 @@
 /*   By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/06 22:07:21 by nsaraiva          #+#    #+#             */
-/*   Updated: 2025/07/09 14:27:04 by nsaraiva         ###   ########.fr       */
+/*   Updated: 2025/07/09 15:00:33 by nsaraiva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ typedef struct s_map
 {
 	int		width;
 	int		height;
-	int		**matrix;
+	t_2d	**matrix;
 	double	max_x;
 	double	max_y;
 	double	min_x;
@@ -63,6 +63,6 @@ char	*get_next_line(int fd, char **str);
 int		ft_printf(const char *fstring, ...);
 int		fill_map(char *argv, t_map *map);
 t_2d	ft_transformation(int x, int y, int z);
-void	free_all(int ***matrix);
-void	find_min(t_map *map, int *values, int x);
+void	free_all(t_2d ***matrix);
+void	find_min(t_map *map, t_2d value);
 #endif

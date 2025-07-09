@@ -6,7 +6,7 @@
 /*   By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 16:19:00 by nsaraiva          #+#    #+#             */
-/*   Updated: 2025/07/09 14:45:31 by nsaraiva         ###   ########.fr       */
+/*   Updated: 2025/07/09 15:07:20 by nsaraiva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ int	main(int argc, char *argv[])
 {
 	t_data	data;
 	t_map	*map;
-	t_2d	p_raw;
     int		j;
     int		i;
 
@@ -87,20 +86,19 @@ int	main(int argc, char *argv[])
 		return (0);
     i = 0;
 	j = 0;
-	while (j < map->height)
+	while (i < map->height)
 	{
-		i = 0;
-		while (i < map->width)
+		j = 0;
+		while (j < map->width)
 		{
-			p_raw = ft_transformation(i, j, map->matrix[j][i]);
 		
-            int pixel_x = (int) (p_raw.x * data.sx + data.offset_x);
-            int pixel_y = (int) (p_raw.y * data.sy + data.offset_y);
+            int pixel_x = (int) (map->matrix[i][j].x * data.sx + data.offset_x);
+            int pixel_y = (int) (map->matrix[i][j].y * data.sy + data.offset_y);
 
             my_mlx_pixel_put(&data, pixel_x, pixel_y, 0x000FFFF); 
-            i++;
+            j++;
 		}
-		j++;
+		i++;
 	}
 	mlx_put_image_to_window(data.init, data.display, data.img, 0, 0);
 	mlx_hook(data.display, 2, 1L<<0, my_close, &data);
