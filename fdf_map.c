@@ -6,7 +6,7 @@
 /*   By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 15:25:59 by nsaraiva          #+#    #+#             */
-/*   Updated: 2025/07/09 19:17:01 by nsaraiva         ###   ########.fr       */
+/*   Updated: 2025/07/10 14:32:39 by nsaraiva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,9 +84,13 @@ static t_2d	*construct_map(char **split, int width, t_map *map, int x)
 static int	init_map(t_map *map, char *argv)
 {
 	map->height = size_x(argv);
+	if (!map->height)
+		return (0);
 	map->width = size_y(argv);
-	map->matrix = malloc(sizeof(t_2d *) * map -> height);
-	if (!(map -> matrix))
+	if (!map->width)
+		return (0);
+	map->matrix = malloc(sizeof(t_2d *) * map->height);
+	if (!(map->matrix))
 		return (0);
 	else
 		return (1);

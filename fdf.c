@@ -6,11 +6,13 @@
 /*   By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 16:19:00 by nsaraiva          #+#    #+#             */
-/*   Updated: 2025/07/09 19:28:47 by nsaraiva         ###   ########.fr       */
+/*   Updated: 2025/07/10 17:38:14 by nsaraiva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+# define COLOR 0x00FF00FF
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
@@ -37,21 +39,37 @@ int	my_close(int keycode, t_data *data)
 }
 
 
-void	drawLineH(t_2d p1, t_2d diff, int dir, t_data *data)
+void	drawLineH(t_2d p1, t_2d p2, t_data *data)
 {
-	double	y;
-	double	p;
+	int		dir;
+	int		p;
+	int		y;
 	int		i;
+	t_2d	diff;
+	t_2d	p3;
 
 	i = 0;
-	y = p1.y;
-	p = 2*diff.y - diff.x;
+	p3 = p1;
+	p = 0;
+	y = 0;
+	if (p1.x > p2.x)
+	{
+		p1 = p2;
+		p2 = p3;
+	}
+	diff.x = p2.x - p1.x;
+	diff.y = p2.y - p1.y;
+	dir = 1;
+	if (diff.y < 0)
+		dir = -1;
 	if (diff.x != 0)
 	{
+		y = p1.y;
+		p = 2*diff.y - diff.x;
 		while (i < diff.x)
 		{
-			my_mlx_pixel_put(data, p1.x + i, y, 0x000FFFFF);
-		if (p >= 0)
+			my_mlx_pixel_put(data, p1.x + i, y, COLOR);
+			if (p > 0)
 			{
 				y += dir;
 				p -= 2*diff.x;
@@ -62,26 +80,42 @@ void	drawLineH(t_2d p1, t_2d diff, int dir, t_data *data)
 	}
 }
 
-void	drawLineV(t_2d p1, t_2d diff, int dir, t_data *data)
+void	drawLineV(t_2d p1, t_2d p2, t_data *data)
 {
-	double	x;
-	double	p;
+	int		dir;
+	int		p;
+	int		x;
 	int		i;
+	t_2d	diff;
+	t_2d	p3;
 
+	p3 = p1;
+	p = 0;
+	x = 0;
 	i = 0;
-	x = p1.x;
-	p = 2*diff.x - diff.y;
-	if (diff.y != 0)
+	if (p1.y > p2.y)
 	{
+		p1 = p2;
+		p2 = p3;
+	}
+	diff.x = p2.x - p1.x;
+	diff.y = p2.y - p1.y;
+	dir = 1;
+	if (diff.x < 0)
+		dir = -1;
+	if (diff.x != 0)
+	{
+		x = p1.x;
+		p = 2*diff.x - diff.y;
 		while (i < diff.y)
 		{
-			my_mlx_pixel_put(data, x, p1.y + i, 0x000FFFF);
-			if (p >= 0)
+			my_mlx_pixel_put(data, x, p1.y + i, COLOR);
+			if (p > 0)
 			{
 				x += dir;
-				p -= 2*diff.y;
+				p = p - 2*diff.y;
 			}
-			p += 2*diff.x;
+			p = p + 2*diff.x;
 			i++;
 		}
 	}
@@ -89,31 +123,10 @@ void	drawLineV(t_2d p1, t_2d diff, int dir, t_data *data)
 
 void	drawLine(t_2d p1, t_2d p2, t_data *data)
 {
-	int		dir;
-	int		cond;
-	t_2d	diff;
-	t_2d	p3;
-
-	p3 = p1;
-	cond = fabs(p2.x - p1.x) > fabs(p2.y - p1.y);
-	if ((p1.x > p2.x && cond)|| 
-			(p1.y > p2.y && !cond))
-	{
-		p1 = p2;
-		p2 = p3;
-	}
-	diff.x = p2.x - p1.x;
-	diff.y = p2.y - p1.y;
-	if ((diff.y < 0 && cond) || (diff.x < 0 && !cond))
-		dir = -1;
-	else
-		dir = 1;
-	p1.x = p1.x * data->sx + data->offset_x;
-	p1.y = p1.y * data->sy + data->offset_y;
 	if (fabs(p2.x - p1.x) > fabs(p2.y - p1.y))
-		drawLineH(p1, diff, dir, data);
+		drawLineH(p1, p2, data);
 	else
-		drawLineV(p1, diff, dir, data);
+		drawLineV(p1, p2, data);
 }
 
 static int	map_init(t_map **map, char *argv[])
@@ -157,29 +170,57 @@ int	main(int argc, char *argv[])
 {
 	t_data	data;
 	t_map	*map;
-    int		j;
-    int		i;
 
 	if (!map_init(&map, argv) || argc != 2)
 		return (0);
 	data.init = mlx_init();
 	if (!screen_init(&data, map))
 		return (0);
-    i = 0;
-	j = 0;
-	while (i < map->height)
-	{
-		j = 0;
-		while (j < map->width)
-		{
-			if (j != map->width - 1)
-				drawLine(map->matrix[i][j + 1], map->matrix[i][j], &data);
-			if (i != map ->height - 1)
-				drawLine(map->matrix[i + 1][j], map->matrix[i][j], &data);
-            j++;
-		}
-		i++;
-	}
+
+	t_2d	p0;
+	t_2d	p1;
+	t_2d	p2;
+	t_2d	p3;
+	t_2d	p4;
+	t_2d	p5;
+	t_2d	p6;
+	t_2d	p7;
+	t_2d	p8;
+
+	p0.x = WIDTH / 2;
+	p0.y = HEIGHT / 2;
+	p1.x = p0.x + 200;
+	p1.y = p0.y + 50;
+
+	drawLine(p0, p1, &data);
+	p2.x = p0.x + 50;
+	p2.y = p0.y + 200;
+
+	drawLine(p0, p2, &data);
+	p3.x = p0.x - 50;
+	p3.y = p0.y + 200;
+
+	drawLine(p0, p3, &data);
+	p4.x = p0.x - 200;
+	p4.y = p0.y + 50;
+
+	drawLine(p0, p4, &data);
+	p5.x = p0.x - 200;
+	p5.y = p0.y - 50;
+
+	drawLine(p0, p5, &data);
+	p6.x = p0.x - 50;
+	p6.y = p0.y - 200;
+
+	drawLine(p0, p6, &data);
+	p7.x = p0.x + 50;
+	p7.y = p0.y - 200;
+	
+	drawLine(p0, p7, &data);
+	p8.x = p0.x + 200;
+	p8.y = p0.y - 50;
+
+	drawLine(p0, p8, &data);
 	mlx_put_image_to_window(data.init, data.display, data.img, 0, 0);
 	mlx_hook(data.display, 2, 1L<<0, my_close, &data);
 	mlx_loop(data.init);
