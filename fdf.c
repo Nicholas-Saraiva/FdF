@@ -6,7 +6,7 @@
 /*   By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 16:19:00 by nsaraiva          #+#    #+#             */
-/*   Updated: 2025/07/10 17:38:14 by nsaraiva         ###   ########.fr       */
+/*   Updated: 2025/07/10 18:55:55 by nsaraiva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	drawLineH(t_2d p1, t_2d p2, t_data *data)
 				y += dir;
 				p -= 2*diff.x;
 			}
-			p += 2*diff.y;
+			p += 2*fabs(diff.y);
 			i++;
 		}
 	}
@@ -115,7 +115,7 @@ void	drawLineV(t_2d p1, t_2d p2, t_data *data)
 				x += dir;
 				p = p - 2*diff.y;
 			}
-			p = p + 2*diff.x;
+			p = p + 2*fabs(diff.x);
 			i++;
 		}
 	}
@@ -177,50 +177,34 @@ int	main(int argc, char *argv[])
 	if (!screen_init(&data, map))
 		return (0);
 
-	t_2d	p0;
-	t_2d	p1;
-	t_2d	p2;
-	t_2d	p3;
-	t_2d	p4;
-	t_2d	p5;
-	t_2d	p6;
-	t_2d	p7;
-	t_2d	p8;
+	int	i = -1;
+	int j = -1;
+	t_2d p1;
+	t_2d p2;
 
-	p0.x = WIDTH / 2;
-	p0.y = HEIGHT / 2;
-	p1.x = p0.x + 200;
-	p1.y = p0.y + 50;
+	while (++i < map->height)
+	{
+		j = 0;
+		while (++j < map->width)
+		{
 
-	drawLine(p0, p1, &data);
-	p2.x = p0.x + 50;
-	p2.y = p0.y + 200;
-
-	drawLine(p0, p2, &data);
-	p3.x = p0.x - 50;
-	p3.y = p0.y + 200;
-
-	drawLine(p0, p3, &data);
-	p4.x = p0.x - 200;
-	p4.y = p0.y + 50;
-
-	drawLine(p0, p4, &data);
-	p5.x = p0.x - 200;
-	p5.y = p0.y - 50;
-
-	drawLine(p0, p5, &data);
-	p6.x = p0.x - 50;
-	p6.y = p0.y - 200;
-
-	drawLine(p0, p6, &data);
-	p7.x = p0.x + 50;
-	p7.y = p0.y - 200;
-	
-	drawLine(p0, p7, &data);
-	p8.x = p0.x + 200;
-	p8.y = p0.y - 50;
-
-	drawLine(p0, p8, &data);
+			p1.x = map->matrix[i][j].x * data.sx + data.offset_x;
+			p1.y = map->matrix[i][j].y * data.sy + data.offset_y;
+			
+			if (j != map->width - 1)
+			{
+				p2.x = map->matrix[i][j + 1].x * data.sx + data.offset_x;
+				p2.y = map->matrix[i][j + 1].y * data.sy + data.offset_y;
+				drawLine(p1, p2, &data);
+			}
+			if (i != map->height - 1)
+			{
+				p2.x = map->matrix[i + 1][j].x * data.sx + data.offset_x;
+				p2.y = map->matrix[i + 1][j].y * data.sy + data.offset_y;
+				drawLine(p1, p2, &data);
+			}
+		}
+	}
 	mlx_put_image_to_window(data.init, data.display, data.img, 0, 0);
 	mlx_hook(data.display, 2, 1L<<0, my_close, &data);
 	mlx_loop(data.init);
