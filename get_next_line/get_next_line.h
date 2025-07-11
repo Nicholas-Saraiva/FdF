@@ -6,7 +6,7 @@
 /*   By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 17:46:15 by nsaraiva          #+#    #+#             */
-/*   Updated: 2025/07/03 23:55:57 by nsaraiva         ###   ########.fr       */
+/*   Updated: 2025/07/11 21:40:57 by nsaraiva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define GET_NEXT_LINE_H
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1
+#  define BUFFER_SIZE 5000
 # endif
 # include <stdlib.h>
 # include <unistd.h>

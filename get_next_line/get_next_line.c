@@ -6,13 +6,13 @@
 /*   By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 11:29:41 by nsaraiva          #+#    #+#             */
-/*   Updated: 2025/07/04 00:04:18 by nsaraiva         ###   ########.fr       */
+/*   Updated: 2025/07/11 21:35:34 by nsaraiva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-static void	*ft_memcpy(void *dest, const void *src, size_t n)
+static void	*ft_memcpy_gnl(void *dest, const void *src, size_t n)
 {
 	unsigned char	*c_dest;
 	unsigned char	*c_src;
@@ -50,7 +50,7 @@ static char	*ft_newline(char *str, char *buff)
 	}
 	while (buff[i + j])
 		j++;
-	ft_memcpy(buff, buff + i + 1, j);
+	ft_memcpy_gnl(buff, buff + i + 1, j);
 	return (str);
 }
 
@@ -91,5 +91,7 @@ char	*get_next_line(int fd, char **str)
 	if (!(*str))
 		return (0);
 	*str = ft_create_line(fd, buff, *str);
+	if (!(*str))
+		return (0);
 	return (*str);
 }

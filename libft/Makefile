@@ -6,7 +6,7 @@
 #    By: nsaraiva <nsaraiva@student.42porto.com>   +#+  +:+       +#+          #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/08 12:36:01 by nsaraiva          #+#    #+#              #
-#    Updated: 2025/04/16 14:54:54 by nsaraiva.        ###   ########.fr        #
+#    Updated: 2025/07/11 19:15:01 by nsaraiva         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ all : $(NAME)
 $(NAME) : $(OBJ) 
 	ar -rcs $(NAME) $(OBJ)	
 $(OBJ) : $(SRC)
-	cc -c -Wall -Wextra -Werror $(SRC)	
+	cc -c -g -Wall -Wextra -Werror $(SRC)	
 
 bonus : $(OBJ_BONUS)
 	ar -rcs $(NAME) $(OBJ_BONUS)

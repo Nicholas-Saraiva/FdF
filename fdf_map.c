@@ -6,7 +6,7 @@
 /*   By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 15:25:59 by nsaraiva          #+#    #+#             */
-/*   Updated: 2025/07/10 14:32:39 by nsaraiva         ###   ########.fr       */
+/*   Updated: 2025/07/11 21:40:26 by nsaraiva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,13 @@ static int	size_y(char *argv)
 		return (0);
 	split = ft_split(str, ' ');
 	while (split[x])
+	{
+		free(split[x]);
 		x++;
+	}
+	free(split);
+	while (get_next_line(fd, &str))
+		free(str);
 	free(str);
 	if (close(fd) == -1)
 		return (0);
@@ -67,13 +73,13 @@ static t_2d	*construct_map(char **split, int width, t_map *map, int x)
 	values = malloc(sizeof(t_2d) * width);
 	if (!values)
 	{
-		free(split);
 		return (0);
 	}	
 	while (split[++i])
 	{
 		values[i] = ft_transformation(i, x, ft_atoi(split[i]));
 		find_min(map, values[i]);
+		free(split[i]);
 	}
 	free(split);
 	if (i < width)
@@ -99,17 +105,21 @@ static int	init_map(t_map *map, char *argv)
 int	fill_map(char *argv, t_map *map)
 {
 	char	*str;
+	char	**split;
 	int		i;
 	int		fd;
 
 	str = 0;
 	i = 0;
+	if (!init_map(map, argv))
+		return (0);
 	fd = open(argv, O_RDONLY);
-	if (fd == -1 || !init_map(map, argv))
+	if (!fd)
 		return (0);
 	while (get_next_line(fd, &str))
 	{
-		(map->matrix)[i] = construct_map(ft_split(str, ' '), map -> width, map, i);
+		split = ft_split(str, ' ');
+		(map->matrix)[i] = construct_map(split, map -> width, map, i);
 		if (!(map->matrix[i++]))
 			return (free(str), free_all(&map->matrix), 0);
 		free(str);
