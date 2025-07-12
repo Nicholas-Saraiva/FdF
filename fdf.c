@@ -6,7 +6,7 @@
 /*   By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 16:19:00 by nsaraiva          #+#    #+#             */
-/*   Updated: 2025/07/12 14:04:21 by nsaraiva         ###   ########.fr       */
+/*   Updated: 2025/07/12 14:27:06 by nsaraiva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,10 +132,10 @@ static int	map_init(t_map **map, char *argv[])
 	(*map)->width = 0;
 	(*map)->height = 0;
 	(*map)->matrix = 0;
-	(*map)->max_x = DBL_MAX;
-	(*map)->min_x = DBL_MIN;
-	(*map)->min_y = DBL_MIN;
-	(*map)->max_y = DBL_MAX;
+	(*map)->max_x = DBL_MIN;
+	(*map)->min_x = DBL_MAX;
+	(*map)->min_y = DBL_MAX;
+	(*map)->max_y = DBL_MIN;
 	if (!fill_map(argv[1], *map))
 		return (0);
 	return (1);
@@ -156,10 +156,10 @@ static int	screen_init(t_data *data, t_map *map)
 		mlx_destroy_display(data->init);
 	}
 	data->addr = mlx_get_data_addr(data->img, &data->bits_per_pixel, &data->line_length, &data->endian);
-	data->sx = (double) (WIDTH * 2 / 6 / map->width);
-	data->sy = (double) (HEIGHT * 2 / 6 / map->height);
-	data->offset_x = (double) (WIDTH / 3 - map->min_x );
-	data->offset_y = (double) (HEIGHT / 6 - map->min_y);
+	data->sx = (double) ((WIDTH *  2 / 3) / (map->max_x - map->min_x));
+	data->sy = (double) ((HEIGHT * 4 / 6) / (map->max_y - map->min_y));
+	data->offset_x = (double) (WIDTH * 1 / 6 - map->min_x * data->sx);
+	data->offset_y = (double) (HEIGHT * 1 / 6 - map->min_y * data->sy);
 	data->map = map;
 	return (1);
 }
