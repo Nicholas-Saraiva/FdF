@@ -6,7 +6,7 @@
 /*   By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/06 22:07:21 by nsaraiva          #+#    #+#             */
-/*   Updated: 2025/07/09 19:16:28 by nsaraiva         ###   ########.fr       */
+/*   Updated: 2025/07/12 13:00:21 by nsaraiva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@
 # include "get_next_line/get_next_line.h"
 
 # define RADIUS 0.523599
-# define WIDTH 900
-# define HEIGHT 600
+# define WIDTH 1400
+# define HEIGHT 800
 
 typedef struct s_2d
 {
@@ -45,6 +45,7 @@ typedef struct s_map
 
 typedef struct s_data
 {
+	t_map	*map;
 	void	*init;
 	void	*display;
 	void	*img;
@@ -63,6 +64,6 @@ char	*get_next_line(int fd, char **str);
 int		ft_printf(const char *fstring, ...);
 int		fill_map(char *argv, t_map *map);
 t_2d	ft_transformation(int x, int y, int z);
-void	free_all(t_2d ***matrix);
+void	free_map(t_map *map);
 void	find_min(t_map *map, t_2d value);
 #endif

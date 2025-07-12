@@ -6,7 +6,7 @@
 /*   By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 16:19:00 by nsaraiva          #+#    #+#             */
-/*   Updated: 2025/07/10 18:55:55 by nsaraiva         ###   ########.fr       */
+/*   Updated: 2025/07/12 14:04:21 by nsaraiva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,10 @@ int	my_close(int keycode, t_data *data)
 {
 	if (keycode == 65307)
 	{
-
-        mlx_destroy_image(data->init, data->img);
-        mlx_destroy_window(data->init, data->display);
-		mlx_destroy_display(data->init);	
-		exit(0);
+		mlx_loop_end(data->init);
 	}
 	return (0);
 }
-
 
 void	drawLineH(t_2d p1, t_2d p2, t_data *data)
 {
@@ -132,6 +127,8 @@ void	drawLine(t_2d p1, t_2d p2, t_data *data)
 static int	map_init(t_map **map, char *argv[])
 {
 	*map = malloc(sizeof(t_map));
+	if (!*map)
+		return (0);
 	(*map)->width = 0;
 	(*map)->height = 0;
 	(*map)->matrix = 0;
@@ -159,10 +156,11 @@ static int	screen_init(t_data *data, t_map *map)
 		mlx_destroy_display(data->init);
 	}
 	data->addr = mlx_get_data_addr(data->img, &data->bits_per_pixel, &data->line_length, &data->endian);
-	data->sx = (double) (WIDTH / 3 / map->width);
-	data->sy = (double) (HEIGHT / 3 / map->height);
-	data->offset_x = (double) (WIDTH / 6 - map->min_x * data->sx);
-	data->offset_y = (double) (HEIGHT / 6 - map->min_y * data->sy);
+	data->sx = (double) (WIDTH * 2 / 6 / map->width);
+	data->sy = (double) (HEIGHT * 2 / 6 / map->height);
+	data->offset_x = (double) (WIDTH / 3 - map->min_x );
+	data->offset_y = (double) (HEIGHT / 6 - map->min_y);
+	data->map = map;
 	return (1);
 }
 
@@ -173,7 +171,6 @@ int	main(int argc, char *argv[])
 
 	if (!map_init(&map, argv) || argc != 2)
 		return (0);
-	data.init = mlx_init();
 	if (!screen_init(&data, map))
 		return (0);
 
@@ -206,7 +203,12 @@ int	main(int argc, char *argv[])
 		}
 	}
 	mlx_put_image_to_window(data.init, data.display, data.img, 0, 0);
-	mlx_hook(data.display, 2, 1L<<0, my_close, &data);
+	mlx_key_hook(data.display, my_close, &data);
 	mlx_loop(data.init);
+	mlx_destroy_image(data.init, data.img);
+	mlx_destroy_window(data.init, data.display);
+	free_map(map);
+	mlx_destroy_display(data.init);
+	free(data.init);
 	return (0);
 }
