@@ -6,7 +6,7 @@
 /*   By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/06 22:07:21 by nsaraiva          #+#    #+#             */
-/*   Updated: 2025/07/12 13:00:21 by nsaraiva         ###   ########.fr       */
+/*   Updated: 2025/07/15 17:56:28 by nsaraiva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <float.h>
+# include <stdio.h>
 # include "mlx.h"
 # include "libft/libft.h"
 # include "get_next_line/get_next_line.h"
@@ -65,5 +66,10 @@ int		ft_printf(const char *fstring, ...);
 int		fill_map(char *argv, t_map *map);
 t_2d	ft_transformation(int x, int y, int z);
 void	free_map(t_map *map);
+void	free_matrix(double ***matrix, const int dim);
 void	find_min(t_map *map, t_2d value);
+void	ft_error(const char *msg);
+double	*ft_multMatrix3dto1d(double *leftMatrix[], double *rightMatrix);
+double	**ft_multMatrix3d(double *leftMatrix[], double *rightMatrix[]);
+double	**initMatrix();
 #endif

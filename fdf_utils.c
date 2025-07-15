@@ -6,7 +6,7 @@
 /*   By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 12:31:17 by nsaraiva          #+#    #+#             */
-/*   Updated: 2025/07/12 11:52:26 by nsaraiva         ###   ########.fr       */
+/*   Updated: 2025/07/15 14:59:23 by nsaraiva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,4 +21,20 @@ void	free_map(t_map *map)
 			free(map->matrix[i]);
 	free(map->matrix);
 	free(map);
+}
+
+void	free_matrix(double ***matrix, const int dim)
+{
+	int	i;
+
+	i = -1;
+	while (++i < dim)
+		free((*matrix)[i]);
+	free(*matrix);
+}
+
+void	ft_error(const char *msg)
+{
+	perror(msg);
+	exit(-1);
 }

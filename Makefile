@@ -6,7 +6,7 @@
 #    By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/02 10:23:27 by nsaraiva          #+#    #+#              #
-#    Updated: 2025/07/06 21:50:14 by nsaraiva         ###   ########.fr        #
+#    Updated: 2025/07/15 18:07:44 by nsaraiva         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,6 +49,9 @@ clean:
 
 fclean: clean
 	rm -rf $(NAME)
+	$(MAKE) fclean -C $(LIBFT)
+	$(MAKE) fclean -C $(GNL)
+	$(MAKE) fclean -C $(MLX)
 
 re: fclean all
 
