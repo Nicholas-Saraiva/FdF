@@ -6,7 +6,7 @@
 /*   By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/06 22:07:21 by nsaraiva          #+#    #+#             */
-/*   Updated: 2025/07/15 17:56:28 by nsaraiva         ###   ########.fr       */
+/*   Updated: 2025/07/15 18:59:21 by nsaraiva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,7 @@ void	ft_error(const char *msg);
 double	*ft_multMatrix3dto1d(double *leftMatrix[], double *rightMatrix);
 double	**ft_multMatrix3d(double *leftMatrix[], double *rightMatrix[]);
 double	**initMatrix();
+double	*RotateX(double *matrix1d, cont double angle);
+double	*RotateY(double *matrix1d, cont double angle);
+double	*RotateZ(double *matrix1d, cont double angle);
 #endif

@@ -6,7 +6,7 @@
 /*   By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 14:58:22 by nsaraiva          #+#    #+#             */
-/*   Updated: 2025/07/15 17:53:30 by nsaraiva         ###   ########.fr       */
+/*   Updated: 2025/07/15 18:59:05 by nsaraiva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,54 @@ double	**ft_multMatrix3d(double *leftMatrix[], double *rightMatrix[])
 			result[i][j] += leftMatrix[i][j] * rightMatrix[j][i];
 		}
 	}
+	return result;
+}
+
+double	*RotateX(double *matrix1d, const double angle)
+{
+	const int	dim = 3;
+	double		*result;
+
+	result = ft_calloc(dim, sizeof(double));
+	if (!*result)
+		ft_error("ERROR-RotateX -> On malloc result.");
+	result[0] = matrix1d[0];
+	result[1] = matrix1d[1] * cos((double) (angle * M_PI / 180))
+				- matrix1d[2] * sin((double) (angle * M_PI / 180));
+	result[2] = matrix1d[1] * sin((double) (angle * M_PI / 180))
+				+ matrix1d[2] * cos((double) (angle * M_PI / 180));
+	return result;
+}
+
+double	*RotateY(double *matrix1d, const double angle)
+{
+	const int	dim = 3;
+	double		*result;
+
+	result = ft_calloc(dim, sizeof(double));
+	if (!*result)
+		ft_error("ERROR-RotateX -> On malloc result.");
+	result[0] = matrix1d[0] * cos((double) (angle * M_PI / 180))
+				+ matrix1d[2] * sin((double) (angle * M_PI / 180));
+	result[1] = matrix1d[1];
+	result[2] = -matrix1d[0] * sin((double) (angle * M_PI / 180))
+				+ matrix1d[2] * cos((double) (angle * M_PI / 180));
+	return result;
+}
+
+double	*RotateZ(double *matrix1d, const double angle)
+{
+	const int	dim = 3;
+	double		*result;
+
+	result = ft_calloc(dim, sizeof(double));
+	if (!*result)
+		ft_error("ERROR-RotateX -> On malloc result.");
+	result[0] = matrix1d[0] * cos((double) (angle * M_PI / 180))
+				- matrix1d[1] * sin((double) (angle * M_PI / 180));
+	result[1] = matrix1d[0] * sin((double) (angle * M_PI / 180))
+				+ matrix1d[1] * cos((double) (angle * M_PI / 180));
+	result[2] = matrix1d[2];
 	return result;
 }
 
