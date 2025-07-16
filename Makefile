@@ -6,7 +6,7 @@
 #    By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/02 10:23:27 by nsaraiva          #+#    #+#              #
-#    Updated: 2025/07/15 18:07:44 by nsaraiva         ###   ########.fr        #
+#    Updated: 2025/07/16 22:19:13 by nsaraiva         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,8 +22,8 @@ GNL_A = $(addprefix $(GNL), libget.a)
 MLX_A = $(addprefix $(MLX), libmlx.a)
 
 CC = cc
-CCFLAGS = -Wall -Wextra -Werror
-INCLUDE = -Iminilibx-linux -I/user/lib -Lminilibx-linux -lmlx_Linux -lX11 -lXext -lm
+CCFLAGS = -Wall -Wextra -Werror -pg -g
+INCLUDE = -Iminilibx-linux -I/user/lib -Lminilibx-linux -lmlx_Linux -lX11 -lXext -lm -o3
 LIBRARIES = -L$(LIBFT) -lft -L$(GNL) -lget 
 NAME = fdf
 
@@ -51,7 +51,6 @@ fclean: clean
 	rm -rf $(NAME)
 	$(MAKE) fclean -C $(LIBFT)
 	$(MAKE) fclean -C $(GNL)
-	$(MAKE) fclean -C $(MLX)
 
 re: fclean all
 

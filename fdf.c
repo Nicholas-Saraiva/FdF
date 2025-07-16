@@ -6,7 +6,7 @@
 /*   By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 16:19:00 by nsaraiva          #+#    #+#             */
-/*   Updated: 2025/07/16 19:48:54 by nsaraiva         ###   ########.fr       */
+/*   Updated: 2025/07/16 22:13:41 by nsaraiva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,20 +19,13 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 	char	*dst;
 	const int	val = y * data->line_length + x * (data->bits_per_pixel / 8);
 
-	if (val < 0 || x > WIDTH || y > HEIGHT)
+	if (val < 0 || x >= WIDTH || y >= HEIGHT || x < 0 || y < 0)
 		return ;
 	dst = data->addr + val;
 	*(unsigned int*)dst = color;
 }
 
-int	my_close(int keycode, t_data *data)
-{
-	if (keycode == 65307)
-	{
-		mlx_loop_end(data->init);
-	}
-	return (0);
-}
+
 
 void	drawLineH(t_2d p1, t_2d p2, t_data *data)
 {
@@ -156,24 +149,16 @@ static int	screen_init(t_data *data, t_map *map)
 		mlx_destroy_display(data->init);
 	}
 	data->addr = mlx_get_data_addr(data->img, &data->bits_per_pixel, &data->line_length, &data->endian);
-	data->sx = (double) ((WIDTH *  2 / 3) / (map->max_x - map->min_x));
+	data->sx = (double) ((WIDTH *  4 / 6) / (map->max_x - map->min_x));
 	data->sy = (double) ((HEIGHT * 4 / 6) / (map->max_y - map->min_y));
-	data->offset_x = (double) (WIDTH * 1 / 6 - map->min_x * data->sx);
+	data->offset_x = (double) (WIDTH * 1 / 6 - map->min_x * data->sx); 
 	data->offset_y = (double) (HEIGHT * 1 / 6 - map->min_y * data->sy);
 	data->map = map;
 	return (1);
 }
 
-int	main(int argc, char *argv[])
+void displayImage(t_map *map, t_data data)
 {
-	t_data	data;
-	t_map	*map;
-
-	if (!map_init(&map, argv) || argc != 2)
-		return (0);
-	if (!screen_init(&data, map))
-		return (0);
-
 	int	i = -1;
 	int j = -1;
 	t_2d p1;
@@ -206,7 +191,59 @@ int	main(int argc, char *argv[])
 		}
 	}
 	mlx_put_image_to_window(data.init, data.display, data.img, 0, 0);
+}
+
+int	mouse_hook(int keycode, int x, int y, t_data *data)
+{
+	if (keycode == 4 || x == 1 || y == 2)
+	{
+		
+		data->sx *= 1.1;
+		data->sy *= 1.1;
+		ft_bzero(data->addr, 1 + WIDTH * HEIGHT * sizeof(int));
+		displayImage(data->map, *data);
+	}
+	if (keycode == 5 || x == 1 || y == 2)
+	{
+		data->sx *= 0.9;
+		data->sy *= 0.9;
+		ft_bzero(data->addr, 1 + WIDTH * HEIGHT * sizeof(int));
+		displayImage(data->map, *data);
+	}
+		printf("Hello from key_hook!{%d} - \n", keycode);
+	return (0);
+}
+
+int	my_close(int keycode, t_data *data)
+{
+	if (keycode == 65307)
+	{
+		mlx_loop_end(data->init);
+	}
+	if (keycode == 122)
+	{
+		data->sx *= 2;
+		data->sy *= 2;
+		ft_bzero(data->addr, WIDTH * HEIGHT * sizeof(int));
+		displayImage(data->map, *data);
+	}
+	printf("%d \n", keycode);
+	return (0);
+}
+int	main(int argc, char *argv[])
+{
+	t_data	data;
+	t_map	*map;
+
+	if (!map_init(&map, argv) || argc != 2)
+		return (0);
+	if (!screen_init(&data, map))
+		return (0);
+
+
+	displayImage(map, data);
 	mlx_key_hook(data.display, my_close, &data);
+	mlx_mouse_hook(data.display, mouse_hook, &data);
 	mlx_loop(data.init);
 	mlx_destroy_image(data.init, data.img);
 	mlx_destroy_window(data.init, data.display);
