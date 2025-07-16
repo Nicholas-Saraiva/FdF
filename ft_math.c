@@ -6,7 +6,7 @@
 /*   By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 14:58:22 by nsaraiva          #+#    #+#             */
-/*   Updated: 2025/07/15 20:16:15 by nsaraiva         ###   ########.fr       */
+/*   Updated: 2025/07/16 19:30:36 by nsaraiva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,10 +142,13 @@ double	*RotateZ(const double matrix1d[3], const double angle)
 	return result;
 }
 
-void	find_min(t_map *map, t_2d value)
+void	find_min(t_map *map, t_3d value)
 {
-	map->max_x = fmax(map->max_x, value.x);
-	map->min_x = fmin(map->min_x, value.x);
-	map->min_y = fmin(map->min_y, value.y);
-	map->max_y = fmax(map->max_y, value.y);
+	t_2d	point2d;
+
+	point2d = ft_transformation(value.x, value.y, value.z);
+	map->max_x = fmax(map->max_x, point2d.x);
+	map->min_x = fmin(map->min_x, point2d.x);
+	map->min_y = fmin(map->min_y, point2d.y);
+	map->max_y = fmax(map->max_y, point2d.y);
 }

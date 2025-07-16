@@ -6,7 +6,7 @@
 /*   By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/06 22:07:21 by nsaraiva          #+#    #+#             */
-/*   Updated: 2025/07/15 20:07:45 by nsaraiva         ###   ########.fr       */
+/*   Updated: 2025/07/16 19:30:45 by nsaraiva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,18 @@ typedef struct s_2d
 	double	y;
 }	t_2d;
 
+typedef struct s_3d
+{
+	int	x;
+	int	y;
+	int	z;
+}	t_3d;
+
 typedef struct s_map
 {
 	int		width;
 	int		height;
-	t_2d	**matrix;
+	t_3d	**matrix;
 	double	max_x;
 	double	max_y;
 	double	min_x;
@@ -67,7 +74,7 @@ int		fill_map(char *argv, t_map *map);
 t_2d	ft_transformation(int x, int y, int z);
 void	free_map(t_map *map);
 void	free_matrix(double ***matrix, const int dim);
-void	find_min(t_map *map, t_2d value);
+void	find_min(t_map *map, t_3d value);
 void	ft_error(const char *msg);
 double	*ft_multMatrix3dto1d(double *leftMatrix[], double *rightMatrix);
 double	**ft_multMatrix3d(double *leftMatrix[], double *rightMatrix[]);

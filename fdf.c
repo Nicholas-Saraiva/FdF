@@ -6,13 +6,13 @@
 /*   By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 16:19:00 by nsaraiva          #+#    #+#             */
-/*   Updated: 2025/07/15 18:01:11 by nsaraiva         ###   ########.fr       */
+/*   Updated: 2025/07/16 19:48:54 by nsaraiva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-# define COLOR 0x00FF00FF
+# define COLOR 0xFFEFC8
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
@@ -184,20 +184,23 @@ int	main(int argc, char *argv[])
 		j = 0;
 		while (++j < map->width)
 		{
+			p1 = ft_transformation(map->matrix[i][j].x, map->matrix[i][j].y, map->matrix[i][j].z);
 
-			p1.x = map->matrix[i][j].x * data.sx + data.offset_x;
-			p1.y = map->matrix[i][j].y * data.sy + data.offset_y;
-			
+			p1.x = p1.x * data.sx + data.offset_x;
+			p1.y = p1.y * data.sy + data.offset_y;
 			if (j != map->width - 1)
 			{
-				p2.x = map->matrix[i][j + 1].x * data.sx + data.offset_x;
-				p2.y = map->matrix[i][j + 1].y * data.sy + data.offset_y;
+				p2 = ft_transformation(map->matrix[i][j + 1].x, map->matrix[i][j + 1].y, map->matrix[i][j + 1].z);
+				p2.x = p2.x * data.sx + data.offset_x;
+				p2.y = p2.y * data.sy + data.offset_y;
 				drawLine(p1, p2, &data);
 			}
 			if (i != map->height - 1)
 			{
-				p2.x = map->matrix[i + 1][j].x * data.sx + data.offset_x;
-				p2.y = map->matrix[i + 1][j].y * data.sy + data.offset_y;
+
+				p2 = ft_transformation(map->matrix[i + 1][j].x, map->matrix[i + 1][j].y, map->matrix[i + 1][j].z);
+				p2.x = p2.x * data.sx + data.offset_x;
+				p2.y = p2.y * data.sy + data.offset_y;
 				drawLine(p1, p2, &data);
 			}
 		}
