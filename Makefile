@@ -6,11 +6,11 @@
 #    By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/02 10:23:27 by nsaraiva          #+#    #+#              #
-#    Updated: 2025/07/16 22:19:13 by nsaraiva         ###   ########.fr        #
+#    Updated: 2025/07/17 20:53:46 by nsaraiva         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRC = fdf.c fdf_map.c ft_math.c fdf_utils.c
+SRC = fdf.c fdf_map.c ft_math.c fdf_utils.c ft_event.c
 OBJ =  $(SRC:.c=.o)
 
 LIBFT = libft/

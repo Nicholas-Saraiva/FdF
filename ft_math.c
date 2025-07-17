@@ -6,23 +6,21 @@
 /*   By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 14:58:22 by nsaraiva          #+#    #+#             */
-/*   Updated: 2025/07/16 22:12:43 by nsaraiva         ###   ########.fr       */
+/*   Updated: 2025/07/17 20:38:46 by nsaraiva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
 
-t_2d ft_transformation(int x, int y, int z)
+t_2d ft_transformation(t_3d matrix1d)
 {
-    t_2d p;
-    const double matrix1d[3] = {x, y, z};
-    double *result;
+    t_2d	p;
+    t_3d	result;
 
     result = RotateX(RotateZ(matrix1d, 45 * M_PI / 180), atan(sqrt(2))); 
-    p.x = result[0];
-    p.y = result[1];
-    free(result); 
+    p.x = result.x;
+    p.y = result.y;
     return (p);
 }
 
@@ -94,51 +92,39 @@ double	**ft_multMatrix3d(double *leftMatrix[], double *rightMatrix[])
 	return result;
 }
 
-double	*RotateX(const double matrix1d[3], const double angle)
+t_3d	RotateX(t_3d matrix1d, const double angle)
 {
-	const int	dim = 3;
-	double		*result;
+	t_3d	result;
 
-	result = malloc(dim * sizeof(double));
-	if (!result)
-		ft_error("ERROR-RotateX -> On malloc result.");
-	result[0] = matrix1d[0];
-	result[1] = matrix1d[1] * cos((double) (angle))
-				- matrix1d[2] * sin((double) (angle));
-	result[2] = matrix1d[1] * sin((double) (angle))
-				+ matrix1d[2] * cos((double) (angle));
+	result.x = matrix1d.x;
+	result.y = matrix1d.y * cos((double) (angle))
+				- matrix1d.z * sin((double) (angle));
+	result.z = matrix1d.y * sin((double) (angle))
+				+ matrix1d.z * cos((double) (angle));
 	return result;
 }
 
-double	*RotateY(const double matrix1d[3], const double angle)
+t_3d	RotateY(t_3d matrix1d, const double angle)
 {
-	const int	dim = 3;
-	double		*result;
+	t_3d	result;
 
-	result = malloc(dim * sizeof(double));
-	if (!result)
-		ft_error("ERROR-RotateX -> On malloc result.");
-	result[0] = matrix1d[0] * cos((double) (angle))
-				+ matrix1d[2] * sin((double) (angle));
-	result[1] = matrix1d[1];
-	result[2] = -matrix1d[0] * sin((double) (angle))
-				+ matrix1d[2] * cos((double) (angle));
+	result.x = matrix1d.x * cos((double) (angle))
+				+ matrix1d.z * sin((double) (angle));
+	result.y = matrix1d.y;
+	result.z = -matrix1d.x * sin((double) (angle))
+				+ matrix1d.z * cos((double) (angle));
 	return result;
 }
 
-double	*RotateZ(const double matrix1d[3], const double angle)
+t_3d	RotateZ(t_3d matrix1d, const double angle)
 {
-	const int	dim = 3;
-	double		*result;
+	t_3d	result;
 
-	result = malloc(dim * sizeof(double));
-	if (!result)
-		ft_error("ERROR-RotateX -> On malloc result.");
-	result[0] = matrix1d[0] * cos((double) (angle))
-				- matrix1d[1] * sin((double) (angle));
-	result[1] = matrix1d[0] * sin((double) (angle))
-				+ matrix1d[1] * cos((double) (angle));
-	result[2] = matrix1d[2];
+	result.x = matrix1d.x * cos((double) (angle))
+				- matrix1d.y * sin((double) (angle));
+	result.y = matrix1d.x * sin((double) (angle))
+				+ matrix1d.y * cos((double) (angle));
+	result.z = matrix1d.z;
 	return result;
 }
 
@@ -146,7 +132,7 @@ void	find_min(t_map *map, t_3d value)
 {
 	t_2d	point2d;
 
-	point2d = ft_transformation(value.x, value.y, value.z);
+	point2d = ft_transformation(value);
 	map->max_x = fmax(map->max_x, point2d.x);
 	map->min_x = fmin(map->min_x, point2d.x);
 	map->min_y = fmin(map->min_y, point2d.y);

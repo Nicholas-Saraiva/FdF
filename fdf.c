@@ -6,7 +6,7 @@
 /*   By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 16:19:00 by nsaraiva          #+#    #+#             */
-/*   Updated: 2025/07/16 22:13:41 by nsaraiva         ###   ########.fr       */
+/*   Updated: 2025/07/17 21:08:42 by nsaraiva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,7 @@ static int	map_init(t_map **map, char *argv[])
 	(*map)->max_y = DBL_MIN;
 	if (!fill_map(argv[1], *map))
 		return (0);
+	(*map)->center = (*map)->matrix[(*map)->height / 2][(*map)->width / 2];
 	return (1);
 }
 
@@ -169,21 +170,19 @@ void displayImage(t_map *map, t_data data)
 		j = 0;
 		while (++j < map->width)
 		{
-			p1 = ft_transformation(map->matrix[i][j].x, map->matrix[i][j].y, map->matrix[i][j].z);
-
+			p1 = ft_transformation(map->matrix[i][j]);
 			p1.x = p1.x * data.sx + data.offset_x;
 			p1.y = p1.y * data.sy + data.offset_y;
 			if (j != map->width - 1)
 			{
-				p2 = ft_transformation(map->matrix[i][j + 1].x, map->matrix[i][j + 1].y, map->matrix[i][j + 1].z);
+				p2 = ft_transformation(map->matrix[i][j + 1]);
 				p2.x = p2.x * data.sx + data.offset_x;
 				p2.y = p2.y * data.sy + data.offset_y;
 				drawLine(p1, p2, &data);
 			}
 			if (i != map->height - 1)
 			{
-
-				p2 = ft_transformation(map->matrix[i + 1][j].x, map->matrix[i + 1][j].y, map->matrix[i + 1][j].z);
+				p2 = ft_transformation(map->matrix[i + 1][j]);
 				p2.x = p2.x * data.sx + data.offset_x;
 				p2.y = p2.y * data.sy + data.offset_y;
 				drawLine(p1, p2, &data);
@@ -217,19 +216,47 @@ int	mouse_hook(int keycode, int x, int y, t_data *data)
 int	my_close(int keycode, t_data *data)
 {
 	if (keycode == 65307)
-	{
 		mlx_loop_end(data->init);
-	}
-	if (keycode == 122)
+	if (keycode == KEY_A || keycode == KEY_LEFT)
 	{
-		data->sx *= 2;
-		data->sy *= 2;
+		data->offset_x -= 20;
+		ft_bzero(data->addr, WIDTH * HEIGHT * sizeof(int));
+		displayImage(data->map, *data);
+	}
+	if (keycode == KEY_W || keycode == KEY_UP)
+	{
+		data->offset_y -= 20;
+		ft_bzero(data->addr, WIDTH * HEIGHT * sizeof(int));
+		displayImage(data->map, *data);
+	}
+	if (keycode == KEY_D || keycode == KEY_RIGHT)
+	{
+		data->offset_x += 20;
+		ft_bzero(data->addr, WIDTH * HEIGHT * sizeof(int));
+		displayImage(data->map, *data);
+	}
+	if (keycode == KEY_S || keycode == KEY_DOWN)
+	{
+		data->offset_y += 20;
+		ft_bzero(data->addr, WIDTH * HEIGHT * sizeof(int));
+		displayImage(data->map, *data);
+	}
+	if (keycode == 113)
+	{
+		ft_rotateCenter(data, RotateZ, -2.0 * M_PI / 180);
+		ft_bzero(data->addr, WIDTH * HEIGHT * sizeof(int));
+		displayImage(data->map, *data);
+	}
+	if (keycode == 101)
+	{
+		ft_rotateCenter(data, RotateZ, +2.0 * M_PI / 180);
 		ft_bzero(data->addr, WIDTH * HEIGHT * sizeof(int));
 		displayImage(data->map, *data);
 	}
 	printf("%d \n", keycode);
 	return (0);
 }
+
 int	main(int argc, char *argv[])
 {
 	t_data	data;
@@ -242,7 +269,7 @@ int	main(int argc, char *argv[])
 
 
 	displayImage(map, data);
-	mlx_key_hook(data.display, my_close, &data);
+	mlx_hook(data.display, 2, 1L<<0, my_close, &data);
 	mlx_mouse_hook(data.display, mouse_hook, &data);
 	mlx_loop(data.init);
 	mlx_destroy_image(data.init, data.img);
