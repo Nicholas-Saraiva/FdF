@@ -6,116 +6,11 @@
 /*   By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 16:19:00 by nsaraiva          #+#    #+#             */
-/*   Updated: 2025/07/17 21:08:42 by nsaraiva         ###   ########.fr       */
+/*   Updated: 2025/07/18 15:52:09 by nsaraiva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-# define COLOR 0xFFEFC8
-
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
-{
-	char	*dst;
-	const int	val = y * data->line_length + x * (data->bits_per_pixel / 8);
-
-	if (val < 0 || x >= WIDTH || y >= HEIGHT || x < 0 || y < 0)
-		return ;
-	dst = data->addr + val;
-	*(unsigned int*)dst = color;
-}
-
-
-
-void	drawLineH(t_2d p1, t_2d p2, t_data *data)
-{
-	int		dir;
-	int		p;
-	int		y;
-	int		i;
-	t_2d	diff;
-	t_2d	p3;
-
-	i = 0;
-	p3 = p1;
-	p = 0;
-	y = 0;
-	if (p1.x > p2.x)
-	{
-		p1 = p2;
-		p2 = p3;
-	}
-	diff.x = p2.x - p1.x;
-	diff.y = p2.y - p1.y;
-	dir = 1;
-	if (diff.y < 0)
-		dir = -1;
-	if (diff.x != 0)
-	{
-		y = p1.y;
-		p = 2*diff.y - diff.x;
-		while (i < diff.x)
-		{
-			my_mlx_pixel_put(data, p1.x + i, y, COLOR);
-			if (p > 0)
-			{
-				y += dir;
-				p -= 2*diff.x;
-			}
-			p += 2*fabs(diff.y);
-			i++;
-		}
-	}
-}
-
-void	drawLineV(t_2d p1, t_2d p2, t_data *data)
-{
-	int		dir;
-	int		p;
-	int		x;
-	int		i;
-	t_2d	diff;
-	t_2d	p3;
-
-	p3 = p1;
-	p = 0;
-	x = 0;
-	i = 0;
-	if (p1.y > p2.y)
-	{
-		p1 = p2;
-		p2 = p3;
-	}
-	diff.x = p2.x - p1.x;
-	diff.y = p2.y - p1.y;
-	dir = 1;
-	if (diff.x < 0)
-		dir = -1;
-	if (diff.x != 0)
-	{
-		x = p1.x;
-		p = 2*diff.x - diff.y;
-		while (i < diff.y)
-		{
-			my_mlx_pixel_put(data, x, p1.y + i, COLOR);
-			if (p > 0)
-			{
-				x += dir;
-				p = p - 2*diff.y;
-			}
-			p = p + 2*fabs(diff.x);
-			i++;
-		}
-	}
-}
-
-void	drawLine(t_2d p1, t_2d p2, t_data *data)
-{
-	if (fabs(p2.x - p1.x) > fabs(p2.y - p1.y))
-		drawLineH(p1, p2, data);
-	else
-		drawLineV(p1, p2, data);
-}
 
 static int	map_init(t_map **map, char *argv[])
 {

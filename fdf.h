@@ -6,7 +6,7 @@
 /*   By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/06 22:07:21 by nsaraiva          #+#    #+#             */
-/*   Updated: 2025/07/17 20:59:54 by nsaraiva         ###   ########.fr       */
+/*   Updated: 2025/07/18 15:55:09 by nsaraiva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@
 # define KEY_UP 65362
 # define KEY_RIGHT 65363
 # define KEY_DOWN 65364
-
+# define COLOR 0xFFEFC8
 
 typedef struct s_2d
 {
@@ -87,6 +87,7 @@ void	free_matrix(double ***matrix, const int dim);
 void	find_min(t_map *map, t_3d value);
 void	ft_error(const char *msg);
 void	ft_rotateCenter(t_data *map, t_3d (*RotationFunc)(t_3d, double), double angle);
+void	drawLine(t_2d p1, t_2d p2, t_data *data);
 double	*ft_multMatrix3dto1d(double *leftMatrix[], double *rightMatrix);
 double	**ft_multMatrix3d(double *leftMatrix[], double *rightMatrix[]);
 double	**initMatrix();
