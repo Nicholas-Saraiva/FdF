@@ -6,7 +6,7 @@
 /*   By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 16:19:00 by nsaraiva          #+#    #+#             */
-/*   Updated: 2025/07/18 16:11:54 by nsaraiva         ###   ########.fr       */
+/*   Updated: 2025/07/18 16:29:36 by nsaraiva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,13 +138,13 @@ int	my_close(int keycode, t_data *data)
 	}
 	if (keycode == 113)
 	{
-		ft_rotate(data, RotateZ, -2.0 * M_PI / 180);
+		ft_rotate(data, rotate_z, -2.0 * M_PI / 180);
 		ft_bzero(data->addr, WIDTH * HEIGHT * sizeof(int));
 		displayImage(data->map, *data);
 	}
 	if (keycode == 101)
 	{
-		ft_rotate(data, RotateZ, +2.0 * M_PI / 180);
+		ft_rotate(data, rotate_z, +2.0 * M_PI / 180);
 		ft_bzero(data->addr, WIDTH * HEIGHT * sizeof(int));
 		displayImage(data->map, *data);
 	}

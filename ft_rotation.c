@@ -6,29 +6,39 @@
 /*   By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 20:38:51 by nsaraiva          #+#    #+#             */
-/*   Updated: 2025/07/18 16:13:45 by nsaraiva         ###   ########.fr       */
+/*   Updated: 2025/07/18 16:27:28 by nsaraiva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static t_3d	sum_3d_points(t_3d point1, t_3d point2)
+t_3d	rotate_x(t_3d matrix1d, const double angle)
 {
 	t_3d	result;
 
-	result.x = point1.x + point2.x;
-	result.y = point1.y + point2.y;
-	result.z = point1.z + point2.z;
+	result.x = matrix1d.x;
+	result.y = matrix1d.y * cos(angle) - matrix1d.z * sin(angle);
+	result.z = matrix1d.y * sin(angle) + matrix1d.z * cos(angle);
 	return (result);
 }
 
-static t_3d	subtrate_3d_points(t_3d point1, t_3d point2)
+t_3d	rotate_y(t_3d matrix1d, const double angle)
 {
 	t_3d	result;
 
-	result.x = point1.x - point2.x;
-	result.y = point1.y - point2.y;
-	result.z = point1.z - point2.z;
+	result.x = matrix1d.x * cos(angle) + matrix1d.z * sin(angle);
+	result.y = matrix1d.y;
+	result.z = -matrix1d.x * sin(angle) + matrix1d.z * cos(angle);
+	return (result);
+}
+
+t_3d	rotate_z(t_3d matrix1d, const double angle)
+{
+	t_3d	result;
+
+	result.x = matrix1d.x * cos(angle) - matrix1d.y * sin(angle);
+	result.y = matrix1d.x * sin(angle) + matrix1d.y * cos(angle);
+	result.z = matrix1d.z;
 	return (result);
 }
 
