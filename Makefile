@@ -6,7 +6,7 @@
 #    By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/02 10:23:27 by nsaraiva          #+#    #+#              #
-#    Updated: 2025/07/18 15:55:54 by nsaraiva         ###   ########.fr        #
+#    Updated: 2025/07/18 16:05:26 by nsaraiva         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,7 @@ $(MLX_A):
 	$(MAKE) CC=clang -s  -C $(MLX)
 
 clean:
-	rm -rf $(OBJ)
+	rm -rf $(OBJ) gmon.out
 	$(MAKE) clean -C $(LIBFT)
 	$(MAKE) clean -C $(GNL)
 	$(MAKE) clean -C $(MLX)

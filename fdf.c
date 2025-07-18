@@ -6,7 +6,7 @@
 /*   By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 16:19:00 by nsaraiva          #+#    #+#             */
-/*   Updated: 2025/07/18 15:52:09 by nsaraiva         ###   ########.fr       */
+/*   Updated: 2025/07/18 16:04:13 by nsaraiva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,14 +73,14 @@ void displayImage(t_map *map, t_data data)
 				p2 = ft_transformation(map->matrix[i][j + 1]);
 				p2.x = p2.x * data.sx + data.offset_x;
 				p2.y = p2.y * data.sy + data.offset_y;
-				drawLine(p1, p2, &data);
+				draw_line(p1, p2, &data);
 			}
 			if (i != map->height - 1)
 			{
 				p2 = ft_transformation(map->matrix[i + 1][j]);
 				p2.x = p2.x * data.sx + data.offset_x;
 				p2.y = p2.y * data.sy + data.offset_y;
-				drawLine(p1, p2, &data);
+				draw_line(p1, p2, &data);
 			}
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 15:51:47 by nsaraiva          #+#    #+#             */
-/*   Updated: 2025/07/18 15:54:35 by nsaraiva         ###   ########.fr       */
+/*   Updated: 2025/07/18 16:03:47 by nsaraiva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,20 @@
 static void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
 	char	*dst;
-	const int	val = y * data->line_length + x * (data->bits_per_pixel / 8);
+	int		val;
 
+	val = y * data->line_length + x * (data->bits_per_pixel / 8);
 	if (val < 0 || x >= WIDTH || y >= HEIGHT || x < 0 || y < 0)
 		return ;
 	dst = data->addr + val;
-	*(unsigned int*)dst = color;
+	*(unsigned int *) dst = color;
 }
 
-static void	drawLineH(t_2d p1, t_data *data, t_2d diff, int dir)
+static void	draw_line_h(t_2d p1, t_data *data, t_2d diff, int dir)
 {
 	int	y;
-	int i;
-	int p;
+	int	i;
+	int	p;
 
 	i = 0;
 	y = 0;
@@ -35,22 +36,22 @@ static void	drawLineH(t_2d p1, t_data *data, t_2d diff, int dir)
 	if (diff.x != 0)
 	{
 		y = p1.y;
-		p = 2*diff.y - diff.x;
+		p = 2 * diff.y - diff.x;
 		while (i < diff.x)
 		{
 			my_mlx_pixel_put(data, p1.x + i, y, COLOR);
 			if (p > 0)
 			{
 				y += dir;
-				p -= 2*diff.x;
+				p -= 2 * diff.x;
 			}
-			p += 2*fabs(diff.y);
+			p += 2 * fabs(diff.y);
 			i++;
 		}
 	}
 }
 
-static void	drawLineV(t_2d p1, t_data *data, t_2d diff, int dir)
+static void	draw_line_v(t_2d p1, t_data *data, t_2d diff, int dir)
 {
 	int	x;
 	int	i;
@@ -62,22 +63,22 @@ static void	drawLineV(t_2d p1, t_data *data, t_2d diff, int dir)
 	if (diff.x != 0)
 	{
 		x = p1.x;
-		p = 2*diff.x - diff.y;
+		p = 2 * diff.x - diff.y;
 		while (i < diff.y)
 		{
 			my_mlx_pixel_put(data, x, p1.y + i, COLOR);
 			if (p > 0)
 			{
 				x += dir;
-				p = p - 2*diff.y;
+				p = p - 2 * diff.y;
 			}
-			p = p + 2*fabs(diff.x);
+			p = p + 2 * fabs(diff.x);
 			i++;
 		}
 	}
 }
 
-void	drawLine(t_2d p1, t_2d p2, t_data *data)
+void	draw_line(t_2d p1, t_2d p2, t_data *data)
 {
 	int		dir;
 	int		condition;
@@ -97,7 +98,7 @@ void	drawLine(t_2d p1, t_2d p2, t_data *data)
 	if ((diff.y < 0 && condition) || (diff.x < 0 && !condition))
 		dir = -1;
 	if (condition)
-		drawLineH(p1, data, diff, dir);
+		draw_line_h(p1, data, diff, dir);
 	else
-		drawLineV(p1, data, diff, dir);
+		draw_line_v(p1, data, diff, dir);
 }
