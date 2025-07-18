@@ -6,7 +6,7 @@
 /*   By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 16:19:00 by nsaraiva          #+#    #+#             */
-/*   Updated: 2025/07/18 16:29:36 by nsaraiva         ###   ########.fr       */
+/*   Updated: 2025/07/18 18:21:36 by nsaraiva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,40 +53,6 @@ static int	screen_init(t_data *data, t_map *map)
 	return (1);
 }
 
-void displayImage(t_map *map, t_data data)
-{
-	int	i = -1;
-	int j = -1;
-	t_2d p1;
-	t_2d p2;
-
-	while (++i < map->height)
-	{
-		j = 0;
-		while (++j < map->width)
-		{
-			p1 = ft_transformation(map->matrix[i][j]);
-			p1.x = p1.x * data.sx + data.offset_x;
-			p1.y = p1.y * data.sy + data.offset_y;
-			if (j != map->width - 1)
-			{
-				p2 = ft_transformation(map->matrix[i][j + 1]);
-				p2.x = p2.x * data.sx + data.offset_x;
-				p2.y = p2.y * data.sy + data.offset_y;
-				draw_line(p1, p2, &data);
-			}
-			if (i != map->height - 1)
-			{
-				p2 = ft_transformation(map->matrix[i + 1][j]);
-				p2.x = p2.x * data.sx + data.offset_x;
-				p2.y = p2.y * data.sy + data.offset_y;
-				draw_line(p1, p2, &data);
-			}
-		}
-	}
-	mlx_put_image_to_window(data.init, data.display, data.img, 0, 0);
-}
-
 int	mouse_hook(int keycode, int x, int y, t_data *data)
 {
 	if (keycode == 4 || x == 1 || y == 2)
@@ -95,60 +61,16 @@ int	mouse_hook(int keycode, int x, int y, t_data *data)
 		data->sx *= 1.1;
 		data->sy *= 1.1;
 		ft_bzero(data->addr, 1 + WIDTH * HEIGHT * sizeof(int));
-		displayImage(data->map, *data);
+		display_image(data->map, *data);
 	}
 	if (keycode == 5 || x == 1 || y == 2)
 	{
 		data->sx *= 0.9;
 		data->sy *= 0.9;
 		ft_bzero(data->addr, 1 + WIDTH * HEIGHT * sizeof(int));
-		displayImage(data->map, *data);
+		display_image(data->map, *data);
 	}
 		printf("Hello from key_hook!{%d} - \n", keycode);
-	return (0);
-}
-
-int	my_close(int keycode, t_data *data)
-{
-	if (keycode == 65307)
-		mlx_loop_end(data->init);
-	if (keycode == KEY_A || keycode == KEY_LEFT)
-	{
-		data->offset_x -= 20;
-		ft_bzero(data->addr, WIDTH * HEIGHT * sizeof(int));
-		displayImage(data->map, *data);
-	}
-	if (keycode == KEY_W || keycode == KEY_UP)
-	{
-		data->offset_y -= 20;
-		ft_bzero(data->addr, WIDTH * HEIGHT * sizeof(int));
-		displayImage(data->map, *data);
-	}
-	if (keycode == KEY_D || keycode == KEY_RIGHT)
-	{
-		data->offset_x += 20;
-		ft_bzero(data->addr, WIDTH * HEIGHT * sizeof(int));
-		displayImage(data->map, *data);
-	}
-	if (keycode == KEY_S || keycode == KEY_DOWN)
-	{
-		data->offset_y += 20;
-		ft_bzero(data->addr, WIDTH * HEIGHT * sizeof(int));
-		displayImage(data->map, *data);
-	}
-	if (keycode == 113)
-	{
-		ft_rotate(data, rotate_z, -2.0 * M_PI / 180);
-		ft_bzero(data->addr, WIDTH * HEIGHT * sizeof(int));
-		displayImage(data->map, *data);
-	}
-	if (keycode == 101)
-	{
-		ft_rotate(data, rotate_z, +2.0 * M_PI / 180);
-		ft_bzero(data->addr, WIDTH * HEIGHT * sizeof(int));
-		displayImage(data->map, *data);
-	}
-	printf("%d \n", keycode);
 	return (0);
 }
 
@@ -163,8 +85,8 @@ int	main(int argc, char *argv[])
 		return (0);
 
 
-	displayImage(map, data);
-	mlx_hook(data.display, 2, 1L<<0, my_close, &data);
+	display_image(map, data);
+	mlx_hook(data.display, 2, 1L<<0, key_hook, &data);
 	mlx_mouse_hook(data.display, mouse_hook, &data);
 	mlx_loop(data.init);
 	mlx_destroy_image(data.init, data.img);

@@ -1,0 +1,40 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_hook.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/18 17:45:43 by nsaraiva          #+#    #+#             */
+/*   Updated: 2025/07/18 18:21:48 by nsaraiva         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "fdf.h"
+
+static void	ft_translation(t_data *data, double *direction, int move)
+{
+	*direction += move;
+	ft_bzero(data->addr, WIDTH * HEIGHT * sizeof(int));
+	display_image(data->map, *data);
+}
+
+int	key_hook(int keycode, t_data *data)
+{
+	if (keycode == 65307)
+		mlx_loop_end(data->init);
+	if (keycode == KEY_A || keycode == KEY_LEFT)
+		ft_translation(data, &data->offset_x, -20);
+	if (keycode == KEY_W || keycode == KEY_UP)
+		ft_translation(data, &data->offset_y, -20);
+	if (keycode == KEY_D || keycode == KEY_RIGHT)
+		ft_translation(data, &data->offset_x, 20);
+	if (keycode == KEY_S || keycode == KEY_DOWN)
+		ft_translation(data, &data->offset_y, 20);
+	if (keycode == 113)
+		ft_rotate(data, rotate_z, -2.0 * M_PI / 180);
+	if (keycode == 101)
+		ft_rotate(data, rotate_z, +2.0 * M_PI / 180);
+	printf("%d \n", keycode);
+	return (0);
+}
