@@ -6,23 +6,11 @@
 /*   By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 15:51:47 by nsaraiva          #+#    #+#             */
-/*   Updated: 2025/07/18 16:03:47 by nsaraiva         ###   ########.fr       */
+/*   Updated: 2025/07/20 17:52:20 by nsaraiva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-static void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
-{
-	char	*dst;
-	int		val;
-
-	val = y * data->line_length + x * (data->bits_per_pixel / 8);
-	if (val < 0 || x >= WIDTH || y >= HEIGHT || x < 0 || y < 0)
-		return ;
-	dst = data->addr + val;
-	*(unsigned int *) dst = color;
-}
 
 static void	draw_line_h(t_2d p1, t_data *data, t_2d diff, int dir)
 {
@@ -39,7 +27,7 @@ static void	draw_line_h(t_2d p1, t_data *data, t_2d diff, int dir)
 		p = 2 * diff.y - diff.x;
 		while (i < diff.x)
 		{
-			my_mlx_pixel_put(data, p1.x + i, y, COLOR);
+			my_mlx_pixel_put(data, p1.x + i, y, p1.color);
 			if (p > 0)
 			{
 				y += dir;
@@ -66,7 +54,7 @@ static void	draw_line_v(t_2d p1, t_data *data, t_2d diff, int dir)
 		p = 2 * diff.x - diff.y;
 		while (i < diff.y)
 		{
-			my_mlx_pixel_put(data, x, p1.y + i, COLOR);
+			my_mlx_pixel_put(data, x, p1.y + i, p1.color);
 			if (p > 0)
 			{
 				x += dir;

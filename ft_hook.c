@@ -6,7 +6,7 @@
 /*   By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 17:45:43 by nsaraiva          #+#    #+#             */
-/*   Updated: 2025/07/18 18:21:48 by nsaraiva         ###   ########.fr       */
+/*   Updated: 2025/07/20 20:58:20 by nsaraiva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	ft_translation(t_data *data, double *direction, int move)
 	display_image(data->map, *data);
 }
 
-int	key_hook(int keycode, t_data *data)
+static void ft_translation_events(int keycode, t_data *data)
 {
 	if (keycode == 65307)
 		mlx_loop_end(data->init);
@@ -31,10 +31,28 @@ int	key_hook(int keycode, t_data *data)
 		ft_translation(data, &data->offset_x, 20);
 	if (keycode == KEY_S || keycode == KEY_DOWN)
 		ft_translation(data, &data->offset_y, 20);
+}
+
+static void	ft_rotation_events(int keycode, t_data *data)
+{
 	if (keycode == 113)
 		ft_rotate(data, rotate_z, -2.0 * M_PI / 180);
 	if (keycode == 101)
 		ft_rotate(data, rotate_z, +2.0 * M_PI / 180);
+	if (keycode == 49)
+		ft_rotate(data, rotate_y, +2.0 * M_PI / 180);
+	if (keycode == 50)
+		ft_rotate(data, rotate_y, -2.0 * M_PI / 180);
+	if (keycode == 51)
+		ft_rotate(data, rotate_x, +2.0 * M_PI / 180);
+	if (keycode == 52)
+		ft_rotate(data, rotate_x, -2.0 * M_PI / 180);
+}
+
+int	key_hook(int keycode, t_data *data)
+{
+	ft_translation_events(keycode, data);
+	ft_rotation_events(keycode, data);
 	printf("%d \n", keycode);
 	return (0);
 }

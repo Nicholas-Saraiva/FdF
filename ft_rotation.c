@@ -6,7 +6,7 @@
 /*   By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 20:38:51 by nsaraiva          #+#    #+#             */
-/*   Updated: 2025/07/18 18:16:50 by nsaraiva         ###   ########.fr       */
+/*   Updated: 2025/07/20 20:34:53 by nsaraiva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ t_3d	rotate_x(t_3d matrix1d, const double angle)
 	result.x = matrix1d.x;
 	result.y = matrix1d.y * cos(angle) - matrix1d.z * sin(angle);
 	result.z = matrix1d.y * sin(angle) + matrix1d.z * cos(angle);
+	result.color = matrix1d.color;
 	return (result);
 }
 
@@ -29,6 +30,7 @@ t_3d	rotate_y(t_3d matrix1d, const double angle)
 	result.x = matrix1d.x * cos(angle) + matrix1d.z * sin(angle);
 	result.y = matrix1d.y;
 	result.z = -matrix1d.x * sin(angle) + matrix1d.z * cos(angle);
+	result.color = matrix1d.color;
 	return (result);
 }
 
@@ -39,6 +41,7 @@ t_3d	rotate_z(t_3d matrix1d, const double angle)
 	result.x = matrix1d.x * cos(angle) - matrix1d.y * sin(angle);
 	result.y = matrix1d.x * sin(angle) + matrix1d.y * cos(angle);
 	result.z = matrix1d.z;
+	result.color = matrix1d.color;
 	return (result);
 }
 
@@ -57,6 +60,7 @@ void	ft_rotate(t_data *data, t_3d (*rotate)(t_3d, double), double angle)
 			translated = rotate(subtrate_3d_points(data->map->matrix[i][j],
 						data->map->center), angle);
 			translated = sum_3d_points(translated, data->map->center);
+			translated.color = data->map->matrix[i][j].color;
 			data->map->matrix[i][j] = translated;
 		}
 	}

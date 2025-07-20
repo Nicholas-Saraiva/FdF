@@ -6,11 +6,11 @@
 #    By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/02 10:23:27 by nsaraiva          #+#    #+#              #
-#    Updated: 2025/07/18 18:17:01 by nsaraiva         ###   ########.fr        #
+#    Updated: 2025/07/20 17:15:52 by nsaraiva         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRC = fdf.c fdf_map.c ft_math.c fdf_utils.c ft_rotation.c ft_bresenham.c ft_hook.c ft_display_image.c 
+SRC = fdf.c fdf_map.c ft_math.c fdf_utils.c ft_rotation.c ft_bresenham.c ft_hook.c ft_display_image.c ft_atoi_base.c
 OBJ =  $(SRC:.c=.o)
 
 LIBFT = libft/

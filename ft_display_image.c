@@ -6,7 +6,7 @@
 /*   By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 17:59:32 by nsaraiva          #+#    #+#             */
-/*   Updated: 2025/07/18 18:24:19 by nsaraiva         ###   ########.fr       */
+/*   Updated: 2025/07/20 17:40:43 by nsaraiva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static t_2d	scale_transform(t_3d point2d, t_data data)
 	result = ft_transformation(point2d);
 	result.x = result.x * data.sx + data.offset_x;
 	result.y = result.y * data.sy + data.offset_y;
+	result.color = point2d.color;
 	return (result);
 }
 

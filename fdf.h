@@ -6,7 +6,7 @@
 /*   By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/06 22:07:21 by nsaraiva          #+#    #+#             */
-/*   Updated: 2025/07/18 18:16:26 by nsaraiva         ###   ########.fr       */
+/*   Updated: 2025/07/20 17:25:39 by nsaraiva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,17 @@
 
 typedef struct s_2d
 {
-	double	x;
-	double	y;
+	double			x;
+	double			y;
+	unsigned int	color;
 }	t_2d;
 
 typedef struct s_3d
 {
-	double	x;
-	double	y;
-	double	z;
+	double			x;
+	double			y;
+	double			z;
+	unsigned int	color;
 }	t_3d;
 
 typedef struct s_map
@@ -78,25 +80,27 @@ typedef struct s_data
 	double	offset_y;
 }	t_data;
 
-char	**ft_split(char const *s, char c);
-char	*get_next_line(int fd, char **str);
-int		ft_printf(const char *fstring, ...);
-int		fill_map(char *argv, t_map *map);
-int		key_hook(int keycode, t_data *data);
-t_2d	ft_transformation(t_3d matrix1d);
-void	free_map(t_map *map);
-void	free_matrix(double ***matrix, const int dim);
-void	find_min(t_map *map, t_3d value);
-void	ft_error(const char *msg);
-void	ft_rotate(t_data *map, t_3d (*rotate)(t_3d, double), double angle);
-void	draw_line(t_2d p1, t_2d p2, t_data *data);
-void	display_image(t_map *map, t_data data);
-double	*ft_multMatrix3dto1d(double *leftMatrix[], double *rightMatrix);
-double	**ft_multMatrix3d(double *leftMatrix[], double *rightMatrix[]);
-double	**initMatrix(void);
-t_3d	rotate_x(t_3d matrix1d, const double angle);
-t_3d	rotate_y(t_3d matrix1d, const double angle);
-t_3d	rotate_z(t_3d matrix1d, const double angle);
-t_3d	sum_3d_points(t_3d point1, t_3d point2);
-t_3d	subtrate_3d_points(t_3d point1, t_3d point2);
+unsigned int	ft_atoi_base(const char *nptr, int base);
+int				ft_printf(const char *fstring, ...);
+int				fill_map(char *argv, t_map *map);
+int				key_hook(int keycode, t_data *data);
+char			**ft_split(char const *s, char c);
+char			*get_next_line(int fd, char **str);
+t_2d			ft_transformation(t_3d matrix1d);
+void			free_map(t_map *map);
+void			free_matrix(double ***matrix, const int dim);
+void			find_min(t_map *map, t_3d value);
+void			ft_error(const char *msg);
+void			ft_rotate(t_data *map, t_3d (*rotate)(t_3d, double), double angle);
+void			draw_line(t_2d p1, t_2d p2, t_data *data);
+void			display_image(t_map *map, t_data data);
+void			my_mlx_pixel_put(t_data *data, int x, int y, int color);
+double			*ft_multMatrix3dto1d(double *leftMatrix[], double *rightMatrix);
+double			**ft_multMatrix3d(double *leftMatrix[], double *rightMatrix[]);
+double			**initMatrix(void);
+t_3d			rotate_x(t_3d matrix1d, const double angle);
+t_3d			rotate_y(t_3d matrix1d, const double angle);
+t_3d			rotate_z(t_3d matrix1d, const double angle);
+t_3d			sum_3d_points(t_3d point1, t_3d point2);
+t_3d			subtrate_3d_points(t_3d point1, t_3d point2);
 #endif
