@@ -6,7 +6,7 @@
 /*   By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 17:45:43 by nsaraiva          #+#    #+#             */
-/*   Updated: 2025/07/20 20:58:20 by nsaraiva         ###   ########.fr       */
+/*   Updated: 2025/07/21 18:29:00 by nsaraiva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,35 @@ static void	ft_rotation_events(int keycode, t_data *data)
 
 int	key_hook(int keycode, t_data *data)
 {
+	static int	type;
+
+	if (!type)
+		type = 0;
 	ft_translation_events(keycode, data);
 	ft_rotation_events(keycode, data);
+	if (keycode == 114)
+	{
+		if (type == 0)
+		{
+			ft_rotate(data, rotate_x, -atan(sqrt(2)));
+			ft_rotate(data, rotate_z, -45 * M_PI / 180);
+			ft_rotate(data, rotate_x, 45 * M_PI / 180);
+			ft_rotate(data, rotate_y, -45 * M_PI / 180);
+			type++;
+		}
+		else if (type == 1) {
+
+			ft_rotate(data, rotate_y, 45 * M_PI / 180);
+			ft_rotate(data, rotate_x, -45 * M_PI / 180);
+			type++;
+		}
+		else
+		{
+			ft_rotate(data, rotate_z, 45 * M_PI / 180);
+			ft_rotate(data, rotate_x, atan(sqrt(2)));
+			type = 0;
+		}
+	}
 	printf("%d \n", keycode);
 	return (0);
 }
