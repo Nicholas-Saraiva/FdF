@@ -6,7 +6,7 @@
 /*   By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/06 22:07:21 by nsaraiva          #+#    #+#             */
-/*   Updated: 2025/07/20 17:25:39 by nsaraiva         ###   ########.fr       */
+/*   Updated: 2025/07/21 19:43:04 by nsaraiva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ typedef struct s_map
 	double	max_y;
 	double	min_x;
 	double	min_y;
+	void	*projection;
 }	t_map;
 
 typedef struct s_data
@@ -70,6 +71,7 @@ typedef struct s_data
 	void	*init;
 	void	*display;
 	void	*img;
+	void	*projection;
 	char	*addr;
 	int		bits_per_pixel;
 	int		line_length;
@@ -86,7 +88,7 @@ int				fill_map(char *argv, t_map *map);
 int				key_hook(int keycode, t_data *data);
 char			**ft_split(char const *s, char c);
 char			*get_next_line(int fd, char **str);
-t_2d			ft_transformation(t_3d matrix1d);
+t_2d			ft_transformation(t_3d matrix1d, void *projection);
 void			free_map(t_map *map);
 void			free_matrix(double ***matrix, const int dim);
 void			find_min(t_map *map, t_3d value);
@@ -103,4 +105,5 @@ t_3d			rotate_y(t_3d matrix1d, const double angle);
 t_3d			rotate_z(t_3d matrix1d, const double angle);
 t_3d			sum_3d_points(t_3d point1, t_3d point2);
 t_3d			subtrate_3d_points(t_3d point1, t_3d point2);
+t_3d			ft_isometric(t_3d matrix1d);
 #endif
