@@ -6,7 +6,7 @@
 /*   By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/06 22:07:21 by nsaraiva          #+#    #+#             */
-/*   Updated: 2025/07/21 19:43:04 by nsaraiva         ###   ########.fr       */
+/*   Updated: 2025/07/22 12:36:43 by nsaraiva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ typedef struct s_map
 	double	max_y;
 	double	min_x;
 	double	min_y;
-	void	*projection;
+	t_3d	(*projection)(t_3d);
 }	t_map;
 
 typedef struct s_data
@@ -71,7 +71,7 @@ typedef struct s_data
 	void	*init;
 	void	*display;
 	void	*img;
-	void	*projection;
+	t_3d	(*projection)(t_3d);
 	char	*addr;
 	int		bits_per_pixel;
 	int		line_length;

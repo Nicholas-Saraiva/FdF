@@ -6,7 +6,7 @@
 /*   By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 16:19:00 by nsaraiva          #+#    #+#             */
-/*   Updated: 2025/07/21 19:44:39 by nsaraiva         ###   ########.fr       */
+/*   Updated: 2025/07/22 12:38:42 by nsaraiva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ static int	map_init(t_map **map, char *argv[])
 	(*map)->min_x = DBL_MAX;
 	(*map)->min_y = DBL_MAX;
 	(*map)->max_y = DBL_MIN;
+	(*map)->projection = ft_isometric;
 	if (!fill_map(argv[1], *map))
 		return (0);
 	(*map)->center = (*map)->matrix[(*map)->height / 2][(*map)->width / 2];
@@ -50,8 +51,7 @@ static int	screen_init(t_data *data, t_map *map)
 	data->offset_x = (double) (WIDTH * 1 / 6 - map->min_x * data->sx); 
 	data->offset_y = (double) (HEIGHT * 1 / 6 - map->min_y * data->sy);
 	data->map = map;
-	data->projection = ft_isometric;
-	map->projection = data->projection;
+	data->projection = map->projection;
 	return (1);
 }
 
