@@ -6,7 +6,7 @@
 /*   By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 16:19:00 by nsaraiva          #+#    #+#             */
-/*   Updated: 2025/07/22 12:38:42 by nsaraiva         ###   ########.fr       */
+/*   Updated: 2025/07/22 16:01:21 by nsaraiva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,13 @@ int	mouse_hook(int keycode, int x, int y, t_data *data)
 	return (0);
 }
 
+int	render(t_data *data)
+{
+	display_image(data->map, *data);
+	mlx_loop(data->init);
+	return (0);
+}
+
 int	main(int argc, char *argv[])
 {
 	t_data	data;
@@ -87,10 +94,10 @@ int	main(int argc, char *argv[])
 		return (0);
 
 
-	display_image(map, data);
+	mlx_loop_hook(data.init, render, &data);
 	mlx_hook(data.display, 2, 1L<<0, key_hook, &data);
 	mlx_mouse_hook(data.display, mouse_hook, &data);
-	mlx_loop(data.init);
+	render(&data);
 	mlx_destroy_image(data.init, data.img);
 	mlx_destroy_window(data.init, data.display);
 	free_map(map);

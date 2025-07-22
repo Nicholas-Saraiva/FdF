@@ -6,7 +6,7 @@
 /*   By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/06 22:07:21 by nsaraiva          #+#    #+#             */
-/*   Updated: 2025/07/22 12:36:43 by nsaraiva         ###   ########.fr       */
+/*   Updated: 2025/07/22 15:48:26 by nsaraiva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,9 +100,9 @@ void			my_mlx_pixel_put(t_data *data, int x, int y, int color);
 double			*ft_multMatrix3dto1d(double *leftMatrix[], double *rightMatrix);
 double			**ft_multMatrix3d(double *leftMatrix[], double *rightMatrix[]);
 double			**initMatrix(void);
-t_3d			rotate_x(t_3d matrix1d, const double angle);
-t_3d			rotate_y(t_3d matrix1d, const double angle);
-t_3d			rotate_z(t_3d matrix1d, const double angle);
+t_3d			rotate_x(t_3d , const double );
+t_3d			rotate_y(t_3d , const double );
+t_3d			rotate_z(t_3d , const double );
 t_3d			sum_3d_points(t_3d point1, t_3d point2);
 t_3d			subtrate_3d_points(t_3d point1, t_3d point2);
 t_3d			ft_isometric(t_3d matrix1d);
