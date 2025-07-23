@@ -6,7 +6,7 @@
 /*   By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 20:38:51 by nsaraiva          #+#    #+#             */
-/*   Updated: 2025/07/20 20:34:53 by nsaraiva         ###   ########.fr       */
+/*   Updated: 2025/07/23 12:06:49 by nsaraiva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,5 +65,4 @@ void	ft_rotate(t_data *data, t_3d (*rotate)(t_3d, double), double angle)
 		}
 	}
 	ft_bzero(data->addr, WIDTH * HEIGHT * sizeof(int));
-	display_image(data->map, *data);
 }

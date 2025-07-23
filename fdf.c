@@ -6,7 +6,7 @@
 /*   By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 16:19:00 by nsaraiva          #+#    #+#             */
-/*   Updated: 2025/07/22 16:01:21 by nsaraiva         ###   ########.fr       */
+/*   Updated: 2025/07/23 12:08:28 by nsaraiva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,14 +63,12 @@ int	mouse_hook(int keycode, int x, int y, t_data *data)
 		data->sx *= 1.1;
 		data->sy *= 1.1;
 		ft_bzero(data->addr, 1 + WIDTH * HEIGHT * sizeof(int));
-		display_image(data->map, *data);
 	}
 	if (keycode == 5 || x == 1 || y == 2)
 	{
 		data->sx *= 0.9;
 		data->sy *= 0.9;
 		ft_bzero(data->addr, 1 + WIDTH * HEIGHT * sizeof(int));
-		display_image(data->map, *data);
 	}
 		printf("Hello from key_hook!{%d} - \n", keycode);
 	return (0);
