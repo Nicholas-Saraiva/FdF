@@ -6,7 +6,7 @@
 /*   By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 16:19:00 by nsaraiva          #+#    #+#             */
-/*   Updated: 2025/07/23 12:08:28 by nsaraiva         ###   ########.fr       */
+/*   Updated: 2025/07/23 12:26:02 by nsaraiva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,9 @@ static int	map_init(t_map **map, char *argv[])
 	(*map)->min_x = DBL_MAX;
 	(*map)->min_y = DBL_MAX;
 	(*map)->max_y = DBL_MIN;
+	(*map)->rotation.x = 0;
+	(*map)->rotation.y = 0;
+	(*map)->rotation.z = 0;
 	(*map)->projection = ft_isometric;
 	if (!fill_map(argv[1], *map))
 		return (0);

@@ -6,7 +6,7 @@
 /*   By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/06 22:07:21 by nsaraiva          #+#    #+#             */
-/*   Updated: 2025/07/22 15:48:26 by nsaraiva         ###   ########.fr       */
+/*   Updated: 2025/07/23 14:21:30 by nsaraiva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,17 +52,25 @@ typedef struct s_3d
 	unsigned int	color;
 }	t_3d;
 
+typedef struct s_rotation
+{
+	int	x;
+	int	y;
+	int	z;
+}	t_rotation;
+
 typedef struct s_map
 {
-	int		width;
-	int		height;
-	t_3d	**matrix;
-	t_3d	center;
-	double	max_x;
-	double	max_y;
-	double	min_x;
-	double	min_y;
-	t_3d	(*projection)(t_3d);
+	int			width;
+	int			height;
+	t_3d		**matrix;
+	t_3d		center;
+	t_3d		(*projection)(t_3d);
+	t_rotation	rotation;
+	double		max_x;
+	double		max_y;
+	double		min_x;
+	double		min_y;
 }	t_map;
 
 typedef struct s_data
