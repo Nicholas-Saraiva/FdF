@@ -6,7 +6,7 @@
 /*   By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 15:25:59 by nsaraiva          #+#    #+#             */
-/*   Updated: 2025/07/20 20:27:48 by nsaraiva         ###   ########.fr       */
+/*   Updated: 2025/07/25 16:20:20 by nsaraiva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,17 +76,23 @@ static t_3d newPoint3d(int x, int y, int z)
 	return (point);
 }
 
-static unsigned int	get_color(char *split)
+static unsigned int	get_color(char *split, int z)
 {
 	unsigned int	color;
 
-	color = COLOR;
+	color = 0;
 	while (*split && *split != ',')
 		split++;
 	if (*split == ',')
 	{
 		split++;
 		color = ft_atoi_base(split, 16);
+	}
+	if (color == 0)
+	{
+		color = COLOR;
+		if (z != 0)
+			color *= (int) z + 1;
 	}
 	return (color);
 
@@ -104,7 +110,7 @@ static t_3d	*construct_map(char **split, t_map *map, int x)
 	while (split[++i] && i < map->width)
 	{
 		values[i] = newPoint3d(i, x, ft_atoi(split[i]));
-		values[i].color = get_color(split[i]);
+		values[i].color = get_color(split[i], values[i].z);
 		find_min(map, values[i]);
 		free(split[i]);
 	}

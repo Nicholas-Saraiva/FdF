@@ -6,7 +6,7 @@
 /*   By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 15:51:47 by nsaraiva          #+#    #+#             */
-/*   Updated: 2025/07/25 14:19:33 by nsaraiva         ###   ########.fr       */
+/*   Updated: 2025/07/25 16:16:23 by nsaraiva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ void	draw_line(t_2d p1, t_2d p2, t_data *data)
 		p1 = p2;
 		p2 = p3;
 	}
+	p1.color = round((p1.color + p2.color) / 2);
 	diff.x = p2.x - p1.x;
 	diff.y = p2.y - p1.y;
 	dir = 1;
