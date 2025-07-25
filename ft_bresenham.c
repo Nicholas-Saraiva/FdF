@@ -6,7 +6,7 @@
 /*   By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 15:51:47 by nsaraiva          #+#    #+#             */
-/*   Updated: 2025/07/20 17:52:20 by nsaraiva         ###   ########.fr       */
+/*   Updated: 2025/07/25 14:19:33 by nsaraiva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	draw_line_h(t_2d p1, t_data *data, t_2d diff, int dir)
 	i = 0;
 	y = 0;
 	p = 0;
-	if (diff.x != 0)
+	if (diff.x >= 0)
 	{
 		y = p1.y;
 		p = 2 * diff.y - diff.x;
@@ -48,7 +48,7 @@ static void	draw_line_v(t_2d p1, t_data *data, t_2d diff, int dir)
 	i = 0;
 	x = 0;
 	p = 0;
-	if (diff.x != 0)
+	if (diff.y >= 0)
 	{
 		x = p1.x;
 		p = 2 * diff.x - diff.y;

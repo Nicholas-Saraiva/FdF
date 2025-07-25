@@ -6,7 +6,7 @@
 /*   By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 16:19:00 by nsaraiva          #+#    #+#             */
-/*   Updated: 2025/07/23 12:26:02 by nsaraiva         ###   ########.fr       */
+/*   Updated: 2025/07/25 12:51:00 by nsaraiva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,16 +62,13 @@ int	mouse_hook(int keycode, int x, int y, t_data *data)
 {
 	if (keycode == 4 || x == 1 || y == 2)
 	{
-		
 		data->sx *= 1.1;
 		data->sy *= 1.1;
-		ft_bzero(data->addr, 1 + WIDTH * HEIGHT * sizeof(int));
 	}
 	if (keycode == 5 || x == 1 || y == 2)
 	{
 		data->sx *= 0.9;
 		data->sy *= 0.9;
-		ft_bzero(data->addr, 1 + WIDTH * HEIGHT * sizeof(int));
 	}
 		printf("Hello from key_hook!{%d} - \n", keycode);
 	return (0);
@@ -79,8 +76,10 @@ int	mouse_hook(int keycode, int x, int y, t_data *data)
 
 int	render(t_data *data)
 {
+	mlx_loop_hook(data->init, render, data);
+	mlx_hook(data->display, 2, 1L<<0, key_hook, data);
+	mlx_mouse_hook(data->display, mouse_hook, data);
 	display_image(data->map, *data);
-	mlx_loop(data->init);
 	return (0);
 }
 
@@ -95,10 +94,8 @@ int	main(int argc, char *argv[])
 		return (0);
 
 
-	mlx_loop_hook(data.init, render, &data);
-	mlx_hook(data.display, 2, 1L<<0, key_hook, &data);
-	mlx_mouse_hook(data.display, mouse_hook, &data);
 	render(&data);
+	mlx_loop(data.init);
 	mlx_destroy_image(data.init, data.img);
 	mlx_destroy_window(data.init, data.display);
 	free_map(map);

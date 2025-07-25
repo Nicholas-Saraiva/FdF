@@ -6,7 +6,7 @@
 /*   By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 20:38:51 by nsaraiva          #+#    #+#             */
-/*   Updated: 2025/07/23 12:06:49 by nsaraiva         ###   ########.fr       */
+/*   Updated: 2025/07/25 13:58:48 by nsaraiva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ t_3d	rotate_x(t_3d matrix1d, const double angle)
 	result.x = matrix1d.x;
 	result.y = matrix1d.y * cos(angle) - matrix1d.z * sin(angle);
 	result.z = matrix1d.y * sin(angle) + matrix1d.z * cos(angle);
-	result.color = matrix1d.color;
 	return (result);
 }
 
@@ -30,7 +29,6 @@ t_3d	rotate_y(t_3d matrix1d, const double angle)
 	result.x = matrix1d.x * cos(angle) + matrix1d.z * sin(angle);
 	result.y = matrix1d.y;
 	result.z = -matrix1d.x * sin(angle) + matrix1d.z * cos(angle);
-	result.color = matrix1d.color;
 	return (result);
 }
 
@@ -41,7 +39,6 @@ t_3d	rotate_z(t_3d matrix1d, const double angle)
 	result.x = matrix1d.x * cos(angle) - matrix1d.y * sin(angle);
 	result.y = matrix1d.x * sin(angle) + matrix1d.y * cos(angle);
 	result.z = matrix1d.z;
-	result.color = matrix1d.color;
 	return (result);
 }
 

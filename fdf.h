@@ -6,7 +6,7 @@
 /*   By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/06 22:07:21 by nsaraiva          #+#    #+#             */
-/*   Updated: 2025/07/23 14:21:30 by nsaraiva         ###   ########.fr       */
+/*   Updated: 2025/07/25 14:14:00 by nsaraiva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,9 +102,9 @@ void			free_matrix(double ***matrix, const int dim);
 void			find_min(t_map *map, t_3d value);
 void			ft_error(const char *msg);
 void			ft_rotate(t_data *map, t_3d (*rotate)(t_3d, double), double angle);
-void			draw_line(t_2d p1, t_2d p2, t_data *data);
+void			draw_line(t_2d start, t_2d end, t_data *data);
 void			display_image(t_map *map, t_data data);
-void			my_mlx_pixel_put(t_data *data, int x, int y, int color);
+void			my_mlx_pixel_put(t_data *data, double x, double y, unsigned int color);
 double			*ft_multMatrix3dto1d(double *leftMatrix[], double *rightMatrix);
 double			**ft_multMatrix3d(double *leftMatrix[], double *rightMatrix[]);
 double			**initMatrix(void);

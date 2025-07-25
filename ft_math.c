@@ -6,7 +6,7 @@
 /*   By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 14:58:22 by nsaraiva          #+#    #+#             */
-/*   Updated: 2025/07/21 19:42:38 by nsaraiva         ###   ########.fr       */
+/*   Updated: 2025/07/25 13:03:47 by nsaraiva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_3d	subtrate_3d_points(t_3d point1, t_3d point2)
 
 t_3d	ft_isometric(t_3d matrix1d)
 {
-	return (rotate_x(rotate_z(matrix1d, 45 * M_PI / 180), 
+	return (rotate_x(rotate_z(matrix1d, 45.0 * M_PI / 180.0), 
 				atan(sqrt(2))));
 }
 

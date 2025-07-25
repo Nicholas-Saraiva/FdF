@@ -6,7 +6,7 @@
 /*   By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 17:45:43 by nsaraiva          #+#    #+#             */
-/*   Updated: 2025/07/23 17:45:29 by nsaraiva         ###   ########.fr       */
+/*   Updated: 2025/07/24 17:27:02 by nsaraiva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 static void	ft_translation(t_data *data, double *direction, int move)
 {
 	*direction += move;
-	ft_bzero(data->addr, WIDTH * HEIGHT * sizeof(int));
 	display_image(data->map, *data);
 }
 
