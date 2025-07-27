@@ -6,7 +6,7 @@
 /*   By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 12:31:17 by nsaraiva          #+#    #+#             */
-/*   Updated: 2025/07/25 15:26:35 by nsaraiva         ###   ########.fr       */
+/*   Updated: 2025/07/20 15:50:20 by nsaraiva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,14 @@ void	ft_error(const char *msg)
 	exit(-1);
 }
 
-void	my_mlx_pixel_put(t_data *data, double x, double y, unsigned int color)
+void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
 	char	*dst;
 	int		val;
 
-	if (x >= WIDTH || y >= HEIGHT || x < 0 || y < 0)
+	val = y * data->line_length + x * (data->bits_per_pixel / 8);
+	if (val < 0 || x >= WIDTH || y >= HEIGHT || x < 0 || y < 0)
 		return ;
-	val = (int) round(y) * data->line_length +  (int) round(x) * (data->bits_per_pixel / 8);
 	dst = data->addr + val;
 	*(unsigned int *) dst = color;
 }

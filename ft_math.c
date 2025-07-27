@@ -6,7 +6,7 @@
 /*   By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 14:58:22 by nsaraiva          #+#    #+#             */
-/*   Updated: 2025/07/25 13:03:47 by nsaraiva         ###   ########.fr       */
+/*   Updated: 2025/07/27 19:03:53 by nsaraiva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,20 +34,16 @@ t_3d	subtrate_3d_points(t_3d point1, t_3d point2)
 
 t_3d	ft_isometric(t_3d matrix1d)
 {
-	return (rotate_x(rotate_z(matrix1d, 45.0 * M_PI / 180.0), 
+	return (rotate_x(rotate_z(matrix1d, 45 * M_PI / 180), 
 				atan(sqrt(2))));
 }
 
-t_2d	ft_transformation(t_3d matrix1d, void *projection)
+t_3d	ft_transformation(t_3d matrix1d, void *projection)
 {
-	t_2d	p;
 	t_3d	result;
 
 	result = ((t_3d (*)(t_3d))projection)(matrix1d);
-	//result = rotate_x(rotate_z(matrix1d, 45 * M_PI / 180), atan(sqrt(2)));
-	p.x = result.x;
-	p.y = result.y;
-	return (p);
+	return (result);
 }
 
 double	**init_matrix(void)
@@ -73,11 +69,8 @@ double	**init_matrix(void)
 
 void	find_min(t_map *map, t_3d value)
 {
-	t_2d	point2d;
-
-	point2d = ft_transformation(value, map->projection);
-	map->max_x = fmax(map->max_x, point2d.x);
-	map->min_x = fmin(map->min_x, point2d.x);
-	map->min_y = fmin(map->min_y, point2d.y);
-	map->max_y = fmax(map->max_y, point2d.y);
+	map->max_x = fmax(map->max_x, value.x);
+	map->min_x = fmin(map->min_x, value.x);
+	map->min_y = fmin(map->min_y, value.y);
+	map->max_y = fmax(map->max_y, value.y);
 }
