@@ -12,7 +12,7 @@
 
 #include "fdf.h"
 
-static void	draw_line_h(t_2d p1, t_data *data, t_2d diff, int dir)
+static void	draw_line_h(t_3d p1, t_data *data, t_3d diff, int dir)
 {
 	int	y;
 	int	i;
@@ -39,7 +39,7 @@ static void	draw_line_h(t_2d p1, t_data *data, t_2d diff, int dir)
 	}
 }
 
-static void	draw_line_v(t_2d p1, t_data *data, t_2d diff, int dir)
+static void	draw_line_v(t_3d p1, t_data *data, t_3d diff, int dir)
 {
 	int	x;
 	int	i;
@@ -66,12 +66,12 @@ static void	draw_line_v(t_2d p1, t_data *data, t_2d diff, int dir)
 	}
 }
 
-void	draw_line(t_2d p1, t_2d p2, t_data *data)
+void	draw_line(t_3d p1, t_3d p2, t_data *data)
 {
 	int		dir;
 	int		condition;
-	t_2d	diff;
-	t_2d	p3;
+	t_3d	diff;
+	t_3d	p3;
 
 	p3 = p1;
 	condition = fabs(p2.x - p1.x) > fabs(p2.y - p1.y);

@@ -35,15 +35,7 @@ t_3d	subtrate_3d_points(t_3d point1, t_3d point2)
 t_3d	ft_isometric(t_3d matrix1d)
 {
 	return (rotate_x(rotate_z(matrix1d, 45 * M_PI / 180), 
-				atan(sqrt(2))));
-}
-
-t_3d	ft_transformation(t_3d matrix1d, void *projection)
-{
-	t_3d	result;
-
-	result = ((t_3d (*)(t_3d))projection)(matrix1d);
-	return (result);
+				atan(1/sqrt(2))));
 }
 
 double	**init_matrix(void)
@@ -69,6 +61,8 @@ double	**init_matrix(void)
 
 void	find_min(t_map *map, t_3d value)
 {
+	value = map->projection(value);
+
 	map->max_x = fmax(map->max_x, value.x);
 	map->min_x = fmin(map->min_x, value.x);
 	map->min_y = fmin(map->min_y, value.y);

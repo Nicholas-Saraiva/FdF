@@ -6,13 +6,13 @@
 /*   By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 15:25:59 by nsaraiva          #+#    #+#             */
-/*   Updated: 2025/07/27 19:01:39 by nsaraiva         ###   ########.fr       */
+/*   Updated: 2025/07/29 11:09:40 by nsaraiva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static int	size_x(char *argv)
+static int	get_height(char *argv)
 {
 	char	*str;
 	int		y;
@@ -34,7 +34,7 @@ static int	size_x(char *argv)
 	return (y);
 }
 
-static int	size_y(char *argv)
+static int	get_width(char *argv)
 {
 	char	*str;
 	char	**split;
@@ -42,28 +42,19 @@ static int	size_y(char *argv)
 	int		fd;
 
 	str = 0;
-	x= 0;
 	split = 0;
+	x = -1;
 	fd = open(argv, O_RDONLY);
-	if (fd == -1)
-		return (0);
-	if (!get_next_line(fd, &str))
+	if (fd == -1 || !get_next_line(fd, &str))
 		return (0);
 	split = ft_split(str, ' ');
-	while (split[x])
-	{
+	while (split[++x])
 		free(split[x]);
-		x++;
-	}
-	free(split);
-	while (str)
-	{
+	while (get_next_line(fd, &str))
 		free(str);
-		get_next_line(fd, &str);
-	}
 	if (close(fd) == -1)
-		return (0);
-	return (x);
+		return (free(split), 0);
+	return (free(split), x);
 }
 
 static t_3d newPoint3d(int x, int y, int z)
@@ -89,7 +80,6 @@ static unsigned int	get_color(char *split)
 		color = ft_atoi_base(split, 16);
 	}
 	return (color);
-
 }
 
 static t_3d	*construct_map(char **split, t_map *map, int x)
@@ -104,7 +94,7 @@ static t_3d	*construct_map(char **split, t_map *map, int x)
 	while (split[++i] && i < map->width)
 	{
 		values[i] = newPoint3d(i, x, ft_atoi(split[i]));
-		values[i] = ft_transformation(values[i], map->projection);
+		//values[i] = ft_transformation(values[i], map->projection);
 		values[i].color = get_color(split[i]);
 		find_min(map, values[i]);
 		free(split[i]);
@@ -113,16 +103,16 @@ static t_3d	*construct_map(char **split, t_map *map, int x)
 		free(split[i++]);
 	free(split);
 	if (i < map->width)
-		return (0);
+		ft_error("Size Invalid");
 	return (values);
 }
 
 static int	init_map(t_map *map, char *argv)
 {
-	map->height = size_x(argv);
+	map->height = get_height(argv);
 	if (!map->height)
 		return (0);
-	map->width = size_y(argv);
+	map->width = get_width(argv);
 	if (!map->width)
 		return (0);
 	map->matrix = malloc(sizeof(t_3d *) * (map->height));

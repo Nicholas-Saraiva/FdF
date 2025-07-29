@@ -54,7 +54,6 @@ static int	screen_init(t_data *data, t_map *map)
 	data->offset_x = (double) (WIDTH * 1 / 6 - map->min_x * data->sx); 
 	data->offset_y = (double) (HEIGHT * 1 / 6 - map->min_y * data->sy);
 	data->map = map;
-	data->projection = map->projection;
 	return (1);
 }
 
@@ -79,7 +78,7 @@ int	mouse_hook(int keycode, int x, int y, t_data *data)
 
 int	render(t_data *data)
 {
-	display_image(data->map, *data);
+	display_image(data->map, data);
 	mlx_loop(data->init);
 	return (0);
 }

@@ -54,9 +54,9 @@ typedef struct s_3d
 
 typedef struct s_rotation
 {
-	int	x;
-	int	y;
-	int	z;
+	double	x;
+	double	y;
+	double	z;
 }	t_rotation;
 
 typedef struct s_map
@@ -79,7 +79,6 @@ typedef struct s_data
 	void	*init;
 	void	*display;
 	void	*img;
-	t_3d	(*projection)(t_3d);
 	char	*addr;
 	int		bits_per_pixel;
 	int		line_length;
@@ -101,13 +100,12 @@ void			free_matrix(double ***matrix, const int dim);
 void			find_min(t_map *map, t_3d value);
 void			ft_error(const char *msg);
 void			ft_rotate(t_data *map, t_3d (*rotate)(t_3d, double), double angle);
-void			draw_line(t_2d p1, t_2d p2, t_data *data);
-void			display_image(t_map *map, t_data data);
+void			draw_line(t_3d p1, t_3d p2, t_data *data);
+void			display_image(t_map *map, t_data *data);
 void			my_mlx_pixel_put(t_data *data, int x, int y, int color);
 double			*ft_multMatrix3dto1d(double *leftMatrix[], double *rightMatrix);
 double			**ft_multMatrix3d(double *leftMatrix[], double *rightMatrix[]);
 double			**initMatrix(void);
-t_3d			ft_transformation(t_3d matrix1d, void *projection);
 t_3d			rotate_x(t_3d , const double );
 t_3d			rotate_y(t_3d , const double );
 t_3d			rotate_z(t_3d , const double );

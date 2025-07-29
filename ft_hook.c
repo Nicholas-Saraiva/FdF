@@ -16,7 +16,7 @@ static void	ft_translation(t_data *data, double *direction, int move)
 {
 	*direction += move;
 	ft_bzero(data->addr, WIDTH * HEIGHT * sizeof(int));
-	display_image(data->map, *data);
+	display_image(data->map, data);
 }
 
 static void ft_translation_events(int keycode, t_data *data)
@@ -36,17 +36,19 @@ static void ft_translation_events(int keycode, t_data *data)
 static void	ft_rotation_events(int keycode, t_data *data)
 {
 	if (keycode == 113)
-		data->map->rotation.z = -1;
+		data->map->rotation.z += -2.0 * M_PI / 180.0;
 	if (keycode == 101)
-		data->map->rotation.z = 1;
+		data->map->rotation.z += 2.0 * M_PI / 180.0;
 	if (keycode == 49)
-		data->map->rotation.y = 1;
+		data->map->rotation.y += 2.0 * M_PI / 180.0;
 	if (keycode == 50)
-		data->map->rotation.y = -1;
+		data->map->rotation.y += -2.0 * M_PI / 180.0;
 	if (keycode == 51)
-		data->map->rotation.x = 1;
+		data->map->rotation.x += 2.0 * M_PI / 180.0;
 	if (keycode == 52)
-		data->map->rotation.x = -1;
+		data->map->rotation.x += -2.0 * M_PI / 180.0;
+	printf("\n%f\n", data->map->rotation.y);
+
 }
 
 int	key_hook(int keycode, t_data *data)
