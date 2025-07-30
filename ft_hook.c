@@ -6,7 +6,7 @@
 /*   By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 17:45:43 by nsaraiva          #+#    #+#             */
-/*   Updated: 2025/07/23 17:45:29 by nsaraiva         ###   ########.fr       */
+/*   Updated: 2025/07/30 12:12:05 by nsaraiva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,17 +36,17 @@ static void ft_translation_events(int keycode, t_data *data)
 static void	ft_rotation_events(int keycode, t_data *data)
 {
 	if (keycode == 113)
-		data->map->rotation.z += -1.0 * M_PI / 180.0;
+		data->map->rotation.z += -0.01;
 	if (keycode == 101)
-		data->map->rotation.z += 1.0 * M_PI / 180.0;
+		data->map->rotation.z += +0.01;
 	if (keycode == 49)
-		data->map->rotation.y += 1.0 * M_PI / 180.0;
+		data->map->rotation.y += +0.01;
 	if (keycode == 50)
-		data->map->rotation.y += -1.0 * M_PI / 180.0;
+		data->map->rotation.y += -0.01;
 	if (keycode == 51)
-		data->map->rotation.x += 1.0 * M_PI / 180.0;
+		data->map->rotation.x += +0.01;
 	if (keycode == 52)
-		data->map->rotation.x += -1.0 * M_PI / 180.0;
+		data->map->rotation.x += -0.01;
 	printf("\n%f\n", data->map->rotation.y);
 
 }

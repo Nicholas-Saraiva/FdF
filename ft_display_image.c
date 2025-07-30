@@ -6,7 +6,7 @@
 /*   By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 17:59:32 by nsaraiva          #+#    #+#             */
-/*   Updated: 2025/07/29 23:11:41 by nsaraiva         ###   ########.fr       */
+/*   Updated: 2025/07/30 17:28:33 by nsaraiva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static t_3d	ft_apply_rotation(t_data *data, t_3d point3d, double angle,
 				data->map->center), angle);
 	translated = sum_3d_points(translated, data->map->center);
 	translated.color = point3d.color;
-	return (translated);
+	return (rotate(point3d, angle));
 }
 
 static t_3d ft_find_rotation(t_data *data, t_3d point3d)
@@ -89,22 +89,17 @@ void	display_image(t_map *map, t_data *data)
 {
 	int		i;
 	int		j;
+	static double	x = 0;
 
 
 	ft_bzero(data->addr, 1 + WIDTH * HEIGHT * sizeof(int));
 	if (data->map->rotation.x || data->map->rotation.y || data->map->rotation.z)
 	{
 		apply_rotation(data);
-		printf("x: %f, %f \n" ,data->map->matrix[0][0].x, data->map->matrix[map->height - 1][0].x );
-		printf("y: %f, %f \n" ,data->map->matrix[0][0].y, data->map->matrix[map->height - 1][0].y );
-		printf("z: %f, %f \n" ,data->map->matrix[0][0].z, data->map->matrix[map->height - 1][0].z );
-		printf("-----------------=\n");
-		printf("x: %f, %f \n" ,data->map->matrix[0][map->width - 1].x, data->map->matrix[map->height - 1][map->width - 1].x );
-		printf("y: %f, %f \n" ,data->map->matrix[0][map->width - 1].y, data->map->matrix[map->height - 1][map->width - 1].y );
-		printf("z: %f, %f \n" ,data->map->matrix[0][map->width - 1].z, data->map->matrix[map->height - 1][map->width - 1].z );
+		x += data->map->rotation.y;
+		printf("x: %f\n", x);
 	}
-
-	if (data->map->matrix[0][0].x  - data->map->matrix[0][0].y <= data->map->matrix[0][0].y + data->map->matrix[0][0].z)
+	if (x >= -2.55 && x <= 0.50)
 	{
 		j = -1;
 		while (++j < map->width)
@@ -116,8 +111,8 @@ void	display_image(t_map *map, t_data *data)
 	}
 	else
 	{
-		j = map->width;
-		while (--j >= 0)
+		j = -1;
+		while (++j < map->width)
 		{
 			i = map->height;
 			while (--i >= 0)
