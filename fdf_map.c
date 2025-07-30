@@ -6,7 +6,7 @@
 /*   By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 15:25:59 by nsaraiva          #+#    #+#             */
-/*   Updated: 2025/07/29 11:09:40 by nsaraiva         ###   ########.fr       */
+/*   Updated: 2025/07/29 22:45:47 by nsaraiva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ static t_3d	*construct_map(char **split, t_map *map, int x)
 	while (split[++i] && i < map->width)
 	{
 		values[i] = newPoint3d(i, x, ft_atoi(split[i]));
-		//values[i] = ft_transformation(values[i], map->projection);
+		values[i] = map->projection(values[i]);
 		values[i].color = get_color(split[i]);
 		find_min(map, values[i]);
 		free(split[i]);

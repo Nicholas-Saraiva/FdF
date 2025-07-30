@@ -6,7 +6,7 @@
 /*   By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 14:58:22 by nsaraiva          #+#    #+#             */
-/*   Updated: 2025/07/27 19:03:53 by nsaraiva         ###   ########.fr       */
+/*   Updated: 2025/07/29 22:54:43 by nsaraiva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,6 @@ double	**init_matrix(void)
 
 void	find_min(t_map *map, t_3d value)
 {
-	value = map->projection(value);
-
 	map->max_x = fmax(map->max_x, value.x);
 	map->min_x = fmin(map->min_x, value.x);
 	map->min_y = fmin(map->min_y, value.y);

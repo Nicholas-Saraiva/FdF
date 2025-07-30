@@ -36,17 +36,17 @@ static void ft_translation_events(int keycode, t_data *data)
 static void	ft_rotation_events(int keycode, t_data *data)
 {
 	if (keycode == 113)
-		data->map->rotation.z += -2.0 * M_PI / 180.0;
+		data->map->rotation.z += -1.0 * M_PI / 180.0;
 	if (keycode == 101)
-		data->map->rotation.z += 2.0 * M_PI / 180.0;
+		data->map->rotation.z += 1.0 * M_PI / 180.0;
 	if (keycode == 49)
-		data->map->rotation.y += 2.0 * M_PI / 180.0;
+		data->map->rotation.y += 1.0 * M_PI / 180.0;
 	if (keycode == 50)
-		data->map->rotation.y += -2.0 * M_PI / 180.0;
+		data->map->rotation.y += -1.0 * M_PI / 180.0;
 	if (keycode == 51)
-		data->map->rotation.x += 2.0 * M_PI / 180.0;
+		data->map->rotation.x += 1.0 * M_PI / 180.0;
 	if (keycode == 52)
-		data->map->rotation.x += -2.0 * M_PI / 180.0;
+		data->map->rotation.x += -1.0 * M_PI / 180.0;
 	printf("\n%f\n", data->map->rotation.y);
 
 }

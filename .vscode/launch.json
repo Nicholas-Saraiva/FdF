@@ -1,0 +1,24 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "C/C++ Runner: Debug Session",
+      "type": "cppdbg",
+      "request": "launch",
+      "args": ["test_maps/elem-fract.fdf"],
+      "stopAtEntry": false,
+      "externalConsole": false,
+      "cwd": "/home/alexandria/library/42Cursos/FdF",
+      "program": "/home/alexandria/library/42Cursos/FdF/fdf",
+      "MIMode": "gdb",
+      "miDebuggerPath": "gdb",
+      "setupCommands": [
+        {
+          "description": "Enable pretty-printing for gdb",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        }
+      ]
+    }
+  ]
+}
