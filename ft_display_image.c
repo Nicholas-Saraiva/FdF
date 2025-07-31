@@ -6,7 +6,7 @@
 /*   By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 17:59:32 by nsaraiva          #+#    #+#             */
-/*   Updated: 2025/07/31 02:34:26 by nsaraiva         ###   ########.fr       */
+/*   Updated: 2025/07/31 11:26:15 by nsaraiva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,19 +87,21 @@ void	apply_rotation(t_data *data)
 typedef struct s_line {
 	t_3d p1;
 	t_3d p2;
-	float depth; // média dos z
+	double depth;
 } t_line;
 
-static float	get_depth(t_3d p1, t_3d p2)
+static double	get_depth(t_3d p1, t_3d p2)
 {
 	return ((p1.z + p2.z) / 2.0f);
 }
 
 static int	compare_lines(const void *a, const void *b)
 {
-	float depth_a = ((t_line *)a)->depth;
-	float depth_b = ((t_line *)b)->depth;
-
+	double depth_a; 
+	double depth_b;
+   
+	depth_a = ((t_line *)a)->depth;
+	depth_b = ((t_line *)b)->depth;
 	if (depth_a < depth_b)
 		return (-1);
 	if (depth_a > depth_b)
@@ -107,59 +109,52 @@ static int	compare_lines(const void *a, const void *b)
 	return (0);
 }
 
-
 void	display_image(t_map *map, t_data *data)
 {
 	t_line	*lines;
-	int		i, j, count = 0;
-	int		total = (map->width - 1) * map->height + (map->height - 1) * map->width;
+	t_3d	p;
+	t_3d	p2;
+	int		i;
+	int		j;
+	int		count;
+	int		total;
+   
 
+	i = -1;
+	count = 0;
+	total = (map->width - 1) * map->height + (map->height - 1) * map->width;
 	lines = malloc(sizeof(t_line) * total);
 	if (!lines)
 		return ;
-
-	// Gerar as linhas
-	for (i = 0; i < map->height; i++)
+	while (++i < map->height)
 	{
-		for (j = 0; j < map->width; j++)
+		j = -1;
+		while (++j < map->width)
 		{
-			t_3d p = scale_transform(map->matrix[i][j], data);
-
+			p = scale_transform(map->matrix[i][j], data);
 			if (j < map->width - 1)
 			{
-				t_3d p2 = scale_transform(map->matrix[i][j + 1], data);
+				p2 = scale_transform(map->matrix[i][j + 1], data);
 				lines[count++] = (t_line){p, p2, get_depth(p, p2)};
 			}
 			if (i < map->height - 1)
 			{
-				t_3d p2 = scale_transform(map->matrix[i + 1][j], data);
+				p2 = scale_transform(map->matrix[i + 1][j], data);
 				lines[count++] = (t_line){p, p2, get_depth(p, p2)};
 			}
 		}
 	}
-
-	// Ordenar pelas profundidades
 	qsort(lines, count, sizeof(t_line), compare_lines);
-
-	// Limpar imagem
 	ft_bzero(data->addr, 1 + WIDTH * HEIGHT * sizeof(int));
-
-	// Aplicar rotação se necessário
 	if (map->rotation.x || map->rotation.y || map->rotation.z)
 		apply_rotation(data);
-
-	// Desenhar as linhas ordenadas
-	for (int k = 0; k < count; k++)
-		draw_line(lines[k].p1, lines[k].p2, data);
-
+	i = -1;
+	while (++i < count)
+		draw_line(lines[i].p1, lines[i].p2, data);
 	free(lines);
-
-	// Resetar rotação
 	map->rotation.x = 0;
 	map->rotation.y = 0;
 	map->rotation.z = 0;
-
-	// Mostrar na janela
 	mlx_put_image_to_window(data->init, data->display, data->img, 0, 0);
 }
 
