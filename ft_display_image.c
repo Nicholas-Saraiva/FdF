@@ -6,7 +6,7 @@
 /*   By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 17:59:32 by nsaraiva          #+#    #+#             */
-/*   Updated: 2025/07/31 11:26:15 by nsaraiva         ###   ########.fr       */
+/*   Updated: 2025/07/31 18:15:16 by nsaraiva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,8 @@ void	display_image(t_map *map, t_data *data)
 	lines = malloc(sizeof(t_line) * total);
 	if (!lines)
 		return ;
+	if (map->rotation.x || map->rotation.y || map->rotation.z)
+		apply_rotation(data);
 	while (++i < map->height)
 	{
 		j = -1;
@@ -146,8 +148,7 @@ void	display_image(t_map *map, t_data *data)
 	}
 	qsort(lines, count, sizeof(t_line), compare_lines);
 	ft_bzero(data->addr, 1 + WIDTH * HEIGHT * sizeof(int));
-	if (map->rotation.x || map->rotation.y || map->rotation.z)
-		apply_rotation(data);
+
 	i = -1;
 	while (++i < count)
 		draw_line(lines[i].p1, lines[i].p2, data);
