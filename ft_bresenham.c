@@ -97,9 +97,18 @@ void	draw_line_v(t_3d p1, t_3d p2, t_data *data)
 	}
 }
 
+int	is_over_limit(t_3d p)
+{
+	if (fabs(p.x) > WIDTH && fabs(p.y) > HEIGHT)
+		return (1);
+	return (0);
+}
+
 void	draw_line(t_3d p1, t_3d p2, t_data *data)
 {
 	p2.color = p1.color;
+	if (is_over_limit(p1) && is_over_limit(p2))
+		return ;
 	if (fabs(p2.x - p1.x) > fabs(p2.y - p1.y))
 		draw_line_h(p1, p2, data);
 	else

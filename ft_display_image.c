@@ -13,10 +13,8 @@
 #include "fdf.h"
 
 void	apply_rotation(t_data *data);
-static t_3d	scale_transform(t_3d point3d, t_data *data);
+t_3d	scale_transform(t_3d, t_map *);
 static t_3d ft_find_rotation(t_data *data, t_3d point3d);
-
-
 
 static t_3d	ft_apply_rotation(t_data *data, t_3d point3d, double angle, 
 		t_3d (*rotate)(t_3d, double))
@@ -27,7 +25,7 @@ static t_3d	ft_apply_rotation(t_data *data, t_3d point3d, double angle,
 				data->map->center), angle);
 	translated = sum_3d_points(translated, data->map->center);
 	translated.color = point3d.color;
-	return (rotate(point3d, angle));
+	return (translated);
 }
 
 static t_3d ft_find_rotation(t_data *data, t_3d point3d)
@@ -41,34 +39,16 @@ static t_3d ft_find_rotation(t_data *data, t_3d point3d)
 	return (point3d);
 }
 
-static t_3d	scale_transform(t_3d point3d, t_data *data)
+t_3d	scale_transform(t_3d point3d, t_map *map)
 {
 	t_3d	result;
 
-	result.x = (point3d.x * data->sx) + data->offset_x;
-	result.y = (point3d.y * data->sy) + data->offset_y;
+	result.x = (point3d.x * map->sx) + map->offset_x;
+	result.y = (point3d.y * map->sy) + map->offset_y;
 	result.z = point3d.z;
 	result.color = point3d.color;
 	return (result);
 }
-
-/*static void	ft_connect(int i, int j, t_map *map, t_data *data)
-{
-	t_3d	p1;
-	t_3d	p2;
-
-	p1 = scale_transform(data->map->matrix[i][j], data);
-	if (j != map->width - 1)
-	{
-		p2 = scale_transform(data->map->matrix[i][j + 1], data);
-		draw_line(p1, p2, data);
-	}
-	if (i != map->height - 1)
-	{
-		p2 = scale_transform(data->map->matrix[i + 1][j], data);
-		draw_line(p1, p2, data);
-	}
-}*/
 
 void	apply_rotation(t_data *data)
 {
@@ -84,78 +64,46 @@ void	apply_rotation(t_data *data)
 			data->map->matrix[i][j] = ft_find_rotation(data, data->map->matrix[i][j]);
 	}
 }
-typedef struct s_line {
-	t_3d p1;
-	t_3d p2;
-	double depth;
-} t_line;
 
 static double	get_depth(t_3d p1, t_3d p2)
 {
 	return ((p1.z + p2.z) / 2.0f);
 }
 
-static int	compare_lines(const void *a, const void *b)
+void update_line_data(t_data *data)
 {
-	double depth_a; 
-	double depth_b;
-   
-	depth_a = ((t_line *)a)->depth;
-	depth_b = ((t_line *)b)->depth;
-	if (depth_a < depth_b)
-		return (-1);
-	if (depth_a > depth_b)
-		return (1);
-	return (0);
+	int i;
+	t_3d p1, p2;
+
+	i = -1;
+	while (++i < data->map->total_lines)
+	{
+		p1 = data->map->matrix[data->map->line[i].i1][data->map->line[i].j1];
+		p2 = data->map->matrix[data->map->line[i].i2][data->map->line[i].j2];
+
+		data->map->line[i].p1 = p1;
+		data->map->line[i].p2 = p2;
+		data->map->line[i].depth = get_depth(p1, p2);
+	}
 }
 
 void	display_image(t_map *map, t_data *data)
 {
-	t_line	*lines;
-	t_3d	p;
-	t_3d	p2;
 	int		i;
-	int		j;
-	int		count;
-	int		total;
-   
 
 	i = -1;
-	count = 0;
-	total = (map->width - 1) * map->height + (map->height - 1) * map->width;
-	lines = malloc(sizeof(t_line) * total);
-	if (!lines)
-		return ;
-	if (map->rotation.x || map->rotation.y || map->rotation.z)
-		apply_rotation(data);
-	while (++i < map->height)
-	{
-		j = -1;
-		while (++j < map->width)
-		{
-			p = scale_transform(map->matrix[i][j], data);
-			if (j < map->width - 1)
-			{
-				p2 = scale_transform(map->matrix[i][j + 1], data);
-				lines[count++] = (t_line){p, p2, get_depth(p, p2)};
-			}
-			if (i < map->height - 1)
-			{
-				p2 = scale_transform(map->matrix[i + 1][j], data);
-				lines[count++] = (t_line){p, p2, get_depth(p, p2)};
-			}
-		}
-	}
-	qsort(lines, count, sizeof(t_line), compare_lines);
 	ft_bzero(data->addr, 1 + WIDTH * HEIGHT * sizeof(int));
-
+	if (map->rotation.x || map->rotation.y || map->rotation.z)
+	{
+		apply_rotation(data);
+		update_line_data(data);
+		qsort(data->map->line, map->total_lines, sizeof(t_line), compare_lines);
+		map->rotation.x = 0;
+		map->rotation.y = 0;
+		map->rotation.z = 0;
+	}
 	i = -1;
-	while (++i < count)
-		draw_line(lines[i].p1, lines[i].p2, data);
-	free(lines);
-	map->rotation.x = 0;
-	map->rotation.y = 0;
-	map->rotation.z = 0;
+	while (++i < data->map->total_lines)
+		draw_line(scale_transform(data->map->line[i].p1, data->map), scale_transform(data->map->line[i].p2, data->map), data);
 	mlx_put_image_to_window(data->init, data->display, data->img, 0, 0);
 }
-

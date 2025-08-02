@@ -52,6 +52,14 @@ typedef struct s_3d
 	unsigned int	color;
 }	t_3d;
 
+typedef struct s_line {
+	int i1, j1; 
+	int i2, j2;
+	t_3d p1, p2;
+	double depth;
+} t_line;
+
+
 typedef struct s_rotation
 {
 	double	x;
@@ -63,14 +71,20 @@ typedef struct s_map
 {
 	int			width;
 	int			height;
+	int			total_lines;
 	t_3d		**matrix;
 	t_3d		center;
 	t_3d		(*projection)(t_3d);
 	t_rotation	rotation;
+	t_line		*line;
 	double		max_x;
 	double		max_y;
 	double		min_x;
 	double		min_y;
+	double		sx;
+	double		sy;
+	double		offset_x;
+	double		offset_y;
 }	t_map;
 
 typedef struct s_data
@@ -83,10 +97,6 @@ typedef struct s_data
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
-	double	sx;
-	double	sy;
-	double	offset_x;
-	double	offset_y;
 }	t_data;
 
 unsigned int	ft_atoi_base(const char *nptr, int base);
@@ -112,4 +122,6 @@ t_3d			rotate_z(t_3d , const double );
 t_3d			sum_3d_points(t_3d point1, t_3d point2);
 t_3d			subtrate_3d_points(t_3d point1, t_3d point2);
 t_3d			ft_isometric(t_3d matrix1d);
+t_3d			scale_transform(t_3d , t_map *);
+int	compare_lines(const void *a, const void *b);
 #endif

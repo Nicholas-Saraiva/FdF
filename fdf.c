@@ -49,11 +49,11 @@ static int	screen_init(t_data *data, t_map *map)
 		mlx_destroy_display(data->init);
 	}
 	data->addr = mlx_get_data_addr(data->img, &data->bits_per_pixel, &data->line_length, &data->endian);
-	data->sx = (double) ((WIDTH *  4 / 6) / (map->max_x - map->min_x));
-	data->sy = (double) ((HEIGHT * 4 / 6) / (map->max_y - map->min_y));
-	data->offset_x = (double) (WIDTH * 1 / 6 - map->min_x * data->sx); 
-	data->offset_y = (double) (HEIGHT * 1 / 6 - map->min_y * data->sy);
 	data->map = map;
+	data->map->sx = (double) ((WIDTH *  4 / 6) / (map->max_x - map->min_x));
+	data->map->sy = (double) ((HEIGHT * 4 / 6) / (map->max_y - map->min_y));
+	data->map->offset_x = (double) (WIDTH * 1 / 6 - map->min_x * data->map->sx); 
+	data->map->offset_y = (double) (HEIGHT * 1 / 6 - map->min_y * data->map->sy);
 	return (1);
 }
 
@@ -62,14 +62,14 @@ int	mouse_hook(int keycode, int x, int y, t_data *data)
 	if (keycode == 4 || x == 1 || y == 2)
 	{
 		
-		data->sx *= 1.1;
-		data->sy *= 1.1;
+		data->map->sx *= 1.1;
+		data->map->sy *= 1.1;
 		ft_bzero(data->addr, 1 + WIDTH * HEIGHT * sizeof(int));
 	}
 	if (keycode == 5 || x == 1 || y == 2)
 	{
-		data->sx *= 0.9;
-		data->sy *= 0.9;
+		data->map->sx *= 0.9;
+		data->map->sy *= 0.9;
 		ft_bzero(data->addr, 1 + WIDTH * HEIGHT * sizeof(int));
 	}
 		printf("Hello from key_hook!{%d} - \n", keycode);

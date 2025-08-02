@@ -12,25 +12,18 @@
 
 #include "fdf.h"
 
-static void	ft_translation(t_data *data, double *direction, int move)
-{
-	*direction += move;
-	ft_bzero(data->addr, WIDTH * HEIGHT * sizeof(int));
-	display_image(data->map, data);
-}
-
 static void ft_translation_events(int keycode, t_data *data)
 {
 	if (keycode == 65307)
 		mlx_loop_end(data->init);
 	if (keycode == KEY_A || keycode == KEY_LEFT)
-		ft_translation(data, &data->offset_x, -20);
+		data->map->offset_x += -20;
 	if (keycode == KEY_W || keycode == KEY_UP)
-		ft_translation(data, &data->offset_y, -20);
+		data->map->offset_y += -20;
 	if (keycode == KEY_D || keycode == KEY_RIGHT)
-		ft_translation(data, &data->offset_x, 20);
+		data->map->offset_x += 20;
 	if (keycode == KEY_S || keycode == KEY_DOWN)
-		ft_translation(data, &data->offset_y, 20);
+		data->map->offset_y += 20;
 }
 
 static void	ft_rotation_events(int keycode, t_data *data)
