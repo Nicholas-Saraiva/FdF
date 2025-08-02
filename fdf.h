@@ -6,7 +6,7 @@
 /*   By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/06 22:07:21 by nsaraiva          #+#    #+#             */
-/*   Updated: 2025/07/30 12:10:00 by nsaraiva         ###   ########.fr       */
+/*   Updated: 2025/08/02 18:03:46 by nsaraiva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,9 +103,12 @@ unsigned int	ft_atoi_base(const char *nptr, int base);
 int				ft_printf(const char *fstring, ...);
 int				fill_map(char *argv, t_map *map);
 int				key_hook(int keycode, t_data *data);
+int				free_map(t_map *);
+int				free_data(t_data *);
+int				free_all(t_data);
 char			**ft_split(char const *s, char c);
 char			*get_next_line(int fd, char **str);
-void			free_map(t_map *map);
+int				free_map(t_map *map);
 void			free_matrix(double ***matrix, const int dim);
 void			find_min(t_map *map, t_3d value);
 void			ft_error(const char *msg);

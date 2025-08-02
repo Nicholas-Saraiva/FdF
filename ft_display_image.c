@@ -6,7 +6,7 @@
 /*   By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 17:59:32 by nsaraiva          #+#    #+#             */
-/*   Updated: 2025/07/31 18:15:16 by nsaraiva         ###   ########.fr       */
+/*   Updated: 2025/08/02 17:54:31 by nsaraiva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ void update_line_data(t_data *data)
 	{
 		p1 = data->map->matrix[data->map->line[i].i1][data->map->line[i].j1];
 		p2 = data->map->matrix[data->map->line[i].i2][data->map->line[i].j2];
-
 		data->map->line[i].p1 = p1;
 		data->map->line[i].p2 = p2;
 		data->map->line[i].depth = get_depth(p1, p2);

@@ -6,7 +6,7 @@
 /*   By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 15:25:59 by nsaraiva          #+#    #+#             */
-/*   Updated: 2025/07/29 22:45:47 by nsaraiva         ###   ########.fr       */
+/*   Updated: 2025/08/02 19:06:00 by nsaraiva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ static int	get_width(char *argv)
 	if (fd == -1 || !get_next_line(fd, &str))
 		return (0);
 	split = ft_split(str, ' ');
+	free(str);
 	while (split[++x])
 		free(split[x]);
 	while (get_next_line(fd, &str))

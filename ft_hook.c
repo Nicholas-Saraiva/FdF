@@ -6,7 +6,7 @@
 /*   By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 17:45:43 by nsaraiva          #+#    #+#             */
-/*   Updated: 2025/07/30 12:12:05 by nsaraiva         ###   ########.fr       */
+/*   Updated: 2025/08/02 18:36:11 by nsaraiva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void ft_translation_events(int keycode, t_data *data)
 {
 	if (keycode == 65307)
-		mlx_loop_end(data->init);
+		free_data(data);
 	if (keycode == KEY_A || keycode == KEY_LEFT)
 		data->map->offset_x += -20;
 	if (keycode == KEY_W || keycode == KEY_UP)

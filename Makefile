@@ -6,7 +6,7 @@
 #    By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/02 10:23:27 by nsaraiva          #+#    #+#              #
-#    Updated: 2025/08/02 00:56:13 by nsaraiva         ###   ########.fr        #
+#    Updated: 2025/08/02 18:57:24 by nsaraiva         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,8 +22,8 @@ GNL_A = $(addprefix $(GNL), libget.a)
 MLX_A = $(addprefix $(MLX), libmlx.a)
 
 CC = cc
-CCFLAGS = -Wall -Wextra -Werror -pg -g
-INCLUDE = -Iminilibx-linux -I/user/lib -Lminilibx-linux -lmlx_Linux -lX11 -lXext -lm -O2 -march=native -ffast-math -funroll-loops
+CCFLAGS = -Wall -Wextra -Werror #-pg -g
+INCLUDE = -Iminilibx-linux -I/user/lib -Lminilibx-linux -lmlx_Linux -lX11 -lXext -lm #-O3 -march=native -ffast-math -funroll-loops
 LIBRARIES = -L$(LIBFT) -lft -L$(GNL) -lget 
 NAME = fdf
 

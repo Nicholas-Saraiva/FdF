@@ -6,7 +6,7 @@
 /*   By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 16:19:00 by nsaraiva          #+#    #+#             */
-/*   Updated: 2025/07/23 12:26:02 by nsaraiva         ###   ########.fr       */
+/*   Updated: 2025/08/02 18:08:00 by nsaraiva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,16 +92,11 @@ int	main(int argc, char *argv[])
 		return (0);
 	if (!screen_init(&data, map))
 		return (0);
-
-
 	mlx_loop_hook(data.init, render, &data);
 	mlx_hook(data.display, 2, 1L<<0, key_hook, &data);
+	mlx_hook(data.display, 17, 1L<<17, free_data, &data);
 	mlx_mouse_hook(data.display, mouse_hook, &data);
 	render(&data);
-	mlx_destroy_image(data.init, data.img);
-	mlx_destroy_window(data.init, data.display);
-	free_map(map);
-	mlx_destroy_display(data.init);
-	free(data.init);
+	free_data(&data);
 	return (0);
 }

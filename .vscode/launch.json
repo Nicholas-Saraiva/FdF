@@ -8,8 +8,8 @@
       "args": ["test_maps/elem-fract.fdf"],
       "stopAtEntry": false,
       "externalConsole": false,
-      "cwd": "/home/alexandria/library/42Cursos/FdF",
-      "program": "/home/alexandria/library/42Cursos/FdF/fdf",
+      "cwd": "/home/nsaraiva/library/FdF",
+      "program": "/home/nsaraiva/library/FdF/fdf",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
