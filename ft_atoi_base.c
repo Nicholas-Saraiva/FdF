@@ -22,11 +22,11 @@ static int	condition_base(char nptr)
 static int	new_value(char nptr)
 {
 	if (nptr >= '0' && nptr <= '9')
-		return (0 + (nptr - '0'));
+		return ((nptr - '0') );
 	if (nptr >= 'a' && nptr <= 'f')
-		return (0 + (nptr - 'a'));
+		return ((nptr - 'a' + 10));
 	if (nptr >= 'A' && nptr <= 'F')
-		return (0 + (nptr - 'A'));
+		return ((nptr - 'A' + 10));
 	return (0);
 }
 
@@ -39,40 +39,24 @@ static void move_number(const char **nptr, int *sign)
 	}
 	else if (**nptr == '+')
 		(*nptr)++;
-	(*nptr)++;
-	if (**nptr && (**nptr == 'x' || **nptr == 'X'))
-		(*nptr)++;
-	else
-		(*nptr)--;
-}
-
-static unsigned int power_value(int base, int power)
-{
-	unsigned int	value;
-
-	value = 1;
-	if(base == 0)
-		return (0);
-	while (power-- > 0)
-		value *= base;
-	return (value);
+    if (**nptr && **nptr == '0' && 
+		(*(*nptr + 1) == 'x' || *(*nptr + 1) == 'X'))
+    {
+        *nptr += 2;
+    }
 }
 
 unsigned int	ft_atoi_base(const char *nptr, int base)
 {
 	unsigned int	value;
 	int				sign;
-	int				size;
 
 	sign = 1;
 	value = 0;
 	move_number(&nptr, &sign);
-	size = ft_strlen(nptr);
-	while (*nptr && size-- >= 0)
+	while (*nptr && condition_base(*nptr))
 	{
-		if (!condition_base(*nptr))
-			return (sign * value);
-		value += power_value(base, size) * new_value(*nptr);
+		value = value * base + new_value(*nptr);
 		nptr++;
 	}
 	return (sign * value);

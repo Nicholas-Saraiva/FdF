@@ -34,7 +34,7 @@
 # define KEY_UP 65362
 # define KEY_RIGHT 65363
 # define KEY_DOWN 65364
-# define COLOR 0xFFEFC8
+# define COLOR 0xFFFFFF
 # define DIMENSIONAL 3
 
 typedef struct s_2d
@@ -115,7 +115,7 @@ void			ft_error(const char *msg);
 void			ft_rotate(t_data *map, t_3d (*rotate)(t_3d, double), double angle);
 void			draw_line(t_3d p1, t_3d p2, t_data *data);
 void			display_image(t_map *map, t_data *data);
-void			my_mlx_pixel_put(t_data *data, int x, int y, int color);
+void			my_mlx_pixel_put(t_data *data, int x, int y, unsigned int color);
 double			*ft_multMatrix3dto1d(double *leftMatrix[], double *rightMatrix);
 double			**ft_multMatrix3d(double *leftMatrix[], double *rightMatrix[]);
 double			**initMatrix(void);

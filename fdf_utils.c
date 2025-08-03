@@ -59,7 +59,7 @@ void	ft_error(const char *msg)
 	exit(-1);
 }
 
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
+void	my_mlx_pixel_put(t_data *data, int x, int y, unsigned int color)
 {
 	char	*dst;
 	int		val;

@@ -68,7 +68,7 @@ static t_3d newPoint3d(int x, int y, int z)
 	return (point);
 }
 
-static unsigned int	get_color(char *split)
+static unsigned int	get_color(t_3d point, char *split)
 {
 	unsigned int	color;
 
@@ -79,6 +79,10 @@ static unsigned int	get_color(char *split)
 	{
 		split++;
 		color = ft_atoi_base(split, 16);
+	}
+	else if (point.z > 0)
+	{
+		color = ((int) point.z * 40 << 16) | ((int) point.z * 2 << 8) | ((int) point.z * 20 +  0x91);
 	}
 	return (color);
 }
@@ -95,8 +99,8 @@ static t_3d	*construct_map(char **split, t_map *map, int x)
 	while (split[++i] && i < map->width)
 	{
 		values[i] = newPoint3d(i, x, ft_atoi(split[i]));
+		values[i].color = get_color(values[i], split[i]);
 		values[i] = map->projection(values[i]);
-		values[i].color = get_color(split[i]);
 		find_min(map, values[i]);
 		free(split[i]);
 	}
