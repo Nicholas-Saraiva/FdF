@@ -6,13 +6,12 @@
 /*   By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 15:51:47 by nsaraiva          #+#    #+#             */
-/*   Updated: 2025/07/30 17:20:11 by nsaraiva         ###   ########.fr       */
+/*   Updated: 2025/08/04 14:28:14 by nsaraiva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-// A helper function to extract color components
 int	get_rgb(int color, int scaler)
 {
 	return ((color >> scaler) & 0xFF);
@@ -28,13 +27,11 @@ int	get_b(int color)
 	return (color & 0xFF);
 }
 
-// A helper function to create a new color from components
 unsigned int	create_rgb(int r, int g, int b)
 {
 	return ((r << 16) | (g << 8) | b);
 }
 
-// Function to interpolate a color
 unsigned int	interpolate_color(int color1, int color2, double t)
 {
 	int r1 = get_rgb(color1, 16);

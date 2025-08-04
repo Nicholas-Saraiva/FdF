@@ -6,7 +6,7 @@
 /*   By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/06 22:07:21 by nsaraiva          #+#    #+#             */
-/*   Updated: 2025/08/02 18:03:46 by nsaraiva         ###   ########.fr       */
+/*   Updated: 2025/08/04 14:38:03 by nsaraiva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ typedef struct s_map
 	double		sy;
 	double		offset_x;
 	double		offset_y;
+	double		zoom;
 }	t_map;
 
 typedef struct s_data

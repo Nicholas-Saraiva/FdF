@@ -6,7 +6,7 @@
 /*   By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 16:19:00 by nsaraiva          #+#    #+#             */
-/*   Updated: 2025/08/02 18:08:00 by nsaraiva         ###   ########.fr       */
+/*   Updated: 2025/08/04 18:08:26 by nsaraiva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ static int	map_init(t_map **map, char *argv[])
 	(*map)->rotation.y = 0;
 	(*map)->rotation.z = 0;
 	(*map)->projection = ft_isometric;
+	(*map)->zoom = 1;
 	if (!fill_map(argv[1], *map))
 		return (0);
 	(*map)->center = (*map)->matrix[(*map)->height / 2][(*map)->width / 2];
@@ -60,19 +61,9 @@ static int	screen_init(t_data *data, t_map *map)
 int	mouse_hook(int keycode, int x, int y, t_data *data)
 {
 	if (keycode == 4 || x == 1 || y == 2)
-	{
-		
-		data->map->sx *= 1.1;
-		data->map->sy *= 1.1;
-		ft_bzero(data->addr, 1 + WIDTH * HEIGHT * sizeof(int));
-	}
+		data->map->zoom *= 1.1;
 	if (keycode == 5 || x == 1 || y == 2)
-	{
-		data->map->sx *= 0.9;
-		data->map->sy *= 0.9;
-		ft_bzero(data->addr, 1 + WIDTH * HEIGHT * sizeof(int));
-	}
-		printf("Hello from key_hook!{%d} - \n", keycode);
+		data->map->zoom *= 0.9;
 	return (0);
 }
 

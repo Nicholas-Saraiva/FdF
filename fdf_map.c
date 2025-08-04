@@ -6,7 +6,7 @@
 /*   By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 15:25:59 by nsaraiva          #+#    #+#             */
-/*   Updated: 2025/08/02 19:06:00 by nsaraiva         ###   ########.fr       */
+/*   Updated: 2025/08/04 12:22:43 by nsaraiva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ static unsigned int	get_color(t_3d point, char *split)
 		split++;
 		color = ft_atoi_base(split, 16);
 	}
-	else if (point.z > 0)
+	else if (point.z != 0)
 	{
 		color = ((int) point.z * 40 << 16) | ((int) point.z * 2 << 8) | ((int) point.z * 20 +  0x91);
 	}

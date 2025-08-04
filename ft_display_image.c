@@ -6,7 +6,7 @@
 /*   By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 17:59:32 by nsaraiva          #+#    #+#             */
-/*   Updated: 2025/08/02 17:54:31 by nsaraiva         ###   ########.fr       */
+/*   Updated: 2025/08/04 18:29:24 by nsaraiva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,15 @@ static t_3d ft_find_rotation(t_data *data, t_3d point3d)
 t_3d	scale_transform(t_3d point3d, t_map *map)
 {
 	t_3d	result;
+	t_3d	translated;
 
-	result.x = (point3d.x * map->sx) + map->offset_x;
-	result.y = (point3d.y * map->sy) + map->offset_y;
+	translated = subtrate_3d_points(point3d, 
+				map->center); 
+	translated.x = translated.x * map->sx * map->zoom;
+	translated.y = translated.y * map->sy * map->zoom;
+	translated = sum_3d_points(translated, map->center);
+	result.x = (translated.x + map->offset_x);
+	result.y = (translated.y + map->offset_y  + HEIGHT  * 0.3);
 	result.z = point3d.z;
 	result.color = point3d.color;
 	return (result);
@@ -88,7 +94,7 @@ void update_line_data(t_data *data)
 
 void	display_image(t_map *map, t_data *data)
 {
-	int		i;
+	int			i;
 
 	i = -1;
 	ft_bzero(data->addr, 1 + WIDTH * HEIGHT * sizeof(int));
@@ -101,8 +107,8 @@ void	display_image(t_map *map, t_data *data)
 		map->rotation.y = 0;
 		map->rotation.z = 0;
 	}
-	i = -1;
 	while (++i < data->map->total_lines)
-		draw_line(scale_transform(data->map->line[i].p1, data->map), scale_transform(data->map->line[i].p2, data->map), data);
+	draw_line(scale_transform(data->map->line[i].p1, data->map),
+			scale_transform(data->map->line[i].p2, data->map), data);
 	mlx_put_image_to_window(data->init, data->display, data->img, 0, 0);
 }
