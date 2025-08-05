@@ -6,7 +6,7 @@
 /*   By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 16:19:00 by nsaraiva          #+#    #+#             */
-/*   Updated: 2025/08/04 18:08:26 by nsaraiva         ###   ########.fr       */
+/*   Updated: 2025/08/05 17:02:32 by nsaraiva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,15 +56,6 @@ static int	screen_init(t_data *data, t_map *map)
 	data->map->offset_x = (double) (WIDTH * 1 / 6 - map->min_x * data->map->sx); 
 	data->map->offset_y = (double) (HEIGHT * 1 / 6 - map->min_y * data->map->sy);
 	return (1);
-}
-
-int	mouse_hook(int keycode, int x, int y, t_data *data)
-{
-	if (keycode == 4 || x == 1 || y == 2)
-		data->map->zoom *= 1.1;
-	if (keycode == 5 || x == 1 || y == 2)
-		data->map->zoom *= 0.9;
-	return (0);
 }
 
 int	render(t_data *data)

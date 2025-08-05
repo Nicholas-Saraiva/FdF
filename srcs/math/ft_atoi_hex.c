@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
+#include "fdf.h"
 
 static int	condition_base(char nptr)
 {

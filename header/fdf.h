@@ -6,7 +6,7 @@
 /*   By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/06 22:07:21 by nsaraiva          #+#    #+#             */
-/*   Updated: 2025/08/04 14:38:03 by nsaraiva         ###   ########.fr       */
+/*   Updated: 2025/08/05 12:24:36 by nsaraiva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 # include <stdio.h>
 # include <float.h>
 # include "mlx.h"
-# include "libft/libft.h"
-# include "get_next_line/get_next_line.h"
+# include "libft.h"
+# include "get_next_line.h"
 
 # define RADIUS 0.523599
 # define WIDTH 1400
@@ -107,6 +107,7 @@ int				key_hook(int keycode, t_data *data);
 int				free_map(t_map *);
 int				free_data(t_data *);
 int				free_all(t_data);
+int				mouse_hook(int keycode, int x, int y, t_data *data);
 char			**ft_split(char const *s, char c);
 char			*get_next_line(int fd, char **str);
 int				free_map(t_map *map);
