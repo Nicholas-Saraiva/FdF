@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_hook.c                                          :+:      :+:    :+:   */
+/*   ft_key_hook.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 17:45:43 by nsaraiva          #+#    #+#             */
-/*   Updated: 2025/08/05 12:22:30 by nsaraiva         ###   ########.fr       */
+/*   Updated: 2025/08/05 18:22:29 by nsaraiva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static void ft_translation_events(int keycode, t_data *data)
+static void	ft_translation_events(int keycode, t_data *data)
 {
 	if (keycode == 65307)
 		free_data(data);
@@ -41,7 +41,6 @@ static void	ft_rotation_events(int keycode, t_data *data)
 	if (keycode == 52)
 		data->map->rotation.x += -0.01;
 	printf("\n%f\n", data->map->rotation.y);
-
 }
 
 int	key_hook(int keycode, t_data *data)

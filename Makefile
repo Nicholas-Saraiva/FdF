@@ -6,13 +6,13 @@
 #    By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/02 10:23:27 by nsaraiva          #+#    #+#              #
-#    Updated: 2025/08/05 17:46:58 by nsaraiva         ###   ########.fr        #
+#    Updated: 2025/08/05 18:19:08 by nsaraiva         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRC = fdf.c
 SRC += utils/fdf_utils.c
-SRC += srcs/hooks/ft_key_hook.c srcs/hooks/ft_mouse_hook.c
+SRC += srcs/hooks/ft_key_hook.c srcs/hooks/ft_mouse_hook.c srcs/hooks/ft_hooks.c
 SRC += srcs/map/fdf_map.c srcs/map/ft_bresenham.c srcs/map/ft_display_image.c
 SRC += srcs/math/ft_atoi_hex.c srcs/math/ft_math_utils.c srcs/math/ft_rotation.c
 OBJ =  $(SRC:.c=.o)

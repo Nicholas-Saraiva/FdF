@@ -75,9 +75,7 @@ int	main(int argc, char *argv[])
 	if (!screen_init(&data, map))
 		return (0);
 	mlx_loop_hook(data.init, render, &data);
-	mlx_hook(data.display, 2, 1L<<0, key_hook, &data);
-	mlx_hook(data.display, 17, 1L<<17, free_data, &data);
-	mlx_mouse_hook(data.display, mouse_hook, &data);
+	ft_hooks(&data);
 	render(&data);
 	free_data(&data);
 	return (0);

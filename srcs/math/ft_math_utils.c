@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_math.c                                          :+:      :+:    :+:   */
+/*   ft_math_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 14:58:22 by nsaraiva          #+#    #+#             */
-/*   Updated: 2025/07/29 22:54:43 by nsaraiva         ###   ########.fr       */
+/*   Updated: 2025/08/05 18:28:27 by nsaraiva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,16 @@ t_3d	ft_isometric(t_3d matrix1d)
 {
 	return (rotate_x(rotate_z(matrix1d, 45 * M_PI / 180), 
 				atan(1/sqrt(2))));
+}
+
+t_3d	newPoint3d(int x, int y, int z)
+{
+	t_3d	point;
+
+	point.x = x;
+	point.y = y;
+	point.z = z;
+	return (point);
 }
 
 double	**init_matrix(void)

@@ -6,7 +6,7 @@
 /*   By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/06 22:07:21 by nsaraiva          #+#    #+#             */
-/*   Updated: 2025/08/05 12:24:36 by nsaraiva         ###   ########.fr       */
+/*   Updated: 2025/08/05 18:30:07 by nsaraiva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ void			ft_rotate(t_data *map, t_3d (*rotate)(t_3d, double), double angle);
 void			draw_line(t_3d p1, t_3d p2, t_data *data);
 void			display_image(t_map *map, t_data *data);
 void			my_mlx_pixel_put(t_data *data, int x, int y, unsigned int color);
+void	ft_hooks(t_data *data);
 double			*ft_multMatrix3dto1d(double *leftMatrix[], double *rightMatrix);
 double			**ft_multMatrix3d(double *leftMatrix[], double *rightMatrix[]);
 double			**initMatrix(void);
@@ -128,5 +129,6 @@ t_3d			sum_3d_points(t_3d point1, t_3d point2);
 t_3d			subtrate_3d_points(t_3d point1, t_3d point2);
 t_3d			ft_isometric(t_3d matrix1d);
 t_3d			scale_transform(t_3d , t_map *);
+t_3d			newPoint3d(int x, int y, int z);
 int	compare_lines(const void *a, const void *b);
 #endif

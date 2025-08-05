@@ -6,7 +6,7 @@
 /*   By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 15:25:59 by nsaraiva          #+#    #+#             */
-/*   Updated: 2025/08/04 12:22:43 by nsaraiva         ###   ########.fr       */
+/*   Updated: 2025/08/05 18:39:19 by nsaraiva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,16 +58,6 @@ static int	get_width(char *argv)
 	return (free(split), x);
 }
 
-static t_3d newPoint3d(int x, int y, int z)
-{
-	t_3d	point;
-
-	point.x = x;
-	point.y = y;
-	point.z = z;
-	return (point);
-}
-
 static unsigned int	get_color(t_3d point, char *split)
 {
 	unsigned int	color;
@@ -82,7 +72,8 @@ static unsigned int	get_color(t_3d point, char *split)
 	}
 	else if (point.z != 0)
 	{
-		color = ((int) point.z * 40 << 16) | ((int) point.z * 2 << 8) | ((int) point.z * 20 +  0x91);
+		color = ((int) point.z * 40 << 16)
+			| ((int) point.z * 2 << 8) | ((int) point.z * 20 + 0x91);
 	}
 	return (color);
 }
@@ -91,7 +82,7 @@ static t_3d	*construct_map(char **split, t_map *map, int x)
 {
 	t_3d	*values;
 	int		i;
-	
+
 	i = -1;
 	values = malloc(sizeof(t_3d) * map->width);
 	if (!values)
@@ -121,12 +112,14 @@ static int	init_map(t_map *map, char *argv)
 	if (!map->width)
 		return (0);
 	map->matrix = malloc(sizeof(t_3d *) * (map->height));
-	map->total_lines = (map->width - 1) * map->height + (map->height - 1) * map->width;
+	map->total_lines = (map->width - 1) * map->height
+		+ (map->height - 1) * map->width;
 	if (!(map->matrix))
 		return (0);
 	else
 		return (1);
 }
+
 static double	get_depth(t_3d p1, t_3d p2)
 {
 	return ((p1.z + p2.z) / 2.0f);

@@ -3,13 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   ft_mouse_hook.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsaraiva <nsaraiva@student.42porto.com     +#+  +:+       +#+        */
+/*   By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 12:22:57 by nsaraiva          #+#    #+#             */
-/*   Updated: 2025/08/05 12:24:00 by nsaraiva         ###   ########.fr       */
+/*   Updated: 2025/08/05 18:21:58 by nsaraiva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-# include "fdf.h"
+#include "fdf.h"
 
 int	mouse_hook(int keycode, int x, int y, t_data *data)
 {
@@ -19,4 +19,3 @@ int	mouse_hook(int keycode, int x, int y, t_data *data)
 		data->map->zoom *= 0.9;
 	return (0);
 }
-
