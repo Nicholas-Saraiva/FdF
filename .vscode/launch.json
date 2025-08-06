@@ -5,7 +5,7 @@
       "name": "C/C++ Runner: Debug Session",
       "type": "cppdbg",
       "request": "launch",
-      "args": ["test_maps/42.fdf"],
+      "args": ["test_maps/elem-fract.fdf"],
       "stopAtEntry": false,
       "externalConsole": false,
       "cwd": "/home/alexandria/library/42Cursos/FdF",

@@ -120,63 +120,6 @@ static int	init_map(t_map *map, char *argv)
 		return (1);
 }
 
-static double	get_depth(t_3d p1, t_3d p2)
-{
-	return ((p1.z + p2.z) / 2.0f);
-}
-
-int	compare_lines(const void *a, const void *b)
-{
-	double depth_a; 
-	double depth_b;
-   
-	depth_a = ((t_line *)a)->depth;
-	depth_b = ((t_line *)b)->depth;
-	if (depth_a < depth_b)
-		return (-1);
-	if (depth_a > depth_b)
-		return (1);
-	return (0);
-}
-
-static void	connect_lines(t_map *map)
-{
-	t_line	*lines;
-	t_3d	p;
-	t_3d	p2;
-	int		i;
-	int		j;
-	int		count;
-	int		total;
-   
-
-	i = -1;
-	count = 0;
-	total = map->total_lines;
-	lines = malloc(sizeof(t_line) * map->total_lines);
-	while (++i < map->height)
-	{
-		j = -1;
-		while (++j < map->width)
-		{
-			p = map->matrix[i][j];
-			if (j < map->width - 1)
-			{
-				p2 = map->matrix[i][j + 1];
-				lines[count++] = (t_line){i, j, i, j + 1, p, p2, get_depth(p, p2)};
-			}
-			if (i < map->height - 1)
-			{
-				p2 = map->matrix[i + 1][j];
-				lines[count++] = (t_line){i, j, i + 1, j, p, p2, get_depth(p, p2)};
-			}
-		}
-	}
-	qsort(lines, count, sizeof(t_line), compare_lines);
-	map->line = lines;
-	map->total_lines = total;
-}
-
 int	fill_map(char *argv, t_map *map)
 {
 	char	*str;
@@ -199,7 +142,6 @@ int	fill_map(char *argv, t_map *map)
 			return (free(str), free_map(map), 0);
 		free(str);
 	}
-	connect_lines(map);
 	if (close(fd) == -1)
 		return (0);
 	return (free(str), 1);

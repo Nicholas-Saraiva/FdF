@@ -12,8 +12,8 @@
 
 SRC = fdf.c
 SRC += utils/fdf_utils.c
-SRC += srcs/hooks/ft_key_hook.c srcs/hooks/ft_mouse_hook.c srcs/hooks/ft_hooks.c
-SRC += srcs/map/fdf_map.c srcs/map/ft_bresenham.c srcs/map/ft_display_image.c
+SRC += srcs/hooks/ft_key_up.c srcs/hooks/ft_key_down.c srcs/hooks/ft_mouse_hook.c srcs/hooks/ft_hooks.c
+SRC += srcs/map/fdf_map.c srcs/map/ft_bresenham.c srcs/map/ft_display_image.c srcs/map/ft_colors.c
 SRC += srcs/math/ft_atoi_hex.c srcs/math/ft_math_utils.c srcs/math/ft_rotation.c
 OBJ =  $(SRC:.c=.o)
 
@@ -27,7 +27,7 @@ MLX_A = $(addprefix $(MLX), libmlx.a)
 
 CC = cc
 CCFLAGS = -Wall -Wextra -Werror #-pg -g
-INCLUDE = -Iminilibx-linux -I/user/lib -Iheader -Lminilibx-linux -lmlx_Linux -lX11 -lXext -lm -O3 -march=native -ffast-math -funroll-loops
+INCLUDE = -Iminilibx-linux -I/user/lib -Iheader -Lminilibx-linux -lmlx_Linux -lX11 -lXext -lm #-O3 -march=native -ffast-math -funroll-loops
 LIBRARIES = -L$(LIBFT) -lft -L$(GNL) -lget 
 NAME = fdf
 

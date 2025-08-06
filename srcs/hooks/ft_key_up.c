@@ -43,7 +43,7 @@ static void	ft_rotation_events(int keycode, t_data *data)
 	printf("\n%f\n", data->map->rotation.y);
 }
 
-int	key_hook(int keycode, t_data *data)
+int	key_up(int keycode, t_data *data)
 {
 	static int	type;
 

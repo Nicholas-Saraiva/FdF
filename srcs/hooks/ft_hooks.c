@@ -14,7 +14,8 @@
 
 void	ft_hooks(t_data *data)
 {
-	mlx_hook(data->display, 2, 1L << 0, key_hook, data);
+	mlx_hook(data->display, 2, 1L << 0, key_up, data);
+	mlx_hook(data->display, 3, 1L << 1, key_down, data);
 	mlx_hook(data->display, 17, 1L << 17, free_data, data);
 	mlx_mouse_hook(data->display, mouse_hook, data);
 }

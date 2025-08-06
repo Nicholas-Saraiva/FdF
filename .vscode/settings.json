@@ -64,6 +64,7 @@
     "map": "c",
     "format": "c",
     "algorithm": "c",
-    "random": "c"
+    "random": "c",
+    "fdf.h": "c"
   }
 }

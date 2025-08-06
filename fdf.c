@@ -55,6 +55,9 @@ static int	screen_init(t_data *data, t_map *map)
 	data->map->sy = (double) ((HEIGHT * 4 / 6) / (map->max_y - map->min_y));
 	data->map->offset_x = (double) (WIDTH * 1 / 6 - map->min_x * data->map->sx); 
 	data->map->offset_y = (double) (HEIGHT * 1 / 6 - map->min_y * data->map->sy);
+	data->zbuffer = malloc(WIDTH * HEIGHT * sizeof(double));
+	if (!data->zbuffer)
+		ft_error("Z-buffer allocation failed");
 	return (1);
 }
 

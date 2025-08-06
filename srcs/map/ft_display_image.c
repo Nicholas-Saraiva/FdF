@@ -30,12 +30,12 @@ static t_3d	ft_apply_rotation(t_data *data, t_3d point3d, double angle,
 
 static t_3d ft_find_rotation(t_data *data, t_3d point3d)
 {
+	if (data->map->rotation.z)
+		return (ft_apply_rotation(data, point3d, data->map->rotation.z, rotate_z));
 	if (data->map->rotation.x)
 		return (ft_apply_rotation(data, point3d, data->map->rotation.x, rotate_x));
 	if (data->map->rotation.y)
 		return (ft_apply_rotation(data, point3d, data->map->rotation.y, rotate_y));
-	if (data->map->rotation.z)
-		return (ft_apply_rotation(data, point3d, data->map->rotation.z, rotate_z));
 	return (point3d);
 }
 
@@ -71,44 +71,44 @@ void	apply_rotation(t_data *data)
 	}
 }
 
-static double	get_depth(t_3d p1, t_3d p2)
+static void fill_lines(t_map *map, t_data *data)
 {
-	return ((p1.z + p2.z) / 2.0f);
-}
+    int     i;
+    int     j;
+    t_3d	p;
+	t_3d	p2;
 
-void update_line_data(t_data *data)
-{
-	int i;
-	t_3d p1, p2;
-
-	i = -1;
-	while (++i < data->map->total_lines)
+    i = -1;
+    while (++i < map->height)
 	{
-		p1 = data->map->matrix[data->map->line[i].i1][data->map->line[i].j1];
-		p2 = data->map->matrix[data->map->line[i].i2][data->map->line[i].j2];
-		data->map->line[i].p1 = p1;
-		data->map->line[i].p2 = p2;
-		data->map->line[i].depth = get_depth(p1, p2);
+		j = -1;
+		while (++j < map->width)
+		{
+			p = scale_transform(map->matrix[i][j], map);
+			if (j < map->width - 1)
+			{
+				p2 = scale_transform(map->matrix[i][j + 1], map);
+				draw_line(p, p2, data);
+			}
+			if (i < map->height - 1)
+			{
+				p2 = scale_transform(map->matrix[i + 1][j], map);
+				draw_line(p, p2, data);
+			}
+		}
 	}
 }
 
 void	display_image(t_map *map, t_data *data)
 {
-	int			i;
+	int	i;
 
 	i = -1;
+	while (++i < WIDTH * HEIGHT)
+		data->zbuffer[i] = -DBL_MAX;
 	ft_bzero(data->addr, 1 + WIDTH * HEIGHT * sizeof(int));
 	if (map->rotation.x || map->rotation.y || map->rotation.z)
-	{
 		apply_rotation(data);
-		update_line_data(data);
-		qsort(data->map->line, map->total_lines, sizeof(t_line), compare_lines);
-		map->rotation.x = 0;
-		map->rotation.y = 0;
-		map->rotation.z = 0;
-	}
-	while (++i < data->map->total_lines)
-	draw_line(scale_transform(data->map->line[i].p1, data->map),
-			scale_transform(data->map->line[i].p2, data->map), data);
+	fill_lines(map, data);
 	mlx_put_image_to_window(data->init, data->display, data->img, 0, 0);
 }
