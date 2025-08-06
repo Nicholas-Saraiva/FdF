@@ -63,6 +63,7 @@
     "span": "c",
     "map": "c",
     "format": "c",
-    "algorithm": "c"
+    "algorithm": "c",
+    "random": "c"
   }
 }
