@@ -6,7 +6,7 @@
 /*   By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 14:58:22 by nsaraiva          #+#    #+#             */
-/*   Updated: 2025/08/05 18:28:27 by nsaraiva         ###   ########.fr       */
+/*   Updated: 2025/08/08 15:15:27 by nsaraiva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,11 @@ t_3d	subtrate_3d_points(t_3d point1, t_3d point2)
 
 t_3d	ft_isometric(t_3d matrix1d)
 {
-	return (rotate_x(rotate_z(matrix1d, 45 * M_PI / 180), 
-				atan(1/sqrt(2))));
+	return (rotate_x(rotate_z(matrix1d, 45 * M_PI / 180),
+			atan(1 / sqrt(2))));
 }
 
-t_3d	newPoint3d(int x, int y, int z)
+t_3d	new_point3d(int x, int y, int z)
 {
 	t_3d	point;
 
@@ -48,28 +48,7 @@ t_3d	newPoint3d(int x, int y, int z)
 	return (point);
 }
 
-double	**init_matrix(void)
-{
-	int			i;
-	double		**matrix3d;
-
-	i = -1;
-	matrix3d = (double **) ft_calloc(DIMENSIONAL, sizeof(double *));
-	if (!matrix3d)
-		ft_error("ERROR-ft_multMatrix: Malloc failed in var result.");
-	while (++i < DIMENSIONAL)
-	{
-		matrix3d[i] = (double *) ft_calloc(DIMENSIONAL, sizeof(double *));
-		if (!matrix3d[i])
-		{
-			free_matrix(&matrix3d, DIMENSIONAL);
-			ft_error("ERROR-initMatrix3d: Malloc failed in matrix3d[i]");
-		}
-	}
-	return (matrix3d);
-}
-
-void	find_min(t_map *map, t_3d value)
+void	find_limits(t_map *map, t_3d value)
 {
 	map->max_x = fmax(map->max_x, value.x);
 	map->min_x = fmin(map->min_x, value.x);

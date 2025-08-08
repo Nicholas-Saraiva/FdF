@@ -29,7 +29,7 @@ int	free_map(t_map *map)
 
 int	free_data(t_data *data)
 {
-	if (*data->map->matrix)	
+	if (*data->map->matrix)
 		free_map(data->map);
 	if (data->img)
 		mlx_destroy_image(data->init, data->img);
@@ -59,16 +59,20 @@ void	ft_error(const char *msg)
 	exit(-1);
 }
 
-void my_mlx_pixel_put(t_data *data, int x, int y, unsigned int color, double z)
+void	my_mlx_pixel_put(t_data *data, t_3d point)
 {
-    if (x >= WIDTH || y >= HEIGHT || x < 0 || y < 0)
-        return;
+	int		index;
+	char	*dst;
 
-    int index = y * WIDTH + x;
-    if (z > data->zbuffer[index])
-    {
-        data->zbuffer[index] = z;
-        char *dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-        *(unsigned int *)dst = color;
-    }
+	if ((int) point.x > WIDTH - 1 || (int) point.y > HEIGHT - 1
+		|| (int) point.x < 0 || (int) point.y < 0)
+		return ;
+	index = point.y * WIDTH + point.x;
+	if (point.z > data->zbuffer[index])
+	{
+		data->zbuffer[index] = point.z;
+		dst = data->addr + ((int) point.y * data->line_length
+				+ (int) point.x * (data->bits_per_pixel / 8));
+		*(unsigned int *)dst = point.color;
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 13:06:16 by nsaraiva          #+#    #+#             */
-/*   Updated: 2025/04/16 21:05:21 by nsaraiva         ###   ########.fr       */
+/*   Updated: 2025/08/08 15:17:37 by nsaraiva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	*ft_memcpy(void *dest, const void *src, size_t n)
 {
 	unsigned char	*c_dest;
 	unsigned char	*c_src;
-	size_t	i;
+	size_t			i;
 
 	if (!dest && !src)
 		return (0);

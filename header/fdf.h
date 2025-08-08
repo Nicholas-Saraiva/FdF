@@ -34,13 +34,13 @@
 # define KEY_UP 65362
 # define KEY_RIGHT 65363
 # define KEY_DOWN 65364
-# define COLOR 0xFFFFFF
+# define COLOR 0x3f6d4e
 # define DIMENSIONAL 3
 
 typedef struct s_2d
 {
-	double	x;
-	double	y;
+	double			x;
+	double			y;
 	unsigned int	color;
 }	t_2d;
 
@@ -59,14 +59,13 @@ typedef struct s_color
 	int	b;
 }	t_color;
 
-
-typedef struct s_line {
-	int i1, j1; 
-	int i2, j2;
-	t_3d p1, p2;
-	double depth;
-} t_line;
-
+typedef struct s_line
+{
+	t_3d	diff;
+	double	dz;
+	int		p;
+	int		i;
+}	t_line;
 
 typedef struct s_rotation
 {
@@ -105,45 +104,46 @@ typedef struct s_data
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
-	double  *zbuffer;
+	double	*zbuffer;
 }	t_data;
-
 
 //------Maps
 void			draw_line(t_3d p1, t_3d p2, t_data *data);
-unsigned int	interpolate_color(int color1, int color2, int step, double steps);
+unsigned int	interpolate_color(int color1, int color2,
+					int step, double steps);
+int				get_height(char *argv);
+int				get_width(char *argv);
+unsigned int	get_color(t_3d point, char *split);
 
 //-----Hooks
 int				key_up(int keycode, t_data *data);
 int				key_down(int keycode, t_data *data);
 
+//-----Math
+t_3d			ft_apply_rotation(t_data *data, t_3d point3d, double angle,
+					t_3d (*rotate)(t_3d, double));
+t_3d			rotate_x(t_3d matrix1d, const double angle);
+t_3d			rotate_y(t_3d matrix1d, const double angle);
+t_3d			rotate_z(t_3d matrix1d, const double angle);
+t_3d			sum_3d_points(t_3d point1, t_3d point2);
+t_3d			subtrate_3d_points(t_3d point1, t_3d point2);
+t_3d			ft_isometric(t_3d matrix1d);
 
 unsigned int	ft_atoi_base(const char *nptr, int base);
 int				ft_printf(const char *fstring, ...);
 int				fill_map(char *argv, t_map *map);
-int				free_map(t_map *);
-int				free_data(t_data *);
-int				free_all(t_data);
+int				free_map(t_map *map);
+int				free_data(t_data *data);
+int				free_all(t_data data);
 int				mouse_hook(int keycode, int x, int y, t_data *data);
 char			**ft_split(char const *s, char c);
 char			*get_next_line(int fd, char **str);
 int				free_map(t_map *map);
 void			free_matrix(double ***matrix, const int dim);
-void			find_min(t_map *map, t_3d value);
+void			find_limits(t_map *map, t_3d value);
 void			ft_error(const char *msg);
-void			ft_rotate(t_data *map, t_3d (*rotate)(t_3d, double), double angle);
 void			display_image(t_map *map, t_data *data);
-void 			my_mlx_pixel_put(t_data *data, int x, int y, unsigned int color, double z);
+void			my_mlx_pixel_put(t_data *data, t_3d point);
 void			ft_hooks(t_data *data);
-double			*ft_multMatrix3dto1d(double *leftMatrix[], double *rightMatrix);
-double			**ft_multMatrix3d(double *leftMatrix[], double *rightMatrix[]);
-double			**initMatrix(void);
-t_3d			rotate_x(t_3d , const double );
-t_3d			rotate_y(t_3d , const double );
-t_3d			rotate_z(t_3d , const double );
-t_3d			sum_3d_points(t_3d point1, t_3d point2);
-t_3d			subtrate_3d_points(t_3d point1, t_3d point2);
-t_3d			ft_isometric(t_3d matrix1d);
-t_3d			scale_transform(t_3d , t_map *);
-t_3d			newPoint3d(int x, int y, int z);
+t_3d			new_point3d(int x, int y, int z);
 #endif

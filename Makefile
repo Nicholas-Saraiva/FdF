@@ -12,9 +12,11 @@
 
 SRC = fdf.c
 SRC += utils/fdf_utils.c
-SRC += srcs/hooks/ft_key_up.c srcs/hooks/ft_key_down.c srcs/hooks/ft_mouse_hook.c srcs/hooks/ft_hooks.c
-SRC += srcs/map/fdf_map.c srcs/map/ft_bresenham.c srcs/map/ft_display_image.c srcs/map/ft_colors.c
+SRC += srcs/map/fdf_map.c srcs/map/ft_map_utils.c
 SRC += srcs/math/ft_atoi_hex.c srcs/math/ft_math_utils.c srcs/math/ft_rotation.c
+SRC += srcs/render/ft_bresenham.c srcs/render/ft_display_image.c srcs/render/ft_colors.c
+SRC += srcs/hooks/ft_key_up.c srcs/hooks/ft_key_down.c srcs/hooks/ft_mouse_hook.c srcs/hooks/ft_hooks.c
+
 OBJ =  $(SRC:.c=.o)
 
 LIBFT = include/libft

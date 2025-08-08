@@ -6,7 +6,7 @@
 /*   By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 20:38:51 by nsaraiva          #+#    #+#             */
-/*   Updated: 2025/07/23 12:06:49 by nsaraiva         ###   ########.fr       */
+/*   Updated: 2025/08/08 15:10:26 by nsaraiva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,24 +45,14 @@ t_3d	rotate_z(t_3d matrix1d, const double angle)
 	return (result);
 }
 
-void	ft_rotate(t_data *data, t_3d (*rotate)(t_3d, double), double angle)
+t_3d	ft_apply_rotation(t_data *data, t_3d point3d, double angle,
+		t_3d (*rotate)(t_3d, double))
 {
-	int		i;
-	int		j;
 	t_3d	translated;
 
-	i = -1;
-	while (++i < data->map->height)
-	{
-		j = -1;
-		while (++j < data->map->width)
-		{
-			translated = rotate(subtrate_3d_points(data->map->matrix[i][j],
-						data->map->center), angle);
-			translated = sum_3d_points(translated, data->map->center);
-			translated.color = data->map->matrix[i][j].color;
-			data->map->matrix[i][j] = translated;
-		}
-	}
-	ft_bzero(data->addr, WIDTH * HEIGHT * sizeof(int));
+	translated = rotate(subtrate_3d_points(point3d,
+				data->map->center), angle);
+	translated = sum_3d_points(translated, data->map->center);
+	translated.color = point3d.color;
+	return (translated);
 }
