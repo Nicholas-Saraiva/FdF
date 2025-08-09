@@ -17,13 +17,12 @@ int	free_map(t_map *map)
 	int	i;
 
 	i = -1;
-	while (++i < map->height)
-	{
+	while (map->matrix && ++i < map->height)
 		if (map->matrix[i])
 			free(map->matrix[i]);
-	}
-	free(map->matrix);
-	free(map);
+	if (map->matrix)
+		free(map->matrix);
+	map->matrix = NULL;
 	return (0);
 }
 
@@ -41,22 +40,6 @@ int	free_data(t_data *data)
 		free(data->zbuffer);
 	free(data->init);
 	exit (0);
-}
-
-void	free_matrix(double ***matrix, const int dim)
-{
-	int	i;
-
-	i = -1;
-	while (++i < dim)
-		free((*matrix)[i]);
-	free(*matrix);
-}
-
-void	ft_error(const char *msg)
-{
-	perror(msg);
-	exit(-1);
 }
 
 void	my_mlx_pixel_put(t_data *data, t_3d point)

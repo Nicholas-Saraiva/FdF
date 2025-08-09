@@ -12,19 +12,21 @@
 
 #include "fdf.h"
 
-static int	map_init(t_map **map, char *argv[]);
+static int	map_init(t_map *map, char *argv[]);
 static int	screen_init(t_data *data, t_map *map);
 static int	render(t_data *data);
 
 int	main(int argc, char *argv[])
 {
 	t_data	data;
-	t_map	*map;
+	t_map	map;
 
+	if (argc != 2)
+		return (0);
 	if (!map_init(&map, argv) || argc != 2)
-		return (0);
-	if (!screen_init(&data, map))
-		return (0);
+		return (free_map(&map), 0);
+	if (!screen_init(&data, &map))
+		return (free_data(&data), 0);
 	mlx_loop_hook(data.init, render, &data);
 	ft_hooks(&data);
 	mlx_loop(data.init);
@@ -32,26 +34,23 @@ int	main(int argc, char *argv[])
 	return (0);
 }
 
-static int	map_init(t_map **map, char *argv[])
+static int	map_init(t_map *map, char *argv[])
 {
-	*map = malloc(sizeof(t_map));
-	if (!*map)
+	map->width = 0;
+	map->height = 0;
+	map->matrix = 0;
+	map->max_x = DBL_MIN;
+	map->min_x = DBL_MAX;
+	map->min_y = DBL_MAX;
+	map->max_y = DBL_MIN;
+	map->rotation.x = 0;
+	map->rotation.y = 0;
+	map->rotation.z = 0;
+	map->projection = ft_isometric;
+	map->zoom = 1;
+	if (!fill_map(argv[1], map))
 		return (0);
-	(*map)->width = 0;
-	(*map)->height = 0;
-	(*map)->matrix = 0;
-	(*map)->max_x = DBL_MIN;
-	(*map)->min_x = DBL_MAX;
-	(*map)->min_y = DBL_MAX;
-	(*map)->max_y = DBL_MIN;
-	(*map)->rotation.x = 0;
-	(*map)->rotation.y = 0;
-	(*map)->rotation.z = 0;
-	(*map)->projection = ft_isometric;
-	(*map)->zoom = 1;
-	if (!fill_map(argv[1], *map))
-		return (0);
-	(*map)->center = (*map)->matrix[(*map)->height / 2][(*map)->width / 2];
+	map->center = map->matrix[map->height / 2][map->width / 2];
 	return (1);
 }
 
@@ -59,16 +58,13 @@ static int	screen_init(t_data *data, t_map *map)
 {
 	data->init = mlx_init();
 	if (!data->init)
-		return (0);
+		ft_error_data("mlx_init failed", data);
 	data->display = mlx_new_window(data->init, WIDTH, HEIGHT, "FdF");
 	if (!data->display)
-		return (mlx_destroy_display(data->init), 0);
+		ft_error_data("mlx display failed", data);
 	data->img = mlx_new_image(data->init, WIDTH, HEIGHT);
 	if (!data->img)
-	{
-		mlx_destroy_window(data->init, data->display);
-		mlx_destroy_display(data->init);
-	}
+		ft_error_data("mlx new image failed", data);
 	data->addr = mlx_get_data_addr(data->img,
 			&data->bits_per_pixel, &data->line_length, &data->endian);
 	data->map = map;
@@ -78,7 +74,7 @@ static int	screen_init(t_data *data, t_map *map)
 	data->map->offset_y = (double)(HEIGHT * 1 / 6 - map->min_y * data->map->sy);
 	data->zbuffer = malloc(WIDTH * HEIGHT * sizeof(double));
 	if (!data->zbuffer)
-		ft_error("Z-buffer allocation failed");
+		ft_error_data("Z-buffer allocation failed", data);
 	return (1);
 }
 

@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 SRC = fdf.c
-SRC += utils/fdf_utils.c
+SRC += utils/fdf_utils.c utils/ft_erros.c
 SRC += srcs/map/fdf_map.c srcs/map/ft_map_utils.c
 SRC += srcs/math/ft_atoi_hex.c srcs/math/ft_math_utils.c srcs/math/ft_rotation.c
 SRC += srcs/render/ft_bresenham.c srcs/render/ft_display_image.c srcs/render/ft_colors.c

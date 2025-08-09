@@ -40,7 +40,6 @@ static void	ft_rotation_events(int keycode, t_data *data)
 		data->map->rotation.x += +0.01;
 	if (keycode == 52)
 		data->map->rotation.x += -0.01;
-	printf("\n%f\n", data->map->rotation.y);
 }
 
 int	key_up(int keycode, t_data *data)
@@ -51,6 +50,5 @@ int	key_up(int keycode, t_data *data)
 		type = 0;
 	ft_translation_events(keycode, data);
 	ft_rotation_events(keycode, data);
-	printf("%d \n", keycode);
 	return (0);
 }

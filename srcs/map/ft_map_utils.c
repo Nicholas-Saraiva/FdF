@@ -20,6 +20,7 @@ int	get_height(char *argv)
 
 	str = 0;
 	y = 0;
+	fd = 0;
 	fd = open(argv, O_RDONLY);
 	if (fd == -1)
 		return (0);
@@ -45,7 +46,9 @@ int	get_width(char *argv)
 	split = 0;
 	x = -1;
 	fd = open(argv, O_RDONLY);
-	if (fd == -1 || !get_next_line(fd, &str))
+	if (fd == -1)
+		return (0);
+	if (!get_next_line(fd, &str))
 		return (0);
 	split = ft_split(str, ' ');
 	free(str);

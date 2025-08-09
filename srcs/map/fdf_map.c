@@ -24,8 +24,7 @@ int	fill_map(char *argv, t_map *map)
 
 	str = 0;
 	i = 0;
-	if (!init_map(map, argv))
-		return (0);
+	init_map(map, argv);
 	fd = open(argv, O_RDONLY);
 	if (!fd)
 		return (0);
@@ -34,7 +33,8 @@ int	fill_map(char *argv, t_map *map)
 		split = ft_split(str, ' ');
 		(map->matrix)[i] = construct_map(split, map, i);
 		if (!(map->matrix[i++]))
-			return (free(str), free_map(map), 0);
+			return (free(str),
+			ft_error_map("First line is not the smalest or malloc failed",map), 0);
 		free(str);
 	}
 	if (close(fd) == -1)
@@ -46,17 +46,14 @@ static int	init_map(t_map *map, char *argv)
 {
 	map->height = get_height(argv);
 	if (!map->height)
-		return (0);
+		ft_error_map("Getting Height of map failed", map);
 	map->width = get_width(argv);
 	if (!map->width)
-		return (0);
-	map->matrix = malloc(sizeof(t_3d *) * (map->height));
-	map->total_lines = (map->width - 1) * map->height
-		+ (map->height - 1) * map->width;
+		ft_error_map("Getting Width of map failed", map);
+	map->matrix = ft_calloc((map->height), sizeof(t_3d *));
 	if (!(map->matrix))
-		return (0);
-	else
-		return (1);
+		ft_error_map("malloc on matrix failed", map);
+	return (1);
 }
 
 static t_3d	*construct_map(char **split, t_map *map, int x)
@@ -80,6 +77,9 @@ static t_3d	*construct_map(char **split, t_map *map, int x)
 		free(split[i++]);
 	free(split);
 	if (i < map->width)
-		ft_error("Size Invalid");
+	{
+		free(values);
+		return (0);
+	}
 	return (values);
 }

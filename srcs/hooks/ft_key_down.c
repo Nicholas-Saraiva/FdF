@@ -26,7 +26,6 @@ static void	ft_rotation_events(int keycode, t_data *data)
 		data->map->rotation.x = 0;
 	if (keycode == 52)
 		data->map->rotation.x = 0;
-	printf("\n%f\n", data->map->rotation.y);
 }
 
 int	key_down(int keycode, t_data *data)
