@@ -12,15 +12,14 @@
 
 #include "fdf.h"
 
-void	ft_error_map(const char *msg, t_map  *map)
+void	ft_error_map(const char *msg, t_map *map)
 {
 	free_map(map);
 	perror(msg);
 	exit(-1);
 }
 
-
-void	ft_error_data(const char *msg, t_data  *data)
+void	ft_error_data(const char *msg, t_data *data)
 {
 	free_data(data);
 	perror(msg);

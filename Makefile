@@ -13,7 +13,7 @@
 SRC = fdf.c
 SRC += utils/fdf_utils.c utils/ft_erros.c
 SRC += srcs/map/fdf_map.c srcs/map/ft_map_utils.c
-SRC += srcs/math/ft_atoi_hex.c srcs/math/ft_math_utils.c srcs/math/ft_rotation.c
+SRC += srcs/math/ft_atoi_hex.c srcs/math/ft_math_utils.c srcs/math/ft_rotation.c srcs/math/ft_projections.c
 SRC += srcs/render/ft_bresenham.c srcs/render/ft_display_image.c srcs/render/ft_colors.c
 SRC += srcs/hooks/ft_key_up.c srcs/hooks/ft_key_down.c srcs/hooks/ft_mouse_hook.c srcs/hooks/ft_hooks.c
 
@@ -28,8 +28,8 @@ GNL_A = $(addprefix $(GNL), libget.a)
 MLX_A = $(addprefix $(MLX), libmlx.a)
 
 CC = cc
-CCFLAGS = -Wall -Wextra -Werror# -pg -g
-INCLUDE = -Iminilibx-linux -I/user/lib -Iheader -Lminilibx-linux -lmlx_Linux -lX11 -lXext -lm -O3 -march=native -ffast-math -funroll-loops
+CCFLAGS = -Wall -Wextra -Werror
+INCLUDE = -Iminilibx-linux -I/user/lib -Iheader -Lminilibx-linux -lmlx_Linux -lX11 -lXext -lm -O3
 LIBRARIES = -L$(LIBFT) -lft -L$(GNL) -lget 
 NAME = fdf
 

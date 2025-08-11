@@ -18,26 +18,27 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <stdio.h>
-# include <float.h>
 # include "mlx.h"
 # include "libft.h"
 # include "get_next_line.h"
 
-# define RADIUS 0.523599
 # define WIDTH 1400
 # define HEIGHT 800
 # define KEY_A 97
 # define KEY_W 119
 # define KEY_D 100
 # define KEY_S 115
+# define KEY_Q 113
+# define KEY_E 101
 # define KEY_LEFT 65361
 # define KEY_UP 65362
 # define KEY_RIGHT 65363
 # define KEY_DOWN 65364
 # define COLOR 0x3f6d4e
-# define DIMENSIONAL 3
-# define RAD_UP 6.28319
-
+# define G_COLOR 0x00ff9f
+# define P_COLOR 0xbd00ff
+# define FLT_MAX 1E+37
+# define FLT_MIN -1E+37
 
 typedef struct s_2d
 {
@@ -142,8 +143,8 @@ t_3d			ft_plane(t_3d matrix1d);
 unsigned int	ft_atoi_base(const char *nptr, int base);
 
 //-----Errors
-void			ft_error_map(const char *msg, t_map  *map);
-void			ft_error_data(const char *msg, t_data  *data);
+void			ft_error_map(const char *msg, t_map *map);
+void			ft_error_data(const char *msg, t_data *data);
 
 //-----Utils
 int				free_map(t_map *map);

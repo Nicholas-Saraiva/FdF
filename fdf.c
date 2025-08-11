@@ -14,6 +14,7 @@
 
 static int	map_init(t_map *map, char *argv[]);
 static int	screen_init(t_data *data, t_map *map);
+static void	draw_gui(t_data *data);
 static int	render(t_data *data);
 
 int	main(int argc, char *argv[])
@@ -40,10 +41,10 @@ static int	map_init(t_map *map, char *argv[])
 	map->height = 0;
 	map->matrix = 0;
 	map->matrix_cpy = 0;
-	map->max_x = DBL_MIN;
-	map->min_x = DBL_MAX;
-	map->min_y = DBL_MAX;
-	map->max_y = DBL_MIN;
+	map->max_x = FLT_MIN;
+	map->min_x = FLT_MAX;
+	map->min_y = FLT_MAX;
+	map->max_y = FLT_MIN;
 	map->rotation.x = 0;
 	map->rotation.y = 0;
 	map->rotation.z = 0;
@@ -75,7 +76,8 @@ static int	screen_init(t_data *data, t_map *map)
 	data->map->sx = (float)((WIDTH * 2 / 3) / map->width);
 	data->map->sy = (float)((HEIGHT * 2 / 3) / (map->max_y - map->min_y));
 	data->map->offset_x = (float)(WIDTH * 1 / 2);
-	data->map->offset_y = (float)(HEIGHT * 1 / 2 - ((map->max_y + map->min_y) / 2));
+	data->map->offset_y = (float)(HEIGHT * 1 / 2 - (
+				(map->max_y + map->min_y) / 2));
 	data->zbuffer = malloc(WIDTH * HEIGHT * sizeof(float));
 	if (!data->zbuffer)
 		ft_error_data("Z-buffer allocation failed", data);
@@ -85,5 +87,33 @@ static int	screen_init(t_data *data, t_map *map)
 static int	render(t_data *data)
 {
 	display_image(data->map, data);
+	draw_gui(data);
 	return (0);
+}
+
+static void	draw_gui(t_data *data)
+{
+	int	x;
+	int	y;
+
+	x = 20;
+	y = 20;
+	mlx_string_put(data->init, data->display, x + 25, y,
+		P_COLOR, "Fill De Fer");
+	mlx_string_put(data->init, data->display, x, y + 30,
+		P_COLOR, "--------------------");
+	mlx_string_put(data->init, data->display, x + 30, y + 60,
+		G_COLOR, "CONTROLS");
+	mlx_string_put(data->init, data->display, x + 2, y + 80,
+		G_COLOR, "  [ESC to exit]");
+	mlx_string_put(data->init, data->display, x, y + 100,
+		G_COLOR, " [WASD to rotate]");
+	mlx_string_put(data->init, data->display, x, y + 120,
+		G_COLOR, " [Arrows to move]");
+	mlx_string_put(data->init, data->display, x, y + 140,
+		G_COLOR, " [Scroll to zoom]");
+	mlx_string_put(data->init, data->display, x - 7, y + 160,
+		G_COLOR, " [tab to projection]");
+	mlx_string_put(data->init, data->display, x, y + 190,
+		P_COLOR, "--------------------");
 }

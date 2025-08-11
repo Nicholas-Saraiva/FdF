@@ -33,7 +33,8 @@ int	fill_map(char *argv, t_map *map)
 		split = ft_split(str, ' ');
 		(map->matrix)[i] = construct_map(split, map, i);
 		if (!(map->matrix[i++]))
-			return (free(str), ft_error_map("Size invalid or malloc failed",map), 0);
+			return (free(str), ft_error_map(
+					"Size invalid or malloc failed", map), 0);
 		free(str);
 	}
 	if (close(fd) == -1)
@@ -69,7 +70,6 @@ static t_3d	*construct_map(char **split, t_map *map, int x)
 	{
 		values[i] = new_point3d(i, x, ft_atoi(split[i]));
 		values[i].color = get_color(values[i], split[i]);
-		//find_limits(map, map->projection(values[i]));
 		free(split[i]);
 	}
 	while (split[i])

@@ -32,32 +32,6 @@ t_3d	subtrate_3d_points(t_3d point1, t_3d point2)
 	return (result);
 }
 
-t_3d ft_isometric(t_3d matrix1d)
-{
-    const float cos_z = 0.70710678118;
-    const float sin_z = 0.70710678118;
-    const float cos_x = 0.81649658092;
-    const float sin_x = 0.57735026919;
-    t_3d    result;
-
-    result.x = matrix1d.x * cos_z - matrix1d.y * sin_z;
-    result.y = matrix1d.x * sin_z * cos_x + matrix1d.y * cos_z * cos_x - matrix1d.z * sin_x;
-    result.z = matrix1d.x * sin_z * sin_x + matrix1d.y * cos_z * sin_x + matrix1d.z * cos_x;
-    result.color = matrix1d.color;
-    return (result);
-}
-
-t_3d	ft_plane(t_3d matrix1d)
-{
-	t_3d	result;
-
-	result.x = matrix1d.x;
-	result.y = matrix1d.y;
-	result.z = 0;
-	result.color = matrix1d.color;
-	return (result);
-}
-
 t_3d	new_point3d(int x, int y, int z)
 {
 	t_3d	point;

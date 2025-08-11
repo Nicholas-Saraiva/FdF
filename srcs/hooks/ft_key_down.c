@@ -14,18 +14,12 @@
 
 static void	ft_rotation_events(int keycode, t_data *data)
 {
-	if (keycode == 113)
-		data->map->rotation.z = 0;
-	if (keycode == 101)
-		data->map->rotation.z = 0;
-	if (keycode == 49)
-		data->map->rotation.y = 0;
-	if (keycode == 50)
-		data->map->rotation.y = 0;
-	if (keycode == 51)
+	if (keycode == KEY_W || keycode == KEY_S)
 		data->map->rotation.x = 0;
-	if (keycode == 52)
-		data->map->rotation.x = 0;
+	if (keycode == KEY_A || keycode == KEY_D)
+		data->map->rotation.y = 0;
+	if (keycode == 113 || keycode == 101)
+		data->map->rotation.z = 0;
 }
 
 int	key_down(int keycode, t_data *data)

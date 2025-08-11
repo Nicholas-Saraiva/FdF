@@ -77,12 +77,12 @@ t_3d	**ft_matrix_cpy(t_map *map, t_3d **matrix)
 	i = -1;
 	new_matrix = ft_calloc((map->height), sizeof(t_3d *));
 	if (!new_matrix)
-		return ((t_3d **) {0});
+		return ((t_3d **){0});
 	while (++i < map->height)
 	{
 		new_matrix[i] = malloc(sizeof(t_3d) * map->width);
 		if (!new_matrix[i])
-			return(free_matrix_3d(new_matrix, map), (t_3d **) {0});
+			return (free_matrix_3d(new_matrix, map), (t_3d **){0});
 	}
 	i = -1;
 	while (++i < map->height)

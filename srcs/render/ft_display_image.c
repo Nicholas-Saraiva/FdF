@@ -23,7 +23,7 @@ void	display_image(t_map *map, t_data *data)
 
 	i = -1;
 	while (++i < WIDTH * HEIGHT)
-		data->zbuffer[i] = -DBL_MAX;
+		data->zbuffer[i] = -FLT_MAX;
 	ft_bzero(data->addr, 1 + WIDTH * HEIGHT * sizeof(int));
 	if (map->rotation.x || map->rotation.y || map->rotation.z)
 		apply_rotation(data);
@@ -46,7 +46,6 @@ static void	apply_rotation(t_data *data)
 			data->map->matrix_cpy[i][j] = ft_find_rotation(data,
 					data->map->matrix_cpy[i][j]);
 		}
-
 	}
 }
 
@@ -95,7 +94,7 @@ static t_3d	ft_find_rotation(t_data *data, t_3d point3d)
 static t_3d	scale_transform(t_3d point3d, t_map *map)
 {
 	t_3d	translated;
-	
+
 	translated = subtrate_3d_points(point3d,
 			map->projection(map->center));
 	translated.x = translated.x * map->sx * map->zoom + map->offset_x;
