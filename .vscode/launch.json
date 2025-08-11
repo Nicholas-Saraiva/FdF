@@ -5,7 +5,7 @@
       "name": "C/C++ Runner: Debug Session",
       "type": "cppdbg",
       "request": "launch",
-      "args": ["a.fdf"],
+      "args": ["test_maps/42.fdf"],
       "stopAtEntry": false,
       "externalConsole": false,
       "cwd": "/home/alexandria/library/42Cursos/FdF",

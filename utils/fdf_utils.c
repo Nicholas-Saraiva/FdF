@@ -14,15 +14,8 @@
 
 int	free_map(t_map *map)
 {
-	int	i;
-
-	i = -1;
-	while (map->matrix && ++i < map->height)
-		if (map->matrix[i])
-			free(map->matrix[i]);
-	if (map->matrix)
-		free(map->matrix);
-	map->matrix = NULL;
+	free_matrix_3d(map->matrix, map);
+	free_matrix_3d(map->matrix_cpy, map);
 	return (0);
 }
 
@@ -42,6 +35,21 @@ int	free_data(t_data *data)
 	exit (0);
 }
 
+void	free_matrix_3d(t_3d **matrix, t_map *map)
+{
+	int	i;
+
+	i = -1;
+	if (!matrix)
+		return ;
+	while (++i < map->height)
+	{
+		if (matrix[i])
+			free(matrix[i]);
+	}
+	free(matrix);
+}
+
 void	my_mlx_pixel_put(t_data *data, t_3d point)
 {
 	int		index;
@@ -58,4 +66,33 @@ void	my_mlx_pixel_put(t_data *data, t_3d point)
 				+ (int) point.x * (data->bits_per_pixel / 8));
 		*(unsigned int *)dst = point.color;
 	}
+}
+
+t_3d	**ft_matrix_cpy(t_map *map, t_3d **matrix)
+{
+	int		i;
+	int		j;
+	t_3d	**new_matrix;
+
+	i = -1;
+	new_matrix = ft_calloc((map->height), sizeof(t_3d *));
+	if (!new_matrix)
+		return ((t_3d **) {0});
+	while (++i < map->height)
+	{
+		new_matrix[i] = malloc(sizeof(t_3d) * map->width);
+		if (!new_matrix[i])
+			return(free_matrix_3d(new_matrix, map), (t_3d **) {0});
+	}
+	i = -1;
+	while (++i < map->height)
+	{
+		j = -1;
+		while (++j < map->width)
+		{
+			new_matrix[i][j] = map->projection(matrix[i][j]);
+			find_limits(map, new_matrix[i][j]);
+		}
+	}
+	return (new_matrix);
 }

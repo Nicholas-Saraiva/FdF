@@ -39,6 +39,7 @@ static int	map_init(t_map *map, char *argv[])
 	map->width = 0;
 	map->height = 0;
 	map->matrix = 0;
+	map->matrix_cpy = 0;
 	map->max_x = DBL_MIN;
 	map->min_x = DBL_MAX;
 	map->min_y = DBL_MAX;
@@ -50,7 +51,10 @@ static int	map_init(t_map *map, char *argv[])
 	map->zoom = 1;
 	if (!fill_map(argv[1], map))
 		return (0);
-	map->center = map->matrix[map->height / 2][map->width / 2];
+	map->center = (map->matrix[map->height / 2][map->width / 2]);
+	map->matrix_cpy = ft_matrix_cpy(map, map->matrix);
+	if (!map->matrix_cpy)
+		return (0);
 	return (1);
 }
 
@@ -68,11 +72,11 @@ static int	screen_init(t_data *data, t_map *map)
 	data->addr = mlx_get_data_addr(data->img,
 			&data->bits_per_pixel, &data->line_length, &data->endian);
 	data->map = map;
-	data->map->sx = (double)((WIDTH * 4 / 6) / (map->max_x - map->min_x));
-	data->map->sy = (double)((HEIGHT * 4 / 6) / (map->max_y - map->min_y));
-	data->map->offset_x = (double)(WIDTH * 1 / 6 - map->min_x * data->map->sx);
-	data->map->offset_y = (double)(HEIGHT * 1 / 6 - map->min_y * data->map->sy);
-	data->zbuffer = malloc(WIDTH * HEIGHT * sizeof(double));
+	data->map->sx = (float)((WIDTH * 2 / 3) / map->width);
+	data->map->sy = (float)((HEIGHT * 2 / 3) / (map->max_y - map->min_y));
+	data->map->offset_x = (float)(WIDTH * 1 / 2);
+	data->map->offset_y = (float)(HEIGHT * 1 / 2 - ((map->max_y + map->min_y) / 2));
+	data->zbuffer = malloc(WIDTH * HEIGHT * sizeof(float));
 	if (!data->zbuffer)
 		ft_error_data("Z-buffer allocation failed", data);
 	return (1);

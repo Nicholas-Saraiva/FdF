@@ -42,8 +42,11 @@ static void	apply_rotation(t_data *data)
 	{
 		i = -1;
 		while (++i < data->map->height)
-			data->map->matrix[i][j] = ft_find_rotation(data,
-					data->map->matrix[i][j]);
+		{
+			data->map->matrix_cpy[i][j] = ft_find_rotation(data,
+					data->map->matrix_cpy[i][j]);
+		}
+
 	}
 }
 
@@ -60,15 +63,15 @@ static void	draw_map(t_map *map, t_data *data)
 		j = -1;
 		while (++j < map->width)
 		{
-			p = scale_transform(map->matrix[i][j], map);
+			p = scale_transform(map->matrix_cpy[i][j], map);
 			if (j < map->width - 1)
 			{
-				p2 = scale_transform(map->matrix[i][j + 1], map);
+				p2 = scale_transform(map->matrix_cpy[i][j + 1], map);
 				draw_line(p, p2, data);
 			}
 			if (i < map->height - 1)
 			{
-				p2 = scale_transform(map->matrix[i + 1][j], map);
+				p2 = scale_transform(map->matrix_cpy[i + 1][j], map);
 				draw_line(p, p2, data);
 			}
 		}
@@ -78,30 +81,27 @@ static void	draw_map(t_map *map, t_data *data)
 static t_3d	ft_find_rotation(t_data *data, t_3d point3d)
 {
 	if (data->map->rotation.z)
-		return (ft_apply_rotation(data, point3d,
+		return (ft_apply_rotation(data->map, point3d,
 				data->map->rotation.z, rotate_z));
 	if (data->map->rotation.x)
-		return (ft_apply_rotation(data, point3d,
+		return (ft_apply_rotation(data->map, point3d,
 				data->map->rotation.x, rotate_x));
 	if (data->map->rotation.y)
-		return (ft_apply_rotation(data,
+		return (ft_apply_rotation(data->map,
 				point3d, data->map->rotation.y, rotate_y));
 	return (point3d);
 }
 
 static t_3d	scale_transform(t_3d point3d, t_map *map)
 {
-	t_3d	result;
 	t_3d	translated;
-
+	
 	translated = subtrate_3d_points(point3d,
-			map->center);
-	translated.x = translated.x * map->sx * map->zoom;
-	translated.y = translated.y * map->sy * map->zoom;
-	translated = sum_3d_points(translated, map->center);
-	result.x = (translated.x + map->offset_x);
-	result.y = (translated.y + map->offset_y + HEIGHT * 0.3);
-	result.z = point3d.z;
-	result.color = point3d.color;
-	return (result);
+			map->projection(map->center));
+	translated.x = translated.x * map->sx * map->zoom + map->offset_x;
+	translated.y = translated.y * map->sy * map->zoom + map->offset_y;
+	translated = sum_3d_points(translated, map->projection(map->center));
+	translated.z = point3d.z;
+	translated.color = point3d.color;
+	return (translated);
 }

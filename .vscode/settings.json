@@ -65,6 +65,7 @@
     "format": "c",
     "algorithm": "c",
     "random": "c",
-    "fdf.h": "c"
+    "fdf.h": "c",
+    "chrono": "c"
   }
 }

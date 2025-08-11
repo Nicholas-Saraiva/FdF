@@ -30,10 +30,6 @@ static void	ft_rotation_events(int keycode, t_data *data)
 
 int	key_down(int keycode, t_data *data)
 {
-	static int	type;
-
-	if (!type)
-		type = 0;
 	ft_rotation_events(keycode, data);
 	return (0);
 }

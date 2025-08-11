@@ -1,0 +1,308 @@
+Flat profile:
+
+Each sample counts as 0.01 seconds.
+  %   cumulative   self              self     total           
+ time   seconds   seconds    calls  ms/call  ms/call  name    
+ 31.32      1.08     1.08       37    29.20    79.87  display_image
+ 20.30      1.78     0.70 35203000     0.00     0.00  ft_apply_rotation
+ 10.29      2.14     0.36 90879000     0.00     0.00  ft_isometric
+  8.12      2.42     0.28                             _init
+  7.83      2.69     0.27 18463000     0.00     0.00  draw_line
+  6.23      2.90     0.22 30501820     0.00     0.00  my_mlx_pixel_put
+  2.61      2.99     0.09 111851000     0.00     0.00  rotate_z
+  2.32      3.07     0.08 92377000     0.00     0.00  rotate_x
+  1.74      3.13     0.06 81379000     0.00     0.00  subtrate_3d_points
+  1.45      3.18     0.05                             ft_bzero
+  1.16      3.22     0.04 12733000     0.00     0.00  rotate_y
+  1.01      3.26     0.04 62916000     0.00     0.00  sum_3d_points
+  0.87      3.29     0.03 30501820     0.00     0.00  interpolate_color
+  0.87      3.32     0.03                             check_nl
+  0.58      3.34     0.02   250000     0.00     0.00  find_limits
+  0.58      3.36     0.02                             ft_newline
+  0.58      3.38     0.02                             ft_strjoin_gnl
+  0.58      3.40     0.02                             ft_strlen
+  0.43      3.41     0.02   250000     0.00     0.00  ft_atoi_base
+  0.29      3.42     0.01                             ft_fill
+  0.29      3.43     0.01                             ft_memcpy_gnl
+  0.14      3.44     0.01        1     5.00     5.00  free_data
+  0.00      3.44     0.00   250000     0.00     0.00  get_color
+  0.00      3.44     0.00   250000     0.00     0.00  new_point3d
+  0.00      3.44     0.00      139     0.00     0.04  key_up
+  0.00      3.44     0.00       37     0.00    79.87  render
+  0.00      3.44     0.00        1     0.00    36.41  fill_map
+  0.00      3.44     0.00        1     0.00     0.00  ft_hooks
+  0.00      3.44     0.00        1     0.00     0.00  get_height
+  0.00      3.44     0.00        1     0.00     0.00  get_width
+
+ %         the percentage of the total running time of the
+time       program used by this function.
+
+cumulative a running sum of the number of seconds accounted
+ seconds   for by this function and those listed above it.
+
+ self      the number of seconds accounted for by this
+seconds    function alone.  This is the major sort for this
+           listing.
+
+calls      the number of times this function was invoked, if
+           this function is profiled, else blank.
+
+ self      the average number of milliseconds spent in this
+ms/call    function per call, if this function is profiled,
+	   else blank.
+
+ total     the average number of milliseconds spent in this
+ms/call    function and its descendents per call, if this
+	   function is profiled, else blank.
+
+name       the name of the function.  This is the minor sort
+           for this listing. The index shows the location of
+	   the function in the gprof listing. If the index is
+	   in parenthesis it shows where it would appear in
+	   the gprof listing if it were to be printed.
+
+Copyright (C) 2012-2025 Free Software Foundation, Inc.
+
+Copying and distribution of this file, with or without modification,
+are permitted in any medium without royalty provided the copyright
+notice and this notice are preserved.
+
+		     Call graph (explanation follows)
+
+
+granularity: each sample hit covers 2 byte(s) for 0.29% of 3.44 seconds
+
+index % time    self  children    called     name
+                                                 <spontaneous>
+[1]     86.1    0.00    2.96                 mlx_loop [1]
+                0.00    2.96      37/37          render [3]
+                0.00    0.01     139/139         key_up [26]
+-----------------------------------------------
+                1.08    1.87      37/37          render [3]
+[2]     86.0    1.08    1.87      37         display_image [2]
+                0.70    0.30 35203000/35203000     ft_apply_rotation [4]
+                0.27    0.26 18463000/18463000     draw_line [5]
+                0.22    0.09 55426000/90879000     ft_isometric [6]
+                0.02    0.00 27713000/81379000     subtrate_3d_points [11]
+                0.02    0.00 27713000/62916000     sum_3d_points [16]
+-----------------------------------------------
+                0.00    2.96      37/37          mlx_loop [1]
+[3]     86.0    0.00    2.96      37         render [3]
+                1.08    1.87      37/37          display_image [2]
+-----------------------------------------------
+                0.70    0.30 35203000/35203000     display_image [2]
+[4]     29.1    0.70    0.30 35203000         ft_apply_rotation [4]
+                0.14    0.06 35203000/90879000     ft_isometric [6]
+                0.04    0.00 12733000/12733000     rotate_y [13]
+                0.03    0.00 35203000/81379000     subtrate_3d_points [11]
+                0.02    0.00 35203000/62916000     sum_3d_points [16]
+                0.02    0.00 20972000/111851000     rotate_z [9]
+                0.00    0.00 1498000/92377000     rotate_x [10]
+-----------------------------------------------
+                0.27    0.26 18463000/18463000     display_image [2]
+[5]     15.4    0.27    0.26 18463000         draw_line [5]
+                0.22    0.00 30501820/30501820     my_mlx_pixel_put [8]
+                0.03    0.00 30501820/30501820     interpolate_color [17]
+                0.01    0.00 18463000/81379000     subtrate_3d_points [11]
+-----------------------------------------------
+                0.00    0.00  250000/90879000     fill_map [14]
+                0.14    0.06 35203000/90879000     ft_apply_rotation [4]
+                0.22    0.09 55426000/90879000     display_image [2]
+[6]     14.8    0.36    0.15 90879000         ft_isometric [6]
+                0.08    0.00 90879000/92377000     rotate_x [10]
+                0.07    0.00 90879000/111851000     rotate_z [9]
+-----------------------------------------------
+                                                 <spontaneous>
+[7]      8.2    0.28    0.00                 _init [7]
+-----------------------------------------------
+                0.22    0.00 30501820/30501820     draw_line [5]
+[8]      6.3    0.22    0.00 30501820         my_mlx_pixel_put [8]
+-----------------------------------------------
+                0.02    0.00 20972000/111851000     ft_apply_rotation [4]
+                0.07    0.00 90879000/111851000     ft_isometric [6]
+[9]      2.6    0.09    0.00 111851000         rotate_z [9]
+-----------------------------------------------
+                0.00    0.00 1498000/92377000     ft_apply_rotation [4]
+                0.08    0.00 90879000/92377000     ft_isometric [6]
+[10]     2.3    0.08    0.00 92377000         rotate_x [10]
+-----------------------------------------------
+                0.01    0.00 18463000/81379000     draw_line [5]
+                0.02    0.00 27713000/81379000     display_image [2]
+                0.03    0.00 35203000/81379000     ft_apply_rotation [4]
+[11]     1.7    0.06    0.00 81379000         subtrate_3d_points [11]
+-----------------------------------------------
+                                                 <spontaneous>
+[12]     1.5    0.05    0.00                 ft_bzero [12]
+-----------------------------------------------
+                0.04    0.00 12733000/12733000     ft_apply_rotation [4]
+[13]     1.2    0.04    0.00 12733000         rotate_y [13]
+-----------------------------------------------
+                0.00    0.04       1/1           main [15]
+[14]     1.1    0.00    0.04       1         fill_map [14]
+                0.02    0.00  250000/250000      find_limits [19]
+                0.02    0.00  250000/250000      ft_atoi_base [23]
+                0.00    0.00  250000/90879000     ft_isometric [6]
+                0.00    0.00  250000/250000      new_point3d [29]
+                0.00    0.00  250000/250000      get_color [28]
+                0.00    0.00       1/1           get_height [31]
+                0.00    0.00       1/1           get_width [32]
+-----------------------------------------------
+                                                 <spontaneous>
+[15]     1.1    0.00    0.04                 main [15]
+                0.00    0.04       1/1           fill_map [14]
+                0.00    0.00       1/1           ft_hooks [30]
+-----------------------------------------------
+                0.02    0.00 27713000/62916000     display_image [2]
+                0.02    0.00 35203000/62916000     ft_apply_rotation [4]
+[16]     1.0    0.04    0.00 62916000         sum_3d_points [16]
+-----------------------------------------------
+                0.03    0.00 30501820/30501820     draw_line [5]
+[17]     0.9    0.03    0.00 30501820         interpolate_color [17]
+-----------------------------------------------
+                                                 <spontaneous>
+[18]     0.9    0.03    0.00                 check_nl [18]
+-----------------------------------------------
+                0.02    0.00  250000/250000      fill_map [14]
+[19]     0.6    0.02    0.00  250000         find_limits [19]
+-----------------------------------------------
+                                                 <spontaneous>
+[20]     0.6    0.02    0.00                 ft_newline [20]
+-----------------------------------------------
+                                                 <spontaneous>
+[21]     0.6    0.02    0.00                 ft_strjoin_gnl [21]
+-----------------------------------------------
+                                                 <spontaneous>
+[22]     0.6    0.02    0.00                 ft_strlen [22]
+-----------------------------------------------
+                0.02    0.00  250000/250000      fill_map [14]
+[23]     0.4    0.02    0.00  250000         ft_atoi_base [23]
+-----------------------------------------------
+                                                 <spontaneous>
+[24]     0.3    0.01    0.00                 ft_fill [24]
+-----------------------------------------------
+                                                 <spontaneous>
+[25]     0.3    0.01    0.00                 ft_memcpy_gnl [25]
+-----------------------------------------------
+                0.00    0.01     139/139         mlx_loop [1]
+[26]     0.1    0.00    0.01     139         key_up [26]
+                0.01    0.00       1/1           free_data [27]
+-----------------------------------------------
+                0.01    0.00       1/1           key_up [26]
+[27]     0.1    0.01    0.00       1         free_data [27]
+-----------------------------------------------
+                0.00    0.00  250000/250000      fill_map [14]
+[28]     0.0    0.00    0.00  250000         get_color [28]
+-----------------------------------------------
+                0.00    0.00  250000/250000      fill_map [14]
+[29]     0.0    0.00    0.00  250000         new_point3d [29]
+-----------------------------------------------
+                0.00    0.00       1/1           main [15]
+[30]     0.0    0.00    0.00       1         ft_hooks [30]
+-----------------------------------------------
+                0.00    0.00       1/1           fill_map [14]
+[31]     0.0    0.00    0.00       1         get_height [31]
+-----------------------------------------------
+                0.00    0.00       1/1           fill_map [14]
+[32]     0.0    0.00    0.00       1         get_width [32]
+-----------------------------------------------
+
+ This table describes the call tree of the program, and was sorted by
+ the total amount of time spent in each function and its children.
+
+ Each entry in this table consists of several lines.  The line with the
+ index number at the left hand margin lists the current function.
+ The lines above it list the functions that called this function,
+ and the lines below it list the functions this one called.
+ This line lists:
+     index	A unique number given to each element of the table.
+		Index numbers are sorted numerically.
+		The index number is printed next to every function name so
+		it is easier to look up where the function is in the table.
+
+     % time	This is the percentage of the `total' time that was spent
+		in this function and its children.  Note that due to
+		different viewpoints, functions excluded by options, etc,
+		these numbers will NOT add up to 100%.
+
+     self	This is the total amount of time spent in this function.
+
+     children	This is the total amount of time propagated into this
+		function by its children.
+
+     called	This is the number of times the function was called.
+		If the function called itself recursively, the number
+		only includes non-recursive calls, and is followed by
+		a `+' and the number of recursive calls.
+
+     name	The name of the current function.  The index number is
+		printed after it.  If the function is a member of a
+		cycle, the cycle number is printed between the
+		function's name and the index number.
+
+
+ For the function's parents, the fields have the following meanings:
+
+     self	This is the amount of time that was propagated directly
+		from the function into this parent.
+
+     children	This is the amount of time that was propagated from
+		the function's children into this parent.
+
+     called	This is the number of times this parent called the
+		function `/' the total number of times the function
+		was called.  Recursive calls to the function are not
+		included in the number after the `/'.
+
+     name	This is the name of the parent.  The parent's index
+		number is printed after it.  If the parent is a
+		member of a cycle, the cycle number is printed between
+		the name and the index number.
+
+ If the parents of the function cannot be determined, the word
+ `<spontaneous>' is printed in the `name' field, and all the other
+ fields are blank.
+
+ For the function's children, the fields have the following meanings:
+
+     self	This is the amount of time that was propagated directly
+		from the child into the function.
+
+     children	This is the amount of time that was propagated from the
+		child's children to the function.
+
+     called	This is the number of times the function called
+		this child `/' the total number of times the child
+		was called.  Recursive calls by the child are not
+		listed in the number after the `/'.
+
+     name	This is the name of the child.  The child's index
+		number is printed after it.  If the child is a
+		member of a cycle, the cycle number is printed
+		between the name and the index number.
+
+ If there are any cycles (circles) in the call graph, there is an
+ entry for the cycle-as-a-whole.  This entry shows who called the
+ cycle (as parents) and the members of the cycle (as children.)
+ The `+' recursive calls entry shows the number of function calls that
+ were internal to the cycle, and the calls entry for each member shows,
+ for that member, how many times it was called from other members of
+ the cycle.
+
+Copyright (C) 2012-2025 Free Software Foundation, Inc.
+
+Copying and distribution of this file, with or without modification,
+are permitted in any medium without royalty provided the copyright
+notice and this notice are preserved.
+
+Index by function name
+
+   [7] _init                  [24] ft_fill (ft_split.c)   [17] interpolate_color
+  [18] check_nl               [30] ft_hooks               [26] key_up
+   [2] display_image           [6] ft_isometric            [8] my_mlx_pixel_put
+   [5] draw_line              [25] ft_memcpy_gnl (get_next_line.c) [29] new_point3d
+  [14] fill_map               [20] ft_newline (get_next_line.c) [3] render (fdf.c)
+  [19] find_limits            [21] ft_strjoin_gnl         [10] rotate_x
+  [27] free_data              [22] ft_strlen (get_next_line_utils.c) [13] rotate_y
+   [4] ft_apply_rotation      [28] get_color               [9] rotate_z
+  [23] ft_atoi_base           [31] get_height             [11] subtrate_3d_points
+  [12] ft_bzero               [32] get_width              [16] sum_3d_points

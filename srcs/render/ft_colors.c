@@ -16,13 +16,13 @@ static int			get_rgb(int color, int scaler);
 static unsigned int	create_rgb(int r, int g, int b);
 
 unsigned int	interpolate_color(int color1, int color2,
-	int step, double steps)
+	int step, float steps)
 {
 	t_color	c1;
 	t_color	c2;
-	double	t;
+	float	t;
 
-	t = (double) step / (double) steps;
+	t = (float) step / (float) steps;
 	c1.r = get_rgb(color1, 16);
 	c1.g = get_rgb(color1, 8);
 	c1.b = get_rgb(color1, 0);

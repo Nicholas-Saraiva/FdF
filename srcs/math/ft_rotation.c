@@ -12,7 +12,7 @@
 
 #include "fdf.h"
 
-t_3d	rotate_x(t_3d matrix1d, const double angle)
+t_3d	rotate_x(t_3d matrix1d, const float angle)
 {
 	t_3d	result;
 
@@ -23,7 +23,7 @@ t_3d	rotate_x(t_3d matrix1d, const double angle)
 	return (result);
 }
 
-t_3d	rotate_y(t_3d matrix1d, const double angle)
+t_3d	rotate_y(t_3d matrix1d, const float angle)
 {
 	t_3d	result;
 
@@ -34,7 +34,7 @@ t_3d	rotate_y(t_3d matrix1d, const double angle)
 	return (result);
 }
 
-t_3d	rotate_z(t_3d matrix1d, const double angle)
+t_3d	rotate_z(t_3d matrix1d, const float angle)
 {
 	t_3d	result;
 
@@ -45,14 +45,14 @@ t_3d	rotate_z(t_3d matrix1d, const double angle)
 	return (result);
 }
 
-t_3d	ft_apply_rotation(t_data *data, t_3d point3d, double angle,
-		t_3d (*rotate)(t_3d, double))
+t_3d	ft_apply_rotation(t_map *map, t_3d point3d, float angle,
+		t_3d (*rotate)(t_3d, float))
 {
 	t_3d	translated;
 
 	translated = rotate(subtrate_3d_points(point3d,
-				data->map->center), angle);
-	translated = sum_3d_points(translated, data->map->center);
+				map->projection(map->center)), angle);
+	translated = sum_3d_points(translated, map->projection(map->center));
 	translated.color = point3d.color;
 	return (translated);
 }

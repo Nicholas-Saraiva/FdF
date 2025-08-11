@@ -44,11 +44,24 @@ static void	ft_rotation_events(int keycode, t_data *data)
 
 int	key_up(int keycode, t_data *data)
 {
-	static int	type;
-
-	if (!type)
-		type = 0;
 	ft_translation_events(keycode, data);
 	ft_rotation_events(keycode, data);
+	if (keycode == 53)
+	{
+		if (data->map->projection == ft_isometric)
+		{
+			data->map->projection = ft_plane;
+			data->map->offset_x = (float)(WIDTH * 1 / 2 - data->map->width / 2);
+			data->map->offset_y = (float)(HEIGHT * 1 / 2 - data->map->height / 2);
+		}
+		else if (data->map->projection == ft_plane)
+		{
+			data->map->projection = ft_isometric;
+			data->map->offset_x = (float)(WIDTH * 1 / 2);
+			data->map->offset_y = (float)(HEIGHT * 1 / 2 - ((data->map->max_y + data->map->min_y) / 2));
+		}
+		free_matrix_3d(data->map->matrix_cpy, data->map);
+		data->map->matrix_cpy = ft_matrix_cpy(data->map, data->map->matrix);
+	}
 	return (0);
 }
