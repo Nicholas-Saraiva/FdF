@@ -6,7 +6,7 @@
 #    By: nsaraiva <nsaraiva@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/02 10:23:27 by nsaraiva          #+#    #+#              #
-#    Updated: 2025/08/11 15:50:05 by nsaraiva         ###   ########.fr        #
+#    Updated: 2025/08/13 20:04:52 by nsaraiva         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,15 +28,20 @@ GNL_A = $(addprefix $(GNL), libget.a)
 MLX_A = $(addprefix $(MLX), libmlx.a)
 
 CC = cc
-CCFLAGS = -Wall -Wextra -Werror
-INCLUDE = -Iminilibx-linux -I/user/lib -Iheader -Lminilibx-linux -lmlx_Linux -lX11 -lXext -lm -O3
+CFLAGS = -Wall -Wextra -Werror -Iheader -Iminilibx-linux -I/user/lib 
+LDFLAGS = -Lminilibx-linux -lmlx -lX11 -lXext -lm -lpthread -O3
 LIBRARIES = -L$(LIBFT) -lft -L$(GNL) -lget 
+
 NAME = fdf
 
-all : $(NAME) 
+all : $(LIBFT_A) $(GNL_A) $(MLX_A) $(NAME) 
 
-$(NAME) : $(SRC) $(LIBFT_A) $(GNL_A) $(MLX_A)
-	$(CC) $(CCFLAGS) $(SRC) $(INCLUDE) $(LIBRARIES) -o $(NAME) -g
+$(NAME): $(OBJ)
+	$(CC) $(OBJ) $(LIBRARIES) $(LDFLAGS) -o $(NAME) -g
+
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
 
 $(LIBFT_A):
 	$(MAKE) -C $(LIBFT)
