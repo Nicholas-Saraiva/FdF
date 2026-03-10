@@ -20,7 +20,7 @@ TICK    = [✓]
 NAME        = fdf
 BUILD_PATH  = .build/
 
-SRC         = fdf.c \
+SRC         = main.c \
               fdf_utils.c ft_erros.c \
               fdf_map.c ft_map_utils.c \
               ft_atoi_hex.c ft_math_utils.c ft_rotation.c ft_projections.c \
