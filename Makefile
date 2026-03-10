@@ -10,58 +10,82 @@
 #                                                                              #
 # **************************************************************************** #
 
-SRC = fdf.c
-SRC += utils/fdf_utils.c utils/ft_erros.c
-SRC += srcs/map/fdf_map.c srcs/map/ft_map_utils.c
-SRC += srcs/math/ft_atoi_hex.c srcs/math/ft_math_utils.c srcs/math/ft_rotation.c srcs/math/ft_projections.c
-SRC += srcs/render/ft_bresenham.c srcs/render/ft_display_image.c srcs/render/ft_colors.c
-SRC += srcs/hooks/ft_key_up.c srcs/hooks/ft_key_down.c srcs/hooks/ft_mouse_hook.c srcs/hooks/ft_hooks.c
+# Colors & Symbols
+GREEN   = \033[0;32m
+YELLOW  = \033[0;33m
+BLUE    = \033[0;34m
+RESET   = \033[0m
+TICK    = [✓]
 
-OBJ =  $(SRC:.c=.o)
+NAME        = fdf
+BUILD_PATH  = .build/
 
-LIBFT = include/libft
-GNL = include/get_next_line/
-MLX = minilibx-linux/
+SRC         = fdf.c \
+              fdf_utils.c ft_erros.c \
+              fdf_map.c ft_map_utils.c \
+              ft_atoi_hex.c ft_math_utils.c ft_rotation.c ft_projections.c \
+              ft_bresenham.c ft_display_image.c ft_colors.c \
+              ft_key_up.c ft_key_down.c ft_mouse_hook.c ft_hooks.c
 
-LIBFT_A = $(addprefix $(LIBFT), libft.a)
-GNL_A = $(addprefix $(GNL), libget.a)
-MLX_A = $(addprefix $(MLX), libmlx.a)
+OBJS        = $(addprefix $(BUILD_PATH), $(notdir $(SRC:.c=.o)))
+DEPS        = $(OBJS:.o=.d)
 
-CC = cc
-CFLAGS = -Wall -Wextra -Werror -Iheader -Iminilibx-linux -I/user/lib 
-LDFLAGS = -Lminilibx-linux -lmlx -lX11 -lXext -lm -lpthread -O3
-LIBRARIES = -L$(LIBFT) -lft -L$(GNL) -lget 
+VPATH       = .:utils:srcs/map:srcs/math:srcs/render:srcs/hooks
 
-NAME = fdf
+# Libraries
+LIBFT       = include/libft/libft.a
+GNL         = include/get_next_line/libget.a
+MLX_URL     = https://github.com/42paris/minilibx-linux.git
+MLX_DIR     = minilibx-linux
+MLX         = minilibx-linux/libmlx.a
 
-all : $(LIBFT_A) $(GNL_A) $(MLX_A) $(NAME) 
+CC          = clang
+CFLAGS      = -Wall -Wextra -Werror -Iheader -Iminilibx-linux -MMD -MP
+LDFLAGS     = -Lminilibx-linux -lmlx -lX11 -lXext -lm -lpthread -O3
+LIBRARIES   = -Linclude/libft -lft -Linclude/get_next_line -lget 
 
-$(NAME): $(OBJ)
-	$(CC) $(OBJ) $(LIBRARIES) $(LDFLAGS) -o $(NAME) -g
+all: $(NAME)
 
-%.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+$(NAME): $(LIBFT) $(GNL) $(MLX) $(OBJS)
+	@printf "$(YELLOW)Linking $(NAME)...$(RESET)\n"
+	@$(CC) $(OBJS) $(LIBRARIES) $(LDFLAGS) -o $(NAME) -g
+	@printf "$(GREEN)$(TICK) $(NAME) ready!$(RESET)\n"
 
+$(BUILD_PATH)%.o: %.c | $(BUILD_PATH)
+	@printf "$(BLUE)Compiling: $<$(RESET)\n"
+	@$(CC) $(CFLAGS) -c $< -o $@
 
-$(LIBFT_A):
-	$(MAKE) -C $(LIBFT)
+$(BUILD_PATH):
+	@mkdir -p $(BUILD_PATH)
 
-$(GNL_A):
-	$(MAKE) -C $(GNL)
+$(LIBFT):
+	@$(MAKE) -s -C include/libft CC=$(CC)
 
-$(MLX_A):
-	$(MAKE) -s -C $(MLX)
+$(GNL):
+	@$(MAKE) -s -C include/get_next_line CC=$(CC)
+
+$(MLX):
+	@if [ ! -d "$(MLX_DIR)" ]; then \
+		printf "$(YELLOW)Cloning MiniLibX...$(RESET)\n"; \
+		git clone $(MLX_URL) $(MLX_DIR); \
+	fi
+	@printf "$(YELLOW)Building MiniLibX...$(RESET)\n"
+	@$(MAKE) -s -C $(MLX_DIR) CC=$(CC) 2>/dev/null
+
+-include $(DEPS)
 
 clean:
-	rm -rf $(OBJ)
-	$(MAKE) clean -C $(LIBFT)
-	$(MAKE) clean -C $(GNL)
-	$(MAKE) clean -C $(MLX)
+	@rm -rf $(BUILD_PATH)
+	@$(MAKE) clean -s -C include/libft
+	@$(MAKE) clean -s -C include/get_next_line
+	@$(MAKE) clean -s -C minilibx-linux
+	@printf "$(BLUE)Objects cleaned.$(RESET)\n"
 
 fclean: clean
-	rm -rf $(NAME)
-	$(MAKE) fclean -C $(LIBFT)
-	$(MAKE) fclean -C $(GNL)
+	@rm -rf $(NAME)
+	@$(MAKE) fclean -s -C include/libft
+	@$(MAKE) fclean -s -C include/get_next_line
+	@printf "$(BLUE)Executable cleaned.$(RESET)\n"
 
 re: fclean all
 

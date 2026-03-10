@@ -39,6 +39,8 @@
 # define P_COLOR 0xbd00ff
 # define FLT_MAX 1E+37
 # define FLT_MIN -1E+37
+# define SPEED_ROTATION 0.01
+# define SPEED_TRANSLATION 10
 
 typedef struct s_2d
 {

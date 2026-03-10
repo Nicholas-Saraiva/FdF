@@ -17,29 +17,29 @@ static void	ft_translation_events(int keycode, t_data *data)
 	if (keycode == 65307)
 		free_data(data);
 	if (keycode == KEY_LEFT)
-		data->map->offset_x += -20;
+		data->map->offset_x += -SPEED_TRANSLATION;
 	if (keycode == KEY_UP)
-		data->map->offset_y += -20;
+		data->map->offset_y += -SPEED_TRANSLATION;
 	if (keycode == KEY_RIGHT)
-		data->map->offset_x += 20;
+		data->map->offset_x += SPEED_TRANSLATION;
 	if (keycode == KEY_DOWN)
-		data->map->offset_y += 20;
+		data->map->offset_y += SPEED_TRANSLATION;
 }
 
 static void	ft_rotation_events(int keycode, t_data *data)
 {
 	if (keycode == KEY_W)
-		data->map->rotation.x += -0.01;
+		data->map->rotation.x += -SPEED_ROTATION;
 	if (keycode == KEY_S)
-		data->map->rotation.x += +0.01;
+		data->map->rotation.x += +SPEED_ROTATION;
 	if (keycode == KEY_A)
-		data->map->rotation.y += +0.01;
+		data->map->rotation.y += +SPEED_ROTATION;
 	if (keycode == KEY_D)
-		data->map->rotation.y += -0.01;
+		data->map->rotation.y += -SPEED_ROTATION;
 	if (keycode == KEY_Q)
-		data->map->rotation.z += +0.01;
+		data->map->rotation.z += +SPEED_ROTATION;
 	if (keycode == KEY_E)
-		data->map->rotation.z += -0.01;
+		data->map->rotation.z += -SPEED_ROTATION;
 }
 
 int	key_up(int keycode, t_data *data)
