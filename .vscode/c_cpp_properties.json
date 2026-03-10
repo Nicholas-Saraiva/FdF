@@ -3,8 +3,7 @@
     {
       "name": "linux-gcc-x64",
       "includePath": [
-        "${workspaceFolder}/header**",
-        "/home/alexandria/library/42Cursos/FdF/header/"
+        "${workspaceFolder}/**"
       ],
       "compilerPath": "/usr/bin/gcc",
       "cStandard": "${default}",
